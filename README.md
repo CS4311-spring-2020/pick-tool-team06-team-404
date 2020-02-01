@@ -165,4 +165,4 @@ The dependencies for this project are as follows:
             1. Bypass the language server by reverting ```python.jediEnabled``` to ```true```.
             2. Reinstall VSCode
 
-### Created with ❤️ in The City of the 915
+### Developed with ❤️ in The City of the 9-1-5

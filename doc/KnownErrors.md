@@ -2,12 +2,17 @@
 
 ## Current Release
 
-### Version 0.0.1 (01 February 2020)
+### Version 0.0.2 (01 February 2020)
 
 * Project repository is missing a _Team Configuration Management Plan_
 * Project repository is missing a complete _README_
 
-## Previous Release(s)
+## Previous Releases
+
+### Version 0.0.1 (01 February 2020)
+
+* Project repository is missing a _Team Configuration Management Plan_
+* Project repository is missing a complete _README_
 
 ### Version 0.0 (29 January 2020)
 
