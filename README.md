@@ -20,15 +20,15 @@
 
 The directory structure used herein to manage documents and program-code files is as follows:
 
-At the top level, files describing the project meant for users to read: **README.md**. The only other files that would be expected here is a **.gitignore** file, listing files and/or folders which Git should ignore and a **.git** file, containing git metadata. There are four subdirectories of this structure: **doc**, **src**, **target**, and **test**.
+At the top level, files describing the project meant for users to read: ```README.md```. The only other files that would be expected here is a ```.gitignore``` file, listing files and/or folders which Git should ignore and a ```.git``` file, containing git metadata. There are four subdirectories of this structure: ```/doc```, ```/src```, ```/target```, ```/test```.
 
-The **doc** directory shall contain all information material for documenting the project.
+The ```/doc``` directory shall contain all information material for documenting the project.
 
-The **src** directory shall contain all source material for building the project.
+The ```/src``` directory shall contain all source material for building the project.
 
-The **target** directory shall contain all output material from building/running the program.
+The ```/target``` directory shall contain all output material from building/running the program.
 
-The **test** directory shall contain all unit test material (including test artifacts and test code) for testing software components in the project.
+The ```/test``` directory shall contain all unit test material (including test artifacts and test code) for testing software components in the project.
 
 ### Software Best Practices
 
@@ -38,55 +38,52 @@ Software best practices for this project include:
 * Single spaces between commas
 * Up to 100 characters per line
 * roduction-Style variable & function names
-* Time-relevant & culturally-appropraite memes in project documentation
 * No trailing whitespace
 
-Note: All other Python best practices not mentioned herein shall be dictated by the python linting file that Visual Studio Code (VSCode) uses to perform static code analysis.
+**Note**: All other Python best practices not mentioned herein shall be dictated by the python linting file that Visual Studio Code (VSCode) uses to perform static code analysis.
 
 ### Naming Conventions
 
 The naming conventions expected by Team404 for all source material is as follows.
 
-Naming conventions for all source material shall be short and descriptive of the contents therein. This includes the names of classes, objects, files, and variables. This convention is explored in more detail below. Note: All other Python naming conventions not mentioned herein shall be dictated by the python linting file that VSCode uses to perform static code analysis.
+Naming conventions for all source material shall be short and descriptive of the contents therein. This includes the names of classes, objects, files, and variables. This convention is explored in more detail below.
+
+**Note**: All other Python naming conventions not mentioned herein shall be dictated by the python linting file that VSCode uses to perform static code analysis.
 
 **The following applies to file names:**
 
 Naming conventions for files within the /doc, /target directory shall follow CamelCase or CapWords naming convention
-i.e. **KnownErrors.md, InstallGuide.md, FebruaryClientPresentation.pptx**
+i.e. ```KnownErrors.md```, ```InstallGuide.md```, ```FebruaryClientPresentation.pptx```
 
 **The following applies to code written in Python:**
 
 Files and module names shall be lowercased, without underscores
 
-* i.e. **weblayout.py, trainsession.py, myfile.py**
+* i.e. ```weblayout.py```, ```trainsession.py```, ```myfile.py```
 
 Class names shall:
 
 * Follow the CamelCase or CapWords naming convention
-  * i.e. **Node, Vector, EventConfiguration, MyClass**
+  * i.e. ```Node```, ```Vector```, ```EventConfiguration```, ```MyClass```
 
 Method and Function names shall:
 
 * Use all lowercase letters
-* Use underscores ( _ ) to string together multiple words, as needed
-  * i.e.
+* Use underscores ```_``` to string together multiple words, as needed, i.e.
 
 ```python
   def generate_vector():
     # Words are strung together
   ```
 
-Use a single leading underscore ( _ ) in the method name to indicate the method is private
-
-* i.e.
+Use a single leading underscore ```_```in the method name to indicate the method is private, i.e.
 
 ```python
 def _generate_vector():
     # This is private method
 ```
 
-Class Methods shall have their first argument named cls
-i.e.
+Class Methods shall have their first argument named ```cls```, i.e.
 
 ```python
 class Hooman:
@@ -99,9 +96,7 @@ class Hooman:
         return(cls.gender)
 ```
 
-Instance Methods shall have their first argument named self
-
-* i.e.
+Instance Methods shall have their first argument named ```self```, i.e.
 
 ```python
 class Hooman:
@@ -121,8 +116,8 @@ Variable names shall:
 
 * Use all lowercase letters
 * Avoid the use of single variable character names; the exception to this convention includes common language naming practices
-  * i.e. **i, j** for indexes of arrays/loops/lists
-* Use underscores ( _ ) to string together multiple words, as needed
+  * i.e. ```i```, ```j``` for indexes of arrays/loops/lists
+* Use underscores ```_``` to string together multiple words, as needed
   * i.e.
 
     ```python
@@ -131,9 +126,7 @@ Variable names shall:
     mnist_classifier = get_mnist_model(file_location)
     ```
 
-Use a double leading underscore ( __ ) in the variable to indicate the variable is private
-
-* i.e.
+Use a double leading underscore ```__``` in the variable to indicate the variable is private, i.e.
 
 ```python
   __secondary_learning_rate = 1e-4
@@ -143,8 +136,7 @@ Use a double leading underscore ( __ ) in the variable to indicate the variable 
 Constant names shall:
 
 * Use all uppercase letters
-* Use underscores ( _ ) to string together multiple words, as needed
-  * i.e.
+* Use underscores ```_``` to string together multiple words, as needed, i.e.
 
   ```python
   KILOMETER = 1, ACRE_SIZE = 1, HOURS_PER_DAY = 24

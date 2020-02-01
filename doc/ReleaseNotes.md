@@ -2,14 +2,20 @@
 
 ## What's New
 
+### Version 0.0.4 (01 February 2020)
+
+Established baseline for Team404</br>
+
+* UI improvements to ```README.md```
+
+## Version History
+
 ### Version 0.0.3 (01 February 2020)
 
 Established baseline for Team404</br>
 
 * Added ```SRSv7.pdf``` to ```/doc```</br>
 * UI improvements to ```.md``` files
-
-## Version History
 
 ### Version 0.0.2 (01 February 2020)
 
