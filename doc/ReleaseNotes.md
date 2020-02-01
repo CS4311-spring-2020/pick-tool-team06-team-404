@@ -2,13 +2,17 @@
 
 ## What's New
 
+### Version 0.1.1 (06 February 2020)
+
+* Uploaded ```Team6Team404SCMPlan.doc``` to ```/doc```
+
+## Version History
+
 ### Version 0.0.4 (01 February 2020)
 
 Established baseline for Team404</br>
 
 * UI improvements to ```README.md```
-
-## Version History
 
 ### Version 0.0.3 (01 February 2020)
 
