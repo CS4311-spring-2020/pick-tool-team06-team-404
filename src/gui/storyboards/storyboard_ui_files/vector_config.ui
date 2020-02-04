@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1280</width>
+    <height>720</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>30</y>
+     <width>541</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Vector Configuration&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>140</y>
+     <width>391</width>
+     <height>371</height>
+    </rect>
+   </property>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string/>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Vector Name</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Description</string>
+    </property>
+   </column>
+   <item row="1" column="0">
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checkState">
+     <enum>Unchecked</enum>
+    </property>
+   </item>
+   <item row="2" column="0">
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checkState">
+     <enum>Unchecked</enum>
+    </property>
+   </item>
+   <item row="3" column="0">
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checkState">
+     <enum>Unchecked</enum>
+    </property>
+   </item>
+   <item row="4" column="0">
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checkState">
+     <enum>Unchecked</enum>
+    </property>
+   </item>
+   <item row="5" column="0">
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checkState">
+     <enum>Unchecked</enum>
+    </property>
+   </item>
+   <item row="6" column="0">
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checkState">
+     <enum>Unchecked</enum>
+    </property>
+   </item>
+   <item row="7" column="0">
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checkState">
+     <enum>Unchecked</enum>
+    </property>
+   </item>
+   <item row="8" column="0">
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checkState">
+     <enum>Unchecked</enum>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPushButton" name="pushButton_3">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>520</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Delete Vector</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_4">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>520</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Edit Vector</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_5">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>520</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Add Vector</string>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="toolButton">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>160</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>↑	</string>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="toolButton_3">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>180</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>↓</string>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="toolButton_4">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>180</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>↓</string>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="toolButton_2">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>160</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>↑	</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="filter_config_button">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>210</y>
+     <width>281</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>filter configuration</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="export_config_button">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>230</y>
+     <width>281</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>export configuration</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="graph_builder_config_button">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>250</y>
+     <width>281</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>graph builder configuration</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="relationship_config_button">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>370</y>
+     <width>281</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>relationship configuration</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="node_config_graph_button">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>290</y>
+     <width>281</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>node configuration in graph</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="change_config_button">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>330</y>
+     <width>281</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>change configuration</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="node_config_table_button">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>310</y>
+     <width>281</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>node configuration in table</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="icon_config_button">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>390</y>
+     <width>281</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>icon configuration</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="log_entry_config_button">
+   <property name="geometry">
+    <rect>
+     <x>980</x>
+     <y>210</y>
+     <width>221</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>log entry configuration</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="vector_db_config">
+   <property name="geometry">
+    <rect>
+     <x>980</x>
+     <y>230</y>
+     <width>221</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>vector DB configuration</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="vector_db_lead_button">
+   <property name="geometry">
+    <rect>
+     <x>980</x>
+     <y>250</y>
+     <width>221</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>vector DB lead</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
