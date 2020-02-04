@@ -1,21 +1,24 @@
-# -*- coding: utf-8 -*-
-# Form implementation generated from reading ui file 'startup_screen_assumed.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
+'''
+PICK Tool: Team6 - Team404
+
+Program Purpose:
+        - Prototype of the GUI for the clients
+
+Date:
+        - February 2020
+
+Dependencies:
+        - pyqt5
+
+NOTES:
+
+'''
 
 import sys
 import PyQt5
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import QtGui
-#from event_config01 import Ui_Dialog_event
-#from team_config import Ui_Dialog_team
-#from load_project_asumed import Ui_Loadprject
 
-
-###################################
-###################################
 class Ui_Dialog(object):
     def openWindowteam(self):
         self.window = QtWidgets.QMainWindow()
@@ -23,18 +26,21 @@ class Ui_Dialog(object):
         self.ui.setupUi(self.window)
         Dialog.hide()
         self.window.show()
+
     def openWindow(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_event()
         self.ui.setupUi(self.window)
         Dialog.hide()
         self.window.show()
+
     def openWindowload(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Loadprject()
         self.ui.setupUi(self.window)
         Dialog.hide()
         self.window.show()
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(1280, 720)
@@ -49,10 +55,7 @@ class Ui_Dialog(object):
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
-        ############
-        #################
-        ###self.pushButton_3start.clicked.connect(self.event_config) 
-        ##################
+
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
@@ -61,26 +64,6 @@ class Ui_Dialog(object):
         #self.pushButton_3start.clicked.connect(self.event_config) 
         self.pushButton_3start.clicked.connect(self.openWindow) 
         self.pushButton_2start.clicked.connect(self.openWindowload) 
-##################################################################################################
-##################################################################################################
-    #def event_config(self,Dialog):                                             # <===
-        
-       # app = QtWidgets.QApplication(sys.argv)
-       # Dialog = QtWidgets.QDialog()
-        #print("im here")
-        #ui = Dialog()
-        #print("i'm here to")
-        #ui.setupUi(Dialog)
-        #Dialog.show()
-        #Dialog.hide()
-        #sys.exit(app.exec_())
-   # def event_config(self):                                             # <===
-    #    self.window=QtWidgets.Ui_Dialog()
-     #   self.ui=Ui_Dialog()
-      #  self.ui.setup(self.window)
-      #  self.hide()
-   
-#####################
 
 
 class Ui_Dialog_event(object):
@@ -88,14 +71,17 @@ class Ui_Dialog_event(object):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_team()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
+
     def openWindowstartscreen(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(1280, 720)
@@ -175,7 +161,6 @@ class Ui_Dialog_event(object):
         self.lineEdit_7.setText(_translate("Dialog", "Date- MM/DD/YYYY"))
         self.lineEdit_6.setText(_translate("Dialog", "Time- HH:MM"))
         self.label_6.setText(_translate("Dialog", "<html><head/><body><p><span style=\" font-size:16pt; font-weight:600;\">Event Configuration</span></p></body></html>"))
-###########################################
 
 class Ui_Dialog_team(object):
        
@@ -183,7 +168,7 @@ class Ui_Dialog_team(object):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialogdirectory()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
 
 
@@ -226,12 +211,8 @@ class Ui_Dialog_team(object):
         self.label_8.setText(_translate("Dialog", "<html><head/><body><p><span style=\" font-family:\'Times New Roman\'; font-size:16pt; font-weight:600; color:#000000; background-color:transparent;\">No. of connections to the lead’s IP address: ##</span></p></body></html>"))
         self.pushButton.setText(_translate("Dialog", "Cancel"))
         self.pushButton_2.setText(_translate("Dialog", "Connect"))
-        #self.pushButton.clicked.connect(self.openWindowstartup)
-
-        ################### 
         self.pushButton_2.clicked.connect(self.openWindowdirectory) 
 
-###############################
 class Ui_Loadprject(object):
     
     def setupUi(self, Loadprject):
@@ -265,19 +246,16 @@ class Ui_Loadprject(object):
         self.pushButton.setText(_translate("Loadprject", "Cancel"))
         self.pushButton_3.setText(_translate("Loadprject", "Open"))
         self.pushButton_2.setText(_translate("Loadprject", "Browse"))
-        #self.pushButton.clicked.connect(self.openWindowstartup) 
-##################################
+
+
 class Ui_Dialogdirectory(object):
     
-
     def openWindowvector001(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_vector001()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
-
-
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -316,7 +294,6 @@ class Ui_Dialogdirectory(object):
         self.pushButton_7 = QtWidgets.QPushButton(Dialog)
         self.pushButton_7.setGeometry(QtCore.QRect(200, 320, 111, 41))
         self.pushButton_7.setObjectName("pushButton_7")
-
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -338,68 +315,78 @@ class Ui_Dialogdirectory(object):
         self.pushButton_5.setText(_translate("Dialog", "Broswe"))
         self.pushButton_6.setText(_translate("Dialog", "Broswe"))
         self.pushButton_7.setText(_translate("Dialog", "Broswe"))
-#################################
+
+
 class Ui_Dialog_vector001(object):
     def openWindowexport(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_export()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
+
     def openWindowfilter(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_filter()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
+
     def openWindowgraphbuilder(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_uiGraphBuilder()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
+
     def openWindownodeconfig(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_uiNodeConfigurationGraphical()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
     def openWindowchangeconfig(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_uiChangeConfiguration()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
+
     def openWindowtabular(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_uiNodeConfigurationTabularFormat()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
+
     def openWindowrelationship(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_relationship()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
+
     def openWindowicon(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_iconconfig()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
+
     def openWindowlogentry(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_logentry()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
+
     def openWindowvectorDB(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_vectorDB()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(1280, 720)
@@ -570,14 +557,15 @@ class Ui_Dialog_vector001(object):
         self.vector_db_config.clicked.connect(self.openWindowvectorDB)
 
         self.vector_db_lead_button.setText(_translate("Dialog", "vector DB lead"))
-##################################
+
+
 class Ui_Dialog_export(object):
     
     def openWindowhelper(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_helper()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
 
     def setupUi(self, Dialog):
@@ -605,14 +593,15 @@ class Ui_Dialog_export(object):
         self.comboBox.setItemText(0, _translate("Dialog", "Export Format"))
         self.pushButton.setText(_translate("Dialog", "Export"))
         self.pushButton.clicked.connect(self.openWindowhelper)
-#################################
+
+
 class Ui_Dialog_helper(object):
 
     def openWindowvector001(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_vector001()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
 
     def setupUi(self, Dialog):
@@ -643,14 +632,15 @@ class Ui_Dialog_helper(object):
         self.label.setText(_translate("Dialog", "Are you sure?"))
         self.okay_button.clicked.connect(self.openWindowvector001)
         self.cancel_button.clicked.connect(self.openWindowvector001)
-################################
+
+
 class Ui_Dialog_filter(object):
 
     def openWindowhelper(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_helper()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
 
     def setupUi(self, Dialog):
@@ -728,11 +718,9 @@ class Ui_Dialog_filter(object):
         
         self.pushButton.setText(_translate("Dialog", "Cancel"))
         self.pushButton_2.setText(_translate("Dialog", "Apply Filter"))
-        #############
+
         self.pushButton.clicked.connect(self.openWindowhelper)
         self.pushButton_2.clicked.connect(self.openWindowhelper)
-        ###############
-
 
         self.lineEdit_2.setText(_translate("Dialog", "Keyword Search"))
         self.radioButton.setText(_translate("Dialog", "Blue Team"))
@@ -752,14 +740,14 @@ class Ui_Dialog_filter(object):
         self.label_4.setText(_translate("Dialog", "<html><head/><body><p><span style=\" font-size:16pt; font-weight:600;\">-</span></p><p><br/></p></body></html>"))
         self.lineEdit_6.setText(_translate("Dialog", "Time- HH:MM"))
 
-###############################
+
 class Ui_uiGraphBuilder(object):
 
     def openWindowhelper(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_helper()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
 
     def setupUi(self, Dialog):
@@ -832,14 +820,15 @@ class Ui_uiGraphBuilder(object):
 
         self.pushButton_5.setText(_translate("Dialog", "Edit Node"))
         self.pushButton_6.setText(_translate("Dialog", "Edit Relationship"))
-##################################################################################
+
+
 class Ui_uiNodeConfigurationGraphical(object):
 
     def openWindowhelper(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_helper()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
 
     def setupUi(self, uiNodeConfigurationGraphical):
@@ -913,13 +902,14 @@ class Ui_uiNodeConfigurationGraphical(object):
         self.pushButton.setText(_translate("uiNodeConfigurationGraphical", "Zoom in"))
         self.pushButton_2.setText(_translate("uiNodeConfigurationGraphical", "Zoom out"))
         self.label_4.setText(_translate("uiNodeConfigurationGraphical", "Interval:"))
-#########################################################
+
+
 class Ui_uiChangeConfiguration(object):
     def openWindowhelper(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_helper()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
     def setupUi(self, uiChangeConfiguration):
         uiChangeConfiguration.setObjectName("uiChangeConfiguration")
@@ -960,13 +950,14 @@ class Ui_uiChangeConfiguration(object):
 
         self.label.setText(_translate("uiChangeConfiguration", "Change Configuration"))
         self.label_2.setText(_translate("uiChangeConfiguration", "Change List:"))
-########################################################
+
+
 class Ui_uiNodeConfigurationTabularFormat(object):
     def openWindowhelper(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_helper()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
     def setupUi(self, uiNodeConfigurationTabularFormat):
         uiNodeConfigurationTabularFormat.setObjectName("uiNodeConfigurationTabularFormat")
@@ -1040,13 +1031,14 @@ class Ui_uiNodeConfigurationTabularFormat(object):
         item.setText(_translate("uiNodeConfigurationTabularFormat", "Source"))
         item = self.tableWidget.horizontalHeaderItem(10)
         item.setText(_translate("uiNodeConfigurationTabularFormat", "Node visibility"))
-##################################################
+
+
 class Ui_relationship(object):
     def openWindowhelper(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_helper()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
     def setupUi(self, uiNodeConfigurationGraphical):
         uiNodeConfigurationGraphical.setObjectName("uiNodeConfigurationGraphical")
@@ -1119,13 +1111,14 @@ class Ui_relationship(object):
         self.pushButton.setText(_translate("uiNodeConfigurationGraphical", "Zoom in"))
         self.pushButton_2.setText(_translate("uiNodeConfigurationGraphical", "Zoom out"))
         self.label_4.setText(_translate("uiNodeConfigurationGraphical", "Interval:"))
-#######################################
+
+
 class Ui_iconconfig(object):
     def openWindowhelper(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_helper()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
     def setupUi(self, uiChangeConfiguration):
         uiChangeConfiguration.setObjectName("uiChangeConfiguration")
@@ -1187,13 +1180,14 @@ class Ui_iconconfig(object):
         item.setText(_translate("uiChangeConfiguration", "Icon source"))
         item = self.tableWidget.horizontalHeaderItem(3)
         item.setText(_translate("uiChangeConfiguration", "Image preview"))
-######################################
+
+
 class Ui_logentry(object):
     def openWindowhelper(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_helper()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -1327,14 +1321,14 @@ class Ui_logentry(object):
         self.toolButton_2.setText(_translate("Dialog", "↑    "))
         self.toolButton_3.setText(_translate("Dialog", "↑    "))
         self.toolButton_6.setText(_translate("Dialog", "↓"))
-########################################################################
+
 
 class Ui_vectorDB(object):
     def openWindowhelper(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog_helper()
         self.ui.setupUi(self.window)
-        Dialog.hide() #the thing wont run cuz it does not reconize dialog.hide() but it runs perfectly seprately
+        Dialog.hide() # ISSUE: Dialog.hide() not recognized within the program; Python recognizes it separately
         self.window.show()
     def setupUi(self, uiChangeConfiguration):
         uiChangeConfiguration.setObjectName("uiChangeConfiguration")
@@ -1443,5 +1437,3 @@ if __name__ == "__main__":
     ui.setupUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())
-
-
