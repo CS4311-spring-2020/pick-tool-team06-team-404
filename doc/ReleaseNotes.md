@@ -6,7 +6,6 @@
 
 * Uploaded Team SCM Plan to ```/doc```
 * Tested and Verified GUI functionality on Kali Linux
-* Converted GUI to an executeable file
 * Added documentation for Version 0.1.0 (GUI)
 * Added documentation for Version 0.0.5 (TravisCI)
 * Updated ```README.md```
