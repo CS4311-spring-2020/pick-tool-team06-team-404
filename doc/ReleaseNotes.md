@@ -4,7 +4,7 @@
 
 ### Version 0.1.1 (06 February 2020)
 
-* Uploaded ```Team6Team404SCMPlan.doc``` to ```/doc```
+* Uploaded Team SCM Plan to ```/doc```
 * Tested and Verified GUI functionality on Kali Linux
 * Converted GUI to an executeable file
 * Added documentation for Version 0.1.0 (GUI)
