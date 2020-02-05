@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>uiNodeConfigurationTabularFormat</class>
+ <widget class="QDialog" name="uiNodeConfigurationTabularFormat">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>980</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>980</width>
+    <height>720</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>980</width>
+    <height>720</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>30</y>
+     <width>401</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Nodes configuration in tabular format</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>80</y>
+     <width>921</width>
+     <height>601</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>+</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Node property visibility</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Node name</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Node timestamp</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Node description</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Log entry reference</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Log creator</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Event type</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Icon type</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Source</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Node visibility</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string/>
+    </property>
+   </column>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
