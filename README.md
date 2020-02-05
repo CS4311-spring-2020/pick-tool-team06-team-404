@@ -1,12 +1,18 @@
 # Prevent, Mitigate, and Recover (PMR) Insight Collective Knowledge System (PICK) Tool
 
-## Date: February 2020
-
-### Resources
-
 ## Overview
 
+**Date: 06 February 2020**</br>
+**Version: [0.1.1](doc/ReleaseNotes.md)**</br>
+**Known Errors: [Current Release](doc/KnownErrors.md)**
+
 ## Motivation
+
+The following is an excerpt from [[3](#resources)]:
+
+"The Lethality, Survivability, and HSI Directorate (LSH) recognizes the complexity and the time it takes to analyze the applicable logs, observation notes, and other artifacts gathered from an adversarial assessment from the red, blue, and white teams and generate a report that presents the events that took place during the adversarial assessment.  They want a system that would aid their analysts in correlating red team’s activities to blue team’s responses and represent the events that took place during an adversarial assessment graphically.  
+
+"The University of Texas at El Paso (UTEP) and LSH are collaborating to develop Prevent, Mitigate, and Recover (PMR) Insight Collective Knowledge System (PICK) that will provide the ability to correlate red team’s activities to blue team’s responses and graphically represent the events that took place during an adversarial assessment.
 
 ## Related Work
 
@@ -141,6 +147,8 @@ Constant names shall:
   ```python
   KILOMETER = 1, ACRE_SIZE = 1, HOURS_PER_DAY = 24
   ```
+  
+### Merging & Pull Requests
 
 ### Project Dependencies
 
@@ -150,11 +158,27 @@ The dependencies for this project are as follows:
 
 ### Warnings & Known Issues
 
-1. Partial devlopment for this project was done on Microsoft Visual Studo Code (*VSCode*).
-2. If developing in VSCode, **DO NOT ENABLE *Microsoft Python Language Server* or *Microsoft Python Language Server (preview)***
-    * Enabling the language server will render all python code unusable.
-        * If enabled by accident, there are two known solutions to remedy (either option should fix the issue):
-            1. Bypass the language server by reverting ```python.jediEnabled``` to ```true```.
-            2. Reinstall VSCode
+1. Installing PyQt5 on macOS Catalina & Ubuntu 18.04 may result in the following error:
 
-### Developed with ❤️ in The City of the 9-1-5
+    ```text
+    python setup.py egg_info" failed with error code 1 in /tmp/pip-build-2hg9eeu7/pyqt5/
+    ```
+
+    **Resolution:** install PyQt5 by running the following command:
+
+    ```text
+    sudo apt-get install python3-pyqt5
+    ```
+
+2. Partial devlopment for this project was done on Microsoft Visual Studo Code (*VSCode*).
+    * If developing in VSCode, **DO NOT ENABLE *Microsoft Python Language Server* or *Microsoft Python Language Server (preview)***
+    * Enabling the language server will render all python code unusable.
+    ***Resolution(s)** (Select one):
+        1. Bypass the language server by reverting ```python.jediEnabled``` to ```true```.
+        2. Reinstall VSCode
+
+## Resources
+
+* [1] O. Perez et al, Requirements Definition Document, Lethality, Survivability and HSI Directorate, 2019.
+* [2] “Components and Containers in AWT”. Internet: https://www.cs.utexas.edu/~mitra/csSpring2009/cs313/lectures/GUIComponents.html, 2009 [Jan. 28, 2019]
+* [3] E. Tai-Ramirez & S. Roach, SRS_v7. Internet: https://github.com/CS4311-spring-2020/pick-tool-team06-team-404/blob/master/doc/SRSv7.pdf, 2020 (Jan. 30, 2020)

@@ -5,8 +5,46 @@
 ### Version 0.1.1 (06 February 2020)
 
 * Project repository is missing a complete ```README.md```
+* ```picktool.py``` opens a new window with each button click; Previous window does not close
+* ```Dialog.hide()``` not recognized within ```picktool.py```; Python recognizes it separately
+* Buttons in the ```picktool.py``` windows are not configured:
+  * ```FilterConfig```
+  * ```ExportConfig```
+  * ```GraphBuilderConfig```
+  * ```NodeConfigurationGraph```
+  * ```NodeConfigurationTubular```
+  * ```RelationshipConfig```
+  * ```IconConfig```
+  * ```LogEntryConfig```
+  * ```VectorDBConfig```
+  * ```VectorDBLead```
 
 ## Previous Releases
+
+### Version 0.1.0 (04 February 2020)
+
+* Project repository is missing a _Team Configuration Management Plan_
+* Project repository is missing a complete ```README.md```
+* ```picktool.py``` opens a new window with each button click; Previous window does not close
+* ```Dialog.hide()``` not recognized within ```picktool.py```; Python recognizes it separately
+* GUI has not been verified to work on Kali Linux
+* Buttons in the ```picktool.py``` windows are not configured:
+  * ```FilterConfig```
+  * ```ExportConfig```
+  * ```GraphBuilderConfig```
+  * ```NodeConfigurationGraph```
+  * ```NodeConfigurationTubular```
+  * ```RelationshipConfig```
+  * ```IconConfig```
+  * ```LogEntryConfig```
+  * ```VectorDBConfig```
+  * ```VectorDBLead```
+
+### Version 0.0.5 (04 February 2020)
+
+* Project repository is missing a _Team Configuration Management Plan_
+* Project repository is missing a complete ```README.md```
+* ```.travis.yml```is configured for the C Programming language, not Pythonss
 
 ### Version 0.0.4 (01 February 2020)
 
