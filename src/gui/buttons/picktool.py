@@ -1,3 +1,4 @@
+#!/usr/bin/python
 '''
 PICK Tool: Team6 - Team404
 

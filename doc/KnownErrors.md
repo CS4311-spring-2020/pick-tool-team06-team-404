@@ -26,6 +26,7 @@
 * Project repository is missing a _Team Configuration Management Plan_
 * Project repository is missing a complete ```README.md```
 * ```picktool.py``` opens a new window with each button click; Previous window does not close
+* ```picktool.py``` is not yet an executeable file
 * ```Dialog.hide()``` not recognized within ```picktool.py```; Python recognizes it separately
 * GUI has not been verified to work on Kali Linux
 * Buttons in the ```picktool.py``` windows are not configured:

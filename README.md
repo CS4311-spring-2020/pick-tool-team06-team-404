@@ -8,13 +8,11 @@
 
 ## Motivation
 
-The following is an excerpt from [[3](#resources)]:
+The following is an excerpt from [[3](#resources)], which defines the scope and motivation of PICK Tool:
 
 "The Lethality, Survivability, and HSI Directorate (LSH) recognizes the complexity and the time it takes to analyze the applicable logs, observation notes, and other artifacts gathered from an adversarial assessment from the red, blue, and white teams and generate a report that presents the events that took place during the adversarial assessment.  They want a system that would aid their analysts in correlating red team’s activities to blue team’s responses and represent the events that took place during an adversarial assessment graphically.  
 
 "The University of Texas at El Paso (UTEP) and LSH are collaborating to develop Prevent, Mitigate, and Recover (PMR) Insight Collective Knowledge System (PICK) that will provide the ability to correlate red team’s activities to blue team’s responses and graphically represent the events that took place during an adversarial assessment.
-
-## Related Work
 
 ## Our Approach
 
@@ -26,7 +24,7 @@ The following is an excerpt from [[3](#resources)]:
 
 The directory structure used herein to manage documents and program-code files is as follows:
 
-At the top level, files describing the project meant for users to read: ```README.md```. The only other files that would be expected here is a ```.gitignore``` file, listing files and/or folders which Git should ignore and a ```.git``` file, containing git metadata. There are four subdirectories of this structure: ```/doc```, ```/src```, ```/target```, ```/test```.
+At the top level, files describing the project meant for users to read: ```README.md```. The only other files that would be expected here is a ```.gitignore``` file, listing files and/or folders which Git should ignore, a ```.travis.yml``` file, assisting with project-related software testing, and a ```.git``` file, containing git metadata. There are four subdirectories of this structure: ```/doc```, ```/src```, ```/target```, ```/test```.
 
 The ```/doc``` directory shall contain all information material for documenting the project.
 
@@ -147,8 +145,32 @@ Constant names shall:
   ```python
   KILOMETER = 1, ACRE_SIZE = 1, HOURS_PER_DAY = 24
   ```
-  
+
 ### Merging & Pull Requests
+
+To ensure that a functional, quality application is built by Team404, all contributors are required to open a pull request if any of the following conditions are met:
+
+* When a contributer wishes to merge a _componant_ branch into a _feature_ branch
+* When a contributer wishes to merge a _feature_ branch into the _master_ branch
+
+Pull Requests may be assigned to any other Team404 member to review. No individual may review and/or approve their own Pull Request. It is the responsibility of the reviewer to ensure:
+
+1. The originating contributer is merging the correct branches
+2. There are no merge conflicts
+3. Any new code contained in the pull request works as intended on a Kali Linux-based machine (this can include a virtual machine)
+4. Any new code follows the naming conventions and styleguide listed in the [Team404 SCM Document](doc/Team6Team404SCMPlan.doc)
+
+Should any issues exist in the Pull Request, the reviewer shall:
+
+1. Leave a comment or change request (as defined in the Team404 SCM Document)
+2. Request changes from the originating contributer.
+
+Upon a sucessful review of the Pull Request, the reviewer shall:
+
+1. Leave the comment, "lgtm" (shorthand for _looks good to me_)
+2. Approve the Pull Request
+3. Merge the intended branches
+4. Inform all other Team404 members that a ```git pull``` of the merged branch is required on their local machine
 
 ### Project Dependencies
 
