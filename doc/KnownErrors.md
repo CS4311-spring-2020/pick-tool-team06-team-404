@@ -45,7 +45,7 @@
 
 * Project repository is missing a _Team Configuration Management Plan_
 * Project repository is missing a complete ```README.md```
-* ```.travis.yml```is configured for the C Programming language, not Pythonss
+* ```.travis.yml```is configured for the C Programming language, not Python
 
 ### Version 0.0.4 (01 February 2020)
 
