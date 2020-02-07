@@ -15,7 +15,8 @@ before_install:
 # command to install dependencies
 install:
   - easy_install distribute
-  - pip install -r requirements.txt
+  #- pip install -r requirements.txt
+  - pip install pyqt5
   
 # command to run tests
 script:
