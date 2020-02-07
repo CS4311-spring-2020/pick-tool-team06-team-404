@@ -20,4 +20,4 @@ install:
   
 # command to run tests
 script:
-  - pytest src/gui/buttons/picktool.py
+  - python src/gui/buttons/picktool.py
