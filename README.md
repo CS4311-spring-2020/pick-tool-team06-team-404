@@ -2,7 +2,7 @@
 
 ## Overview
 
-**Date: 02 February 2020**</br>
+**Date: 07 February 2020**</br>
 **Version: [0.1.2](doc/ReleaseNotes.md)**</br>
 **Known Errors: [Current Release](doc/KnownErrors.md)**
 
