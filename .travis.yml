@@ -1,24 +1,25 @@
 language: python
 python:
-	- "3.6"      # current default Python on Travis CI
-	- "3.7"
-	- "3.8"
-	- "3.8-dev"  # 3.8 development branch
-	- "nightly"  # nightly build
+  - "3.6"		# current default Python on Travis CI
+  - "3.7"
+  - "3.8"
+  - "3.8-dev"	# 3.8 development branch
+  - "nightly"	# nightly build
+  - "pypy3"  # currently Python 3.6.1,  PyPy 7.1.1-beta0
 
-	# PyPy versions
-	- "pypy3"  # currently Python 3.6.1,  PyPy 7.1.1-beta0
+  cache: pip
 
-# Separate virtualenv instances for each Python version
-virtualenv:
+  virtualenv:
 	system_site_packages: true
 
-# Install dependencies
-install:
+  install:
 	- pip install -r requirements.txt
-	- pip install .
-# Run tests
-script: pytest
+	# - pip install .
+
+  script:
+	# - python tests.py
+	- py.test --cov-report term-missing --cov app -v
+
 
 # Run python tests on multiple Operating Systems
 jobs:
