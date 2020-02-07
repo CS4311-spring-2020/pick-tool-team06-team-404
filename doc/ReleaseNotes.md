@@ -5,7 +5,7 @@
 ### Version 0.1.2 (07 February 2020)
 
 * Fixed a bug that prevented TravisCI testing
-* Added ```requirements.txt``` to the top level directory for TravisCI integration
+* Added a ```/build``` directory for scripts/tools for project builds.
 * Updated ```README.md```
 
 ## Version History
