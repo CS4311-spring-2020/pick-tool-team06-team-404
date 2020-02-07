@@ -20,3 +20,4 @@ install:
 # Command to run tests
 script:
   - python3 src/picktool.py
+  - py.test --cov-report term-missing --cov app -v
