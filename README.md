@@ -2,8 +2,8 @@
 
 ## Overview
 
-**Date: 06 February 2020**</br>
-**Version: [0.1.1](doc/ReleaseNotes.md)**</br>
+**Date: 07 February 2020**</br>
+**Version: [0.1.2](doc/ReleaseNotes.md)**</br>
 **Known Errors: [Current Release](doc/KnownErrors.md)**
 
 ## Motivation
@@ -24,11 +24,13 @@ The following is an excerpt from [[3](#resources)], which defines the scope and 
 
 The directory structure used herein to manage documents and program-code files is as follows:
 
-At the top level, files describing the project meant for users to read: ```README.md```. The only other files that would be expected here is a ```.gitignore``` file, listing files and/or folders which Git should ignore, a ```.travis.yml``` file, assisting with project-related software testing, and a ```.git``` file, containing git metadata. There are four subdirectories of this structure: ```/doc```, ```/src```, ```/target```, ```/test```.
+At the top level, files describing the project meant for users to read: ```README.md```. The only other files that would be expected here is a ```.gitignore``` file, listing files and/or folders which Git should ignore, a ```.travis.yml``` file, assisting with project-related software testing, and a ```.git``` file, containing git metadata. There are five subdirectories of this structure: ```/doc```, ```/src```, ```/target```, ```/test```.
+
+The ```/build``` directory shall contain all scripts/tools needed for building the project.
 
 The ```/doc``` directory shall contain all information material for documenting the project.
 
-The ```/src``` directory shall contain all source material for building the project.
+The ```/src``` directory shall contain all source material for building the project. At the top level of this directory, the only file that would be expected here is a ```picktool.py``` file, which is the main executable file for this project.
 
 The ```/target``` directory shall contain all output material from building/running the program.
 
