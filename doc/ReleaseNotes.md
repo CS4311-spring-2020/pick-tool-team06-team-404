@@ -2,13 +2,18 @@
 
 ## What's New
 
+### Version 0.1.3 (18 February 2020)
+
+* Added team CRC cards to ```/doc/crc```
+* Updated ```README.md```
+
+## Version History
+
 ### Version 0.1.2 (07 February 2020)
 
 * Fixed a bug that prevented TravisCI testing
 * Added a ```/build``` directory for scripts/tools for project builds.
 * Updated ```README.md```
-
-## Version History
 
 ### Version 0.1.1 (06 February 2020)
 
