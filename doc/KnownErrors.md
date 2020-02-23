@@ -2,8 +2,9 @@
 
 ## Current Release
 
-### Version 0.1.1 (06 February 2020)
+### Version 0.1.2 (07 February 2020)
 
+* TravisCI builds are exiting with 1: ```(Core Dumped) code 134```; instead of ```0```
 * Project repository is missing a complete ```README.md```
 * ```picktool.py``` opens a new window with each button click; Previous window does not close
 * ```Dialog.hide()``` not recognized within ```picktool.py```; Python recognizes it separately
@@ -20,6 +21,23 @@
   * ```VectorDBLead```
 
 ## Previous Releases
+
+### Version 0.1.1 (06 February 2020)
+
+* Project repository is missing a complete ```README.md```
+* ```picktool.py``` opens a new window with each button click; Previous window does not close
+* ```Dialog.hide()``` not recognized within ```picktool.py```; Python recognizes it separately
+* Buttons in the ```picktool.py``` windows are not configured:
+  * ```FilterConfig```
+  * ```ExportConfig```
+  * ```GraphBuilderConfig```
+  * ```NodeConfigurationGraph```
+  * ```NodeConfigurationTubular```
+  * ```RelationshipConfig```
+  * ```IconConfig```
+  * ```LogEntryConfig```
+  * ```VectorDBConfig```
+  * ```VectorDBLead```
 
 ### Version 0.1.0 (04 February 2020)
 

@@ -2,6 +2,14 @@
 
 ## What's New
 
+### Version 0.1.2 (07 February 2020)
+
+* Fixed a bug that prevented TravisCI testing
+* Added a ```/build``` directory for scripts/tools for project builds.
+* Updated ```README.md```
+
+## Version History
+
 ### Version 0.1.1 (06 February 2020)
 
 * Uploaded Team SCM Plan to ```/doc```
@@ -9,8 +17,6 @@
 * Added documentation for Version 0.1.0 (GUI)
 * Added documentation for Version 0.0.5 (TravisCI)
 * Updated ```README.md```
-
-## Version History
 
 ### Version 0.1.0 (04 February 2020)
 
