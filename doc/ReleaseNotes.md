@@ -2,12 +2,16 @@
 
 ## What's New
 
+### Version 0.1.5 (23 February 2020)
+
+* Fixed SCM Plan
+
+## Version History
+
 ### Version 0.1.3 (18 February 2020)
 
 * Added team CRC cards to ```/doc/crc```
 * Updated ```README.md```
-
-## Version History
 
 ### Version 0.1.2 (07 February 2020)
 
