@@ -2,11 +2,15 @@
 
 ## What's New
 
+### Version 0.1.6 (02 MArch 2020)
+
+* Added final CRC
+
+## Version History
+
 ### Version 0.1.5 (23 February 2020)
 
 * Fixed SCM Plan
-
-## Version History
 
 ### Version 0.1.3 (18 February 2020)
 
