@@ -19,4 +19,4 @@ install:
   
 # Command to run tests
 script:
-  - python3 src/picktool.py
+  - python3 src/gui/picktool.py
