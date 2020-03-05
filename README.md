@@ -2,8 +2,8 @@
 
 ## Overview
 
-**Date: 04 March 2020**</br>
-**Version: [0.2.0](doc/ReleaseNotes.md)**</br>
+**Date: 05 March 2020**</br>
+**Version: [0.3.0](doc/ReleaseNotes.md)**</br>
 **Known Errors: [Current Release](doc/KnownErrors.md)**
 
 ## Motivation

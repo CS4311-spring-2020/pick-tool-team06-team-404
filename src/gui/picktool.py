@@ -6,7 +6,7 @@ PICK Tool: Team6 - Team404
 Program Purpose:
         - GUI prototype for the clients
 Date:
-        - 04 March 2020
+        - 05 March 2020
 Dependencies:
         - pyqt5
 NOTES:
