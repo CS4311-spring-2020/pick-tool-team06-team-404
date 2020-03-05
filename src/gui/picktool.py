@@ -15,6 +15,7 @@ NOTES:
 
 import sys
 import PyQt5
+from PyQt5 import QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 
@@ -38,7 +39,7 @@ class PICK_TOOL(QMainWindow):
         config_dict = {}
 
         widgets = [
-            'team', 'event', 'directory', 'vector', 'log_file',
+            'home','team', 'event', 'directory', 'vector', 'log_file',
             'filter', 'log_entry', 'export', 'change', 'vector_db',
             'icon', 'graph_builder', 'nodes_tabular', 'nodes_graphical', 'relationship'
         ]
@@ -52,6 +53,7 @@ class PICK_TOOL(QMainWindow):
             self.stackedWidget.addWidget(config_dict[key])
 
         # CREATE UI PAGES
+        self.home_page(config_dict['home'])
         self.team_configuration(config_dict['team'])
         self.event_configuration(config_dict['event'])
         self.directory_configuration(config_dict['directory'])
@@ -77,6 +79,25 @@ class PICK_TOOL(QMainWindow):
         self._createToolBar()
         self._createStatusBar()
         self.show()
+
+    # 'TEAM CONFIGURATION' PAGE
+    def home_page(self, home_page_widget):
+        home_layout = QGridLayout()
+
+        home_title = QLabel('<center><h1>Prevent Mitigate Recover (PMR) Insight Collective Knowledge System<br><br>PICK Tool<\h1></center>')
+        home_title.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
+
+        home_message = QLabel('<center><h2>Government Warning Notice</h2> This is a U.S. Government computer system, which may be accessed and used only for authorized Government business by authorized personnel. Unauthorized access or use of this computer system may subject violators to criminal, civil, and/or administrative action.<br>All information on this computer system may be intercepted, recorded, read, copied, and disclosed by and to authorized personnel for official purposes, including criminal investigations.<br>Such information includes sensitive data encrypted to comply with confidentiality and privacy requirements. Access or use of this computer system by any person, whether authorized or unauthorized, constitutes consent to these terms. There is no right of privacy in this system.</center>')
+        home_message.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
+
+        home_connect_button = QPushButton('Connect')
+
+        home_layout.addWidget(home_title, 0, 0)
+        home_layout.addWidget(home_message,1, 0)
+        home_layout.addWidget(home_connect_button, 2, 0)
+
+        home_page_widget.setLayout(home_layout)
+
 
     # 'TEAM CONFIGURATION' PAGE
     def team_configuration(self, team_configuration_page_widget):
@@ -550,12 +571,21 @@ class PICK_TOOL(QMainWindow):
 
     def buttonClicked(self):
         sender = self.sender()
-        self.statusBar().showMessage(sender.text() + ' was clicked')
+        #self.statusBar().showMessage(sender.text() + ' was clicked')
 
     def _createToolBar(self):
         tools = QToolBar()
         self.addToolBar(tools)
 
+        # SPACERS WIDGETS FOR CENTERING TOOLBAR
+        left_spacer = QWidget()
+        right_spacer = QWidget()
+
+        left_spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        right_spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        tools.addWidget(left_spacer)
+        #tools.addAction('Home', self.team_tool_button_clicked)
         tools.addAction('Team', self.team_tool_button_clicked)
         tools.addAction('Event', self.event_tool_button_clicked)
         tools.addAction('Directory', self.directory_tool_button_clicked)
@@ -567,16 +597,20 @@ class PICK_TOOL(QMainWindow):
         tools.addAction('Change', self.change_tool_button_clicked)
         tools.addAction('Vector DB', self.vector_db_tool_button_clicked)
         tools.addAction('Icon', self.icon_tool_button_clicked)
-        tools.addAction('Graph Builder',
-                        self.graph_builder_tool_button_clicked)
+        tools.addAction('Graph Builder', self.graph_builder_tool_button_clicked)
         tools.addAction('Nodes Table', self.nodes_table_tool_button_clicked)
         tools.addAction('Nodes Graph', self.nodes_graph_tool_button_clicked)
-        tools.addAction('Relationships',
-                        self.relationships_tool_button_clicked)
+        tools.addAction('Relationships', self.relationships_tool_button_clicked)
+        tools.addWidget(right_spacer)
 
-    def _createStatusBar(self):
+    def _createStatusBar(self):        
         status = QStatusBar()
-        status.showMessage("I'm the Status Bar")
+        left_spacer = QWidget()
+        left_spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        message = QLabel('Copyright © 2020, Team404: Good Times, Inc. All Rights Reserved.')
+
+        status.addWidget(left_spacer)
+        status.addWidget(message)
         self.setStatusBar(status)
 
     # CENTER UI WINDOW ON USER'S DISPLAY
