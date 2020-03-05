@@ -19,11 +19,10 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 
 # View
-#   QStackedWidget
 
-# Config/Control
-#       Trigger.Connect()
-#       Clicked.Connet()
+# QStackedWidget
+# Trigger.Connect()
+# Clicked.Connet()
 
 
 class PICK_TOOL(QMainWindow):
@@ -32,7 +31,6 @@ class PICK_TOOL(QMainWindow):
         super().__init__()
         self.initUI()
 
-
     def initUI(self):
         '''Builds the UI for the user'''
 
@@ -40,15 +38,15 @@ class PICK_TOOL(QMainWindow):
         config_dict = {}
 
         widgets = [
-            'team','event','directory','vector','log_file',
-            'filter','log_entry','export','change','vector_db',
-            'icon','graph_builder','nodes_tabular','nodes_graphical','relationship'
+            'team', 'event', 'directory', 'vector', 'log_file',
+            'filter', 'log_entry', 'export', 'change', 'vector_db',
+            'icon', 'graph_builder', 'nodes_tabular', 'nodes_graphical', 'relationship'
         ]
-    
+
         # PAGES THAT USER INTERACTS WITH
         for item in widgets:
             config_dict[item] = QWidget()
-        
+
         # CLICKABLE WIDGETS THAT APPEAR ATOP PAGES
         for key in config_dict:
             self.stackedWidget.addWidget(config_dict[key])
@@ -71,9 +69,10 @@ class PICK_TOOL(QMainWindow):
         self.relationship_configuration(config_dict['relationship'])
 
         # INITALIZE THE MAIN WINDOW
-        self.resize(1920,1080)
+        self.resize(1920, 1080)
         self.center()
-        self.setWindowTitle('PMR Insight Collective Knowledge System (PICK) Tool')
+        self.setWindowTitle(
+            'PMR Insight Collective Knowledge System (PICK) Tool')
         self.setCentralWidget(self.stackedWidget)
         self._createToolBar()
         self._createStatusBar()
@@ -90,7 +89,8 @@ class PICK_TOOL(QMainWindow):
 
         # 255.255.255.255 is an example, this needs to be changed later
         team_lead_ip_address_address_label = QLabel('255.255.255.255')
-        team_no_of_connections_label_label = QLabel('Number of established connections to the lead\' IP address')
+        team_no_of_connections_label_label = QLabel(
+            'Number of established connections to the lead\' IP address')
 
         # 4 is an example, this needs to be changed later
         team_no_of_connections_label = QLabel('4')
@@ -102,66 +102,78 @@ class PICK_TOOL(QMainWindow):
         team_layout.addWidget(team_lead_ip_address_address_label, 2, 1)
         team_layout.addWidget(team_no_of_connections_label_label, 3, 0)
         team_layout.addWidget(team_no_of_connections_label, 3, 1)
-        team_layout.addWidget(team_connect_button, 4, 3)
+        team_layout.addWidget(team_connect_button, 4, 0)
 
         team_configuration_page_widget.setLayout(team_layout)
 
-    def event_configuration(self, event_configuration_page_widget):    
+    def event_configuration(self, event_configuration_page_widget):
         # 'EVENT CONFIGURATION' PAGE
         event_layout = QGridLayout()
+        event_layout.setVerticalSpacing(100)
         event_title_label = QLabel('<h1>Event Configuration<\h1>')
 
+        event_event_name_label = QLabel('Event Name: ')
         event_event_name = QLineEdit()
-        event_event_name.setText('Event Name: ')
 
+        event_event_description_label = QLabel('Event description: ')
         event_event_description = QLineEdit()
-        event_event_description.setText('Event description: ')
 
+        event_event_start_timestamp_label = QLabel('Start Timestamp: ')
         event_event_start_timestamp = QLineEdit()
-        event_event_start_timestamp.setText('Start timestamp: ')
 
+        event_event_end_timestamp_label = QLabel('End Timestamp: ')
         event_event_end_timestamp = QLineEdit()
-        event_event_end_timestamp.setText('End timestamp: ')
 
-        event_layout.addWidget(event_title_label)
-        event_layout.addWidget(event_event_name)
-        event_layout.addWidget(event_event_description)
-        event_layout.addWidget(event_event_start_timestamp)
-        event_layout.addWidget(event_event_end_timestamp)
+        event_event_save = QPushButton('Apply')
+
+        event_layout.addWidget(event_title_label, 0, 0)
+        event_layout.addWidget(event_event_name_label, 1, 0)
+        event_layout.addWidget(event_event_name, 1, 1)
+        event_layout.addWidget(event_event_description_label, 2, 0)
+        event_layout.addWidget(event_event_description, 2, 1)
+        event_layout.addWidget(event_event_start_timestamp_label, 3, 0)
+        event_layout.addWidget(event_event_start_timestamp, 3, 1)
+        event_layout.addWidget(event_event_end_timestamp_label, 4, 0)
+        event_layout.addWidget(event_event_end_timestamp, 4, 1)
+        event_layout.addWidget(event_event_save, 5, 0)
 
         event_configuration_page_widget.setLayout(event_layout)
 
-    def directory_configuration(self, directory_configuration_page_widget):    
+    def directory_configuration(self, directory_configuration_page_widget):
         # SYSTEM BUILDS 'DIRECTORY CONFIGURATION' PAGE GUI
         directory_layout = QGridLayout()
+        directory_layout.setVerticalSpacing(100)
         directory_title_label = QLabel('<h1>Directory Configuration<\h1>')
 
-
+        directory_root_directory_label = QLabel('Root Directory')
         directory_root_directory = QLineEdit()
-        directory_root_directory.setText('Root Directory')
 
+        directory_red_folder_label = QLabel('Red folder')
         directory_red_folder = QLineEdit()
-        directory_red_folder.setText('Red folder')
 
+        directory_blue_folder_label = QLabel('Blue Folder')
         directory_blue_folder = QLineEdit()
-        directory_blue_folder.setText('Blue Folder')
 
+        directory_white_folder_label = QLabel('White Folder')
         directory_white_folder = QLineEdit()
-        directory_white_folder.setText('White Folder')
 
         directory_start_data_ingestion_button = QPushButton()
         directory_start_data_ingestion_button.setText('Start Data Ingestion')
 
-        directory_layout.addWidget(directory_title_label)
-        directory_layout.addWidget(directory_root_directory)
-        directory_layout.addWidget(directory_red_folder)
-        directory_layout.addWidget(directory_blue_folder)
-        directory_layout.addWidget(directory_white_folder)
-        directory_layout.addWidget(directory_start_data_ingestion_button)
+        directory_layout.addWidget(directory_title_label, 0, 0)
+        directory_layout.addWidget(directory_root_directory_label, 1, 0)
+        directory_layout.addWidget(directory_root_directory, 1, 1)
+        directory_layout.addWidget(directory_red_folder_label, 2, 0)
+        directory_layout.addWidget(directory_red_folder, 2, 1)
+        directory_layout.addWidget(directory_blue_folder_label, 3, 0)
+        directory_layout.addWidget(directory_blue_folder, 3, 1)
+        directory_layout.addWidget(directory_white_folder_label, 4, 0)
+        directory_layout.addWidget(directory_white_folder, 4, 1)
+        directory_layout.addWidget(directory_start_data_ingestion_button, 5, 0)
 
         directory_configuration_page_widget.setLayout(directory_layout)
 
-    def vector_configuration(self, vector_configuration_page_widget):    
+    def vector_configuration(self, vector_configuration_page_widget):
         # SYSTEM BUILDS 'VECTOR CONFIGURATION' PAGE GUI
         vector_layout = QGridLayout()
         vector_title_label = QLabel('<h1>Vector Configuration<\h1>')
@@ -169,7 +181,8 @@ class PICK_TOOL(QMainWindow):
         vector_table = QTableWidget()
         vector_table.setRowCount(34)
         vector_table.setColumnCount(2)
-        vector_table.setHorizontalHeaderLabels(['Vector Name', 'Vector Description'])
+        vector_table.setHorizontalHeaderLabels(
+            ['Vector Name', 'Vector Description'])
 
         vector_add_button = QPushButton()
         vector_add_button.setText('Add Vector')
@@ -186,7 +199,7 @@ class PICK_TOOL(QMainWindow):
 
         vector_configuration_page_widget.setLayout(vector_layout)
 
-    def log_file_configuration(self, log_file_configuration_page_widget):    
+    def log_file_configuration(self, log_file_configuration_page_widget):
         # SYSTEM BUILDS 'LOG FILE CONFIGURATION' PAGE GUI
         log_file_layout = QGridLayout()
         log_file_title_label = QLabel('<h1>Log File Configuration<\h1>')
@@ -194,18 +207,20 @@ class PICK_TOOL(QMainWindow):
         log_file_log_file_table = QTableWidget()
         log_file_log_file_table.setRowCount(34)
         log_file_log_file_table.setColumnCount(6)
-        log_file_log_file_table.setHorizontalHeaderLabels(['File Name', 'Source', 'Cleansing Status', 'Validation', 'Ingestion Status', 'View EA Report'])
-        
+        log_file_log_file_table.setHorizontalHeaderLabels(
+            ['File Name', 'Source', 'Cleansing Status', 'Validation', 'Ingestion Status', 'View EA Report'])
+
         log_file_action_report_table = QTableWidget()
         log_file_action_report_table.setRowCount(34)
         log_file_action_report_table.setColumnCount(3)
-        log_file_action_report_table.setHorizontalHeaderLabels(['File Name', 'Line Number', 'Error Message'])
-        
+        log_file_action_report_table.setHorizontalHeaderLabels(
+            ['File Name', 'Line Number', 'Error Message'])
+
         log_file_validate_button = QPushButton()
         log_file_validate_button.setText('Validate')
-        
+
         log_file_cancel_button = QPushButton('Cancel')
-        #log_file_cancel_button.setText('Cancel
+        # log_file_cancel_button.setText('Cancel
 
         log_file_layout.addWidget(log_file_title_label)
         log_file_layout.addWidget(log_file_log_file_table)
@@ -213,13 +228,13 @@ class PICK_TOOL(QMainWindow):
 
         log_file_configuration_page_widget.setLayout(log_file_layout)
 
-    def filter_configuration(self, filter_configuration_page_widget):    
+    def filter_configuration(self, filter_configuration_page_widget):
         # makes filter config page widget
         filter_layout = QGridLayout()
         filter_title_label = QLabel('<h1>Filter Configuration<\h1>')
 
+        filter_keyword_search_textbox_label = QLabel('Keyword Search: ')
         filter_keyword_search_textbox = QLineEdit()
-        filter_keyword_search_textbox.setText('Keyword Search')
         filter_creator_label = QLabel('Creator')
         filter_red_checkbox = QCheckBox()
         filter_red_checkbox.setText('Red')
@@ -227,57 +242,64 @@ class PICK_TOOL(QMainWindow):
         filter_blue_checkbox.setText('Blue')
         filter_white_checkbox = QCheckBox()
         filter_white_checkbox.setText('White')
+        filter_start_timestamp_label = QLabel('Start Timestamp')
         filter_start_timestamp = QLineEdit()
-        filter_start_timestamp.setText('Start Timestamp')
+        filter_end_timestamp_label = QLabel('End Timestamp')
         filter_end_timestamp = QLineEdit()
-        filter_end_timestamp.setText('End Timestamp')
 
-        filter_layout.addWidget(filter_title_label)
-        filter_layout.addWidget(filter_keyword_search_textbox)
-        filter_layout.addWidget(filter_creator_label)
-        filter_layout.addWidget(filter_red_checkbox)
-        filter_layout.addWidget(filter_blue_checkbox)
-        filter_layout.addWidget(filter_white_checkbox)
-        filter_layout.addWidget(filter_start_timestamp)
-        filter_layout.addWidget(filter_end_timestamp)
+        filter_layout.addWidget(filter_title_label, 0, 0)
+        filter_layout.addWidget(filter_keyword_search_textbox_label, 1, 0)
+        filter_layout.addWidget(filter_keyword_search_textbox, 1, 1)
+        filter_layout.addWidget(filter_creator_label, 2, 0)
+        filter_layout.addWidget(filter_red_checkbox, 2, 1)
+        filter_layout.addWidget(filter_blue_checkbox, 3, 1)
+        filter_layout.addWidget(filter_white_checkbox, 4, 1)
+        filter_layout.addWidget(filter_start_timestamp_label, 5, 0)
+        filter_layout.addWidget(filter_start_timestamp, 5, 1)
+        filter_layout.addWidget(filter_end_timestamp_label, 6,  0)
+        filter_layout.addWidget(filter_end_timestamp, 6, 1)
 
         filter_configuration_page_widget.setLayout(filter_layout)
 
-    def log_entry_configuration(self, log_entry_configuration_page_widget):    
+    def log_entry_configuration(self, log_entry_configuration_page_widget):
         # makes log entry config page widget
         log_entry_layout = QGridLayout()
         log_entry_title_label = QLabel('<h1>Log Entry Configuration<\h1>')
-        
+
         log_entry_table = QTableWidget()
         log_entry_table.setRowCount(34)
         log_entry_table.setColumnCount(5)
-        log_entry_table.setHorizontalHeaderLabels(['', 'List Number', 'Log Entry Timestamp', 'Log Entry Event', 'Vector'])
+        log_entry_table.setHorizontalHeaderLabels(
+            ['', 'List Number', 'Log Entry Timestamp', 'Log Entry Event', 'Vector'])
 
         log_entry_layout.addWidget(log_entry_title_label)
         log_entry_layout.addWidget(log_entry_table)
 
         log_entry_configuration_page_widget.setLayout(log_entry_layout)
 
-    def export_configuration(self, export_configuration_page_widget):   
+    def export_configuration(self, export_configuration_page_widget):
         # makes export config page widget
         export_layout = QGridLayout()
+        export_layout.setVerticalSpacing(200)
+        export_title_label = QLabel('<h1>Export Configuration<\h1>')
         export_menu_label = QLabel('Export as: ')
 
         export_dropdown_menu = QComboBox()
         export_dropdown_menu.addItem('PDF')
         export_dropdown_menu.addItem('GIF')
         export_dropdown_menu.addItem('ABC')
-        
+
         export_export_button = QPushButton()
         export_export_button.setText('Export')
 
-        export_layout.addWidget(export_menu_label)
-        export_layout.addWidget(export_dropdown_menu)
-        export_layout.addWidget(export_export_button)
+        export_layout.addWidget(export_title_label, 0, 0)
+        export_layout.addWidget(export_menu_label, 1, 0)
+        export_layout.addWidget(export_dropdown_menu, 1, 1)
+        export_layout.addWidget(export_export_button, 2, 0)
 
         export_configuration_page_widget.setLayout(export_layout)
 
-    def change_configuration(self, change_configuration_page_widget):   
+    def change_configuration(self, change_configuration_page_widget):
         # makes change config page widget
         change_layout = QGridLayout()
         change_change_list_label = QLabel('Change List: ')
@@ -293,23 +315,25 @@ class PICK_TOOL(QMainWindow):
 
         change_configuration_page_widget.setLayout(change_layout)
 
-    def vector_db_configuration(self, vector_db_configuration_page_widget):   
+    def vector_db_configuration(self, vector_db_configuration_page_widget):
         # make vector db config page widget
         vector_db_layout = QGridLayout()
         vector_db_connection_label = QLabel('Connection status to lead: ')
 
         # 4 is just and example, this needs to be changed later
         vector_db_actual_connection_number = QLabel('4')
-        vector_db_pulled_vector_table = QLabel('PULLED vector DB table (Analyst)')
-        
+        vector_db_pulled_vector_table = QLabel(
+            'PULLED vector DB table (Analyst)')
+
         vector_db_pulled_table = QTableWidget()
         vector_db_pulled_table.setRowCount(34)
         vector_db_pulled_table.setColumnCount(1)
-        
+
         vector_db_pull_button = QPushButton()
         vector_db_pull_button.setText('Pull')
 
-        vector_db_pushed_vector_label = QLabel('PUSHED vector DB table (Analyst)')
+        vector_db_pushed_vector_label = QLabel(
+            'PUSHED vector DB table (Analyst)')
         vector_db_pushed_table = QTableWidget()
         vector_db_pushed_table.setRowCount(34)
         vector_db_pushed_table.setColumnCount(1)
@@ -326,7 +350,7 @@ class PICK_TOOL(QMainWindow):
 
         vector_db_configuration_page_widget.setLayout(vector_db_layout)
 
-    def icon_configuration(self, icon_configuration_page_widget):   
+    def icon_configuration(self, icon_configuration_page_widget):
         # makes icon config page
         icon_layout = QGridLayout()
         icon_title_label = QLabel('<h1>Icon Configuration<\h1>')
@@ -334,7 +358,8 @@ class PICK_TOOL(QMainWindow):
         icon_table = QTableWidget()
         icon_table.setRowCount(34)
         icon_table.setColumnCount(4)
-        icon_table.setHorizontalHeaderLabels(['Select', 'Icon Name', 'Icon Source', 'Image Preview'])
+        icon_table.setHorizontalHeaderLabels(
+            ['Select', 'Icon Name', 'Icon Source', 'Image Preview'])
 
         icon_add_icon_button = QPushButton()
         icon_add_icon_button.setText('Add Icon')
@@ -351,7 +376,7 @@ class PICK_TOOL(QMainWindow):
 
         icon_configuration_page_widget.setLayout(icon_layout)
 
-    def graph_builder_configuration(self, graph_builder_configuration_page_widget):   
+    def graph_builder_configuration(self, graph_builder_configuration_page_widget):
         # makes Graph builder Config page widget
         graph_builder_layout = QGridLayout()
         graph_builder_vector_label = QLabel('Vector: ')
@@ -382,22 +407,25 @@ class PICK_TOOL(QMainWindow):
         graph_builder_layout.addWidget(graph_builder_add_node_button)
         graph_builder_layout.addWidget(graph_builder_add_relationship_button)
         graph_builder_layout.addWidget(graph_builder_delete_node_button)
-        graph_builder_layout.addWidget(graph_builder_delete_relationship_button)
+        graph_builder_layout.addWidget(
+            graph_builder_delete_relationship_button)
         graph_builder_layout.addWidget(graph_builder_edit_node_button)
         graph_builder_layout.addWidget(graph_builder_edit_relationship_button)
 
         graph_builder_configuration_page_widget.setLayout(graph_builder_layout)
 
-    def nodes_tabular_configuration(self, nodes_tabular_configuration_page_widget):   
+    def nodes_tabular_configuration(self, nodes_tabular_configuration_page_widget):
         # makes nodes config table page widget
         nodes_tabular_layout = QGridLayout()
-        nodes_tabular_title_label = QLabel('<h1>Nodes Configuration in Tabular Format<\h1>')
+        nodes_tabular_title_label = QLabel(
+            '<h1>Nodes Configuration in Tabular Format<\h1>')
 
         nodes_tabular_table = QTableWidget()
         nodes_tabular_table.setRowCount(34)
         nodes_tabular_table.setColumnCount(11)
-        nodes_tabular_table.setHorizontalHeaderLabels(['Node Property Visibility', 'Node ID', 'Node Name', 'Node Timestamp', 'Node Description', 'Log Entry Reference', 'Log Creator', 'Event Type', 'Icon Type', 'Source', 'Node Visibility'])
-        
+        nodes_tabular_table.setHorizontalHeaderLabels(['Node Property Visibility', 'Node ID', 'Node Name', 'Node Timestamp',
+                                                       'Node Description', 'Log Entry Reference', 'Log Creator', 'Event Type', 'Icon Type', 'Source', 'Node Visibility'])
+
         nodes_tabular_layout.addWidget(nodes_tabular_title_label)
         nodes_tabular_layout.addWidget(nodes_tabular_table)
 
@@ -406,15 +434,19 @@ class PICK_TOOL(QMainWindow):
     def nodes_graphical_configuration(self, nodes_graphical_configuration_page_widget):
         # makes nodes config graph page widget
         nodes_graphical_layout = QGridLayout()
-        nodes_graphical_title_label = QLabel('Nodes Configuration in Graphical Format')
+        nodes_graphical_title_label = QLabel(
+            '<h1>Nodes Configuration in Graphical Format<\h1>')
 
-        nodes_graphical_timeline_orientation_label = QLabel('Timeline Orientation')
+        nodes_graphical_timeline_orientation_label = QLabel(
+            'Timeline Orientation')
         nodes_graphical_timeline_orientation_dropdown = QComboBox()
-        nodes_graphical_timeline_orientation_dropdown.addItem('example orientation')
+        nodes_graphical_timeline_orientation_dropdown.addItem(
+            'example orientation')
 
         nodes_graphical_interval_units_label = QLabel('Interval Units')
         nodes_graphical_interval_units_dropdown = QComboBox()
-        nodes_graphical_interval_units_dropdown.addItem('example interval unit')
+        nodes_graphical_interval_units_dropdown.addItem(
+            'example interval unit')
         nodes_graphical_timeline = QLabel('A TIMELINE IS SUPPOSED TO GO HERE')
         nodes_graphical_zoom_in_button = QPushButton()
         nodes_graphical_zoom_in_button.setText('Zoom In')
@@ -422,20 +454,25 @@ class PICK_TOOL(QMainWindow):
         nodes_graphical_zoom_out_button.setText('Zoom Out')
 
         nodes_graphical_layout.addWidget(nodes_graphical_title_label)
-        nodes_graphical_layout.addWidget(nodes_graphical_timeline_orientation_label)
-        nodes_graphical_layout.addWidget(nodes_graphical_timeline_orientation_dropdown)
+        nodes_graphical_layout.addWidget(
+            nodes_graphical_timeline_orientation_label)
+        nodes_graphical_layout.addWidget(
+            nodes_graphical_timeline_orientation_dropdown)
         nodes_graphical_layout.addWidget(nodes_graphical_interval_units_label)
-        nodes_graphical_layout.addWidget(nodes_graphical_interval_units_dropdown)
+        nodes_graphical_layout.addWidget(
+            nodes_graphical_interval_units_dropdown)
         nodes_graphical_layout.addWidget(nodes_graphical_timeline)
         nodes_graphical_layout.addWidget(nodes_graphical_zoom_in_button)
         nodes_graphical_layout.addWidget(nodes_graphical_zoom_out_button)
 
-        nodes_graphical_configuration_page_widget.setLayout(nodes_graphical_layout)
+        nodes_graphical_configuration_page_widget.setLayout(
+            nodes_graphical_layout)
 
     def relationship_configuration(self, relationship_configuration_page_widget):
         # makes relationships config page widget
         relationship_layout = QGridLayout()
-        relationship_title_label = QLabel('<h1>Relationship Configuration<\h1>')
+        relationship_title_label = QLabel(
+            '<h1>Relationship Configuration<\h1>')
 
         relationship_table = QTableWidget()
 
@@ -511,9 +548,6 @@ class PICK_TOOL(QMainWindow):
         self.stackedWidget.setCurrentIndex(14)
         self.buttonClicked()
 
-    def buttonTwoClicked(self):
-        self.buttonClicked()
-
     def buttonClicked(self):
         sender = self.sender()
         self.statusBar().showMessage(sender.text() + ' was clicked')
@@ -522,7 +556,6 @@ class PICK_TOOL(QMainWindow):
         tools = QToolBar()
         self.addToolBar(tools)
 
-        tools.addAction('Exit', self.close)
         tools.addAction('Team', self.team_tool_button_clicked)
         tools.addAction('Event', self.event_tool_button_clicked)
         tools.addAction('Directory', self.directory_tool_button_clicked)
