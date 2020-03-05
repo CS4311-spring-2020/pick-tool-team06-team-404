@@ -2,11 +2,15 @@
 
 ## What's New
 
-### Version 0.1.6 (02 MArch 2020)
+### Version 0.2.0 (04 March 2020)
 
-* Added final CRC
+* New UI Design
 
 ## Version History
+
+### Version 0.1.6 (02 March 2020)
+
+* Added final CRC
 
 ### Version 0.1.5 (23 February 2020)
 
