@@ -82,21 +82,22 @@ class PICK_TOOL(QMainWindow):
 
     # 'TEAM CONFIGURATION' PAGE
     def home_page(self, home_page_widget):
-        home_layout = QGridLayout()
+        layout = QGridLayout()
 
-        home_title = QLabel('<center><h1>Prevent Mitigate Recover (PMR) Insight Collective Knowledge System<br><br>PICK Tool<\h1></center>')
-        home_title.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
+        title = QLabel('<center><h1>Prevent Mitigate Recover (PMR) Insight Collective Knowledge System<br><br>PICK Tool<\h1></center>')
+        title.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
 
-        home_message = QLabel('<center><h2>Government Warning Notice</h2> This is a U.S. Government computer system, which may be accessed and used only for authorized Government business by authorized personnel. Unauthorized access or use of this computer system may subject violators to criminal, civil, and/or administrative action.<br>All information on this computer system may be intercepted, recorded, read, copied, and disclosed by and to authorized personnel for official purposes, including criminal investigations.<br>Such information includes sensitive data encrypted to comply with confidentiality and privacy requirements. Access or use of this computer system by any person, whether authorized or unauthorized, constitutes consent to these terms. There is no right of privacy in this system.</center>')
-        home_message.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
+        dss_message = QLabel('<center><h2>Government Warning Notice</h2> This is a U.S. Government computer system, which may be accessed and used only for authorized Government business by authorized personnel. Unauthorized access or use of this computer system may subject violators to criminal, civil, and/or administrative action.<br>All information on this computer system may be intercepted, recorded, read, copied, and disclosed by and to authorized personnel for official purposes, including criminal investigations.<br>Such information includes sensitive data encrypted to comply with confidentiality and privacy requirements. Access or use of this computer system by any person, whether authorized or unauthorized, constitutes consent to these terms. There is no right of privacy in this system.</center>')
+        dss_message.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
 
-        home_connect_button = QPushButton('Connect')
+        connect_button = QPushButton('Connect')
+        connect_button.resize(100,32)
 
-        home_layout.addWidget(home_title, 0, 0)
-        home_layout.addWidget(home_message,1, 0)
-        home_layout.addWidget(home_connect_button, 2, 0)
+        layout.addWidget(title, 0, 0)
+        layout.addWidget(dss_message,1, 0)
+        layout.addWidget(connect_button, 2, 0)
 
-        home_page_widget.setLayout(home_layout)
+        home_page_widget.setLayout(layout)
 
 
     # 'TEAM CONFIGURATION' PAGE
