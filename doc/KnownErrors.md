@@ -2,6 +2,18 @@
 
 ## Current Release
 
+### Version 0.3.0 (05 March 2020)
+
+* TravisCI builds are exiting with 1: ```(Core Dumped) code 134```; instead of ```0```
+* Project repository is missing a complete ```README.md```
+
+## Previous Releases
+
+### Version 0.2.0 (04 March 2020)
+
+* TravisCI builds are exiting with 1: ```(Core Dumped) code 134```; instead of ```0```
+* Project repository is missing a complete ```README.md```
+
 ### Version 0.1.6 (02 March 2020)
 
 * TravisCI builds are exiting with 1: ```(Core Dumped) code 134```; instead of ```0```
@@ -19,8 +31,6 @@
   * ```LogEntryConfig```
   * ```VectorDBConfig```
   * ```VectorDBLead```
-
-## Previous Releases
 
 ### Version 0.1.5 (23 February 2020)
 
