@@ -6,6 +6,8 @@
 **Version: [0.4.0](doc/ReleaseNotes.md)**</br>
 **Known Errors: [Current Release](doc/KnownErrors.md)**
 
+![homepage-image](doc/img/readme_image.png)
+
 ## Motivation
 
 The following is an excerpt from [[3](#resources)], which defines the scope and motivation of PICK Tool:
