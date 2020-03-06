@@ -16,6 +16,7 @@ NOTES:
 import sys
 import PyQt5
 from PyQt5 import QtCore
+from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 
@@ -71,31 +72,44 @@ class PICK_TOOL(QMainWindow):
         self.relationship_configuration(config_dict['relationship'])
 
         # INITALIZE THE MAIN WINDOW
-        self.resize(1920, 1080)
+        self.setFixedSize(1600, 1000)
         self.center()
-        self.setWindowTitle(
-            'PMR Insight Collective Knowledge System (PICK) Tool')
+        self.setWindowTitle('PMR Insight Collective Knowledge System (PICK) Tool')
         self.setCentralWidget(self.stackedWidget)
         self._createToolBar()
         self._createStatusBar()
         self.show()
 
-    # 'TEAM CONFIGURATION' PAGE
+    # 'HOME' PAGE
     def home_page(self, home_page_widget):
         layout = QGridLayout()
+        
+        # Page Heading
+        left_spacer = QWidget()
+        right_spacer = QWidget()
+        left_spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        right_spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-        title = QLabel('<center><h1>Prevent Mitigate Recover (PMR) Insight Collective Knowledge System<br><br>PICK Tool<\h1></center>')
-        title.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
+        heading = QLabel('<center><h1>Prevent Mitigate Recover (PMR) Insight Collective Knowledge System<br><br>PICK Tool</h1><br><h2>Government Warning Notice</h2> This is a U.S. Government computer system, which may be accessed and used only for authorized Government business by authorized personnel. Unauthorized access or use of this computer system may subject violators to criminal, civil, and/or administrative action. All information on this computer system may be intercepted, recorded, read, copied, and disclosed by and to authorized personnel for official purposes, including criminal investigations. Such information includes sensitive data encrypted to comply with confidentiality and privacy requirements. Access or use of this computer system by any person, whether authorized or unauthorized, constitutes consent to these terms. There is no right of privacy in this system.</center>')
+        heading.setWordWrap(True) 
 
-        dss_message = QLabel('<center><h2>Government Warning Notice</h2> This is a U.S. Government computer system, which may be accessed and used only for authorized Government business by authorized personnel. Unauthorized access or use of this computer system may subject violators to criminal, civil, and/or administrative action.<br>All information on this computer system may be intercepted, recorded, read, copied, and disclosed by and to authorized personnel for official purposes, including criminal investigations.<br>Such information includes sensitive data encrypted to comply with confidentiality and privacy requirements. Access or use of this computer system by any person, whether authorized or unauthorized, constitutes consent to these terms. There is no right of privacy in this system.</center>')
-        dss_message.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
+        # Team404 Logo
+        image = QLabel()
+        pixmap = QPixmap('src/gui/team_404_logo.PNG')
+        smaller_pixmap = pixmap.scaled(500, 500, Qt.KeepAspectRatio, Qt.FastTransformation)
+        image.setPixmap(smaller_pixmap)
+        image.setAlignment(QtCore.Qt.AlignCenter)
 
+        # Connect Button
         connect_button = QPushButton('Connect')
         connect_button.resize(100,32)
 
-        layout.addWidget(title, 0, 0)
-        layout.addWidget(dss_message,1, 0)
-        layout.addWidget(connect_button, 2, 0)
+        # Compile Widgets
+        layout.addWidget(left_spacer,1,0)
+        layout.addWidget(heading,1,0)
+        layout.addWidget(right_spacer,1,0)
+        layout.addWidget(image, 0, 0)
+        layout.addWidget(connect_button, 3, 0)
 
         home_page_widget.setLayout(layout)
 
@@ -506,68 +520,72 @@ class PICK_TOOL(QMainWindow):
 
         relationship_configuration_page_widget.setLayout(relationship_layout)
 
-    def team_configuration_connect_button_clicked(self):
-        self.stackedWidget.setCurrentIndex(1)
-        self.buttonClicked()
-
-    def team_tool_button_clicked(self):
+    def home_tool_button_clicked(self):
         self.stackedWidget.setCurrentIndex(0)
         self.buttonClicked()
 
-    def event_tool_button_clicked(self):
+    def team_tool_button_clicked(self):
         self.stackedWidget.setCurrentIndex(1)
         self.buttonClicked()
 
-    def directory_tool_button_clicked(self):
+    def team_configuration_connect_button_clicked(self):
         self.stackedWidget.setCurrentIndex(2)
         self.buttonClicked()
 
-    def vector_tool_button_clicked(self):
+    def event_tool_button_clicked(self):
         self.stackedWidget.setCurrentIndex(3)
         self.buttonClicked()
 
-    def log_file_tool_button_clicked(self):
+    def directory_tool_button_clicked(self):
         self.stackedWidget.setCurrentIndex(4)
         self.buttonClicked()
 
-    def filter_tool_button_clicked(self):
+    def vector_tool_button_clicked(self):
         self.stackedWidget.setCurrentIndex(5)
         self.buttonClicked()
 
-    def log_entry_tool_button_clicked(self):
+    def log_file_tool_button_clicked(self):
         self.stackedWidget.setCurrentIndex(6)
         self.buttonClicked()
 
-    def export_tool_button_clicked(self):
+    def filter_tool_button_clicked(self):
         self.stackedWidget.setCurrentIndex(7)
         self.buttonClicked()
 
-    def change_tool_button_clicked(self):
+    def log_entry_tool_button_clicked(self):
         self.stackedWidget.setCurrentIndex(8)
         self.buttonClicked()
 
-    def vector_db_tool_button_clicked(self):
+    def export_tool_button_clicked(self):
         self.stackedWidget.setCurrentIndex(9)
         self.buttonClicked()
 
-    def icon_tool_button_clicked(self):
+    def change_tool_button_clicked(self):
         self.stackedWidget.setCurrentIndex(10)
         self.buttonClicked()
 
-    def graph_builder_tool_button_clicked(self):
+    def vector_db_tool_button_clicked(self):
         self.stackedWidget.setCurrentIndex(11)
         self.buttonClicked()
 
-    def nodes_table_tool_button_clicked(self):
+    def icon_tool_button_clicked(self):
         self.stackedWidget.setCurrentIndex(12)
         self.buttonClicked()
 
-    def nodes_graph_tool_button_clicked(self):
+    def graph_builder_tool_button_clicked(self):
         self.stackedWidget.setCurrentIndex(13)
         self.buttonClicked()
 
-    def relationships_tool_button_clicked(self):
+    def nodes_table_tool_button_clicked(self):
         self.stackedWidget.setCurrentIndex(14)
+        self.buttonClicked()
+
+    def nodes_graph_tool_button_clicked(self):
+        self.stackedWidget.setCurrentIndex(15)
+        self.buttonClicked()
+
+    def relationships_tool_button_clicked(self):
+        self.stackedWidget.setCurrentIndex(16)
         self.buttonClicked()
 
     def buttonClicked(self):
@@ -586,7 +604,7 @@ class PICK_TOOL(QMainWindow):
         right_spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         tools.addWidget(left_spacer)
-        #tools.addAction('Home', self.team_tool_button_clicked)
+        tools.addAction('Home', self.home_tool_button_clicked)
         tools.addAction('Team', self.team_tool_button_clicked)
         tools.addAction('Event', self.event_tool_button_clicked)
         tools.addAction('Directory', self.directory_tool_button_clicked)
@@ -608,7 +626,7 @@ class PICK_TOOL(QMainWindow):
         status = QStatusBar()
         left_spacer = QWidget()
         left_spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        message = QLabel('Copyright © 2020, Team404: Good Times, Inc. All Rights Reserved.')
+        message = QLabel('<strong>A Team404: Good Times, Inc. Production</strong><br>')
 
         status.addWidget(left_spacer)
         status.addWidget(message)
