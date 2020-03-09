@@ -76,7 +76,7 @@ class PICK_TOOL(QMainWindow):
         self.center()
         self.setWindowTitle('PICK System')
         self.setCentralWidget(self.stackedWidget)
-        self._createToolBar()
+        #self._createToolBar()
         self._createStatusBar()
         self.show()
 
@@ -97,7 +97,7 @@ class PICK_TOOL(QMainWindow):
 
         # Connect Button
         connect_button = QPushButton('Connect')
-        connect_button.resize(100,32)
+        connect_button.clicked.connect(self.home_connect_button_clicked)
 
         # Compile Page Widgets
         page_layout.addWidget(page_header, 1, 0)
@@ -110,37 +110,49 @@ class PICK_TOOL(QMainWindow):
     # 'TEAM CONFIGURATION' PAGE
     def team_page(self, team_page_widget):
         page_layout = QGridLayout()
-        page_layout.setVerticalSpacing(100)
-        page_header = QLabel('<h1>Team<br>Configuration<\h1>')
-
-        team_lead_checkbox = QCheckBox('Lead')
+        page_layout.setVerticalSpacing(60)
+        page_header = QLabel('<h1>Team<br>Configuration</h1>')
         lead_ip_address = QLabel('<strong>Lead IP Address:</strong>')
 
         # 255.255.255.255 is an example, this needs to be changed later
-        ip_address = QLabel('255.255.255.255')
-        established_connections = QLabel('<strong>Established Connections:</strong>')
+        ip_address = QLineEdit('255.255.255.255')
+        established_connections = QLabel('<strong>No. of Established Connections to the lead\'s IP address:</strong>')
+        established_connections.setWordWrap(True) 
 
         # 4 is an example, this needs to be changed later
         connections_value = QLabel('4')
+        lead = QLabel('<strong>Lead</strong>')
+        lead_checkbox = QCheckBox()
         connect_button = QPushButton('Connect')
 
+        spacer = QWidget()
+        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
         page_layout.addWidget(page_header, 0, 0)
-        page_layout.addWidget(team_lead_checkbox, 1, 0)
-        page_layout.addWidget(lead_ip_address, 2, 0)
-        page_layout.addWidget(ip_address, 2, 1)
-        page_layout.addWidget(established_connections, 3, 0)
-        page_layout.addWidget(connections_value, 3, 1)
-        page_layout.addWidget(connect_button, 4, 1)
+        page_layout.addWidget(lead_ip_address, 1, 1)
+        page_layout.addWidget(ip_address, 1, 3)
+        page_layout.addWidget(established_connections, 2, 1)
+        page_layout.addWidget(connections_value, 2, 3)
+        page_layout.addWidget(lead, 3, 1)
+        page_layout.addWidget(lead_checkbox, 3, 3)
+        page_layout.addWidget(spacer, 4, 0)
+        page_layout.addWidget(spacer, 4, 1)
+        page_layout.addWidget(spacer, 4, 2)
+        page_layout.addWidget(spacer, 4, 3)
+        page_layout.addWidget(spacer, 4, 4)
+        page_layout.addWidget(connect_button, 5, 2)
 
         team_page_widget.setLayout(page_layout)
 
     # 'EVENT CONFIGURATION' PAGE GUI
-    def event_page(self, event_page_widget):    
+    def event_page(self, event_page_widget): 
         page_layout = QGridLayout()
-        page_layout.setVerticalSpacing(100)
+        page_layout.setVerticalSpacing(60)
         page_header = QLabel('<h1>Event<br>Configuration<\h1>')
 
         event_name = QLabel('<strong>Event Name:</strong>')
+        event_name.setWordWrap(True) 
+
         event_name_textbox = QLineEdit()
 
         event_description = QLabel('<strong>Event description:</strong>')
@@ -154,54 +166,72 @@ class PICK_TOOL(QMainWindow):
 
         save_button = QPushButton('Save')
 
+        spacer = QWidget()
+        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
         page_layout.addWidget(page_header, 0, 0)
-        page_layout.addWidget(event_name, 1, 0)
-        page_layout.addWidget(event_name_textbox, 1, 1)
-        page_layout.addWidget(event_description, 2, 0)
-        page_layout.addWidget(event_description_textbox, 2, 1)
-        page_layout.addWidget(start_timestamp, 3, 0)
-        page_layout.addWidget(start_timestamp_textbox, 3, 1)
-        page_layout.addWidget(end_timestamp, 4, 0)
-        page_layout.addWidget(end_timestamp_textbox, 4, 1)
-        page_layout.addWidget(save_button, 5, 0)
+        page_layout.addWidget(event_name, 1, 1)
+        page_layout.addWidget(event_name_textbox, 1, 3)
+        page_layout.addWidget(event_description, 2, 1)
+        page_layout.addWidget(event_description_textbox, 2, 3)
+        page_layout.addWidget(start_timestamp, 3, 1)
+        page_layout.addWidget(start_timestamp_textbox, 3, 3)
+        page_layout.addWidget(end_timestamp, 4, 1)
+        page_layout.addWidget(end_timestamp_textbox, 4, 3)
+        page_layout.addWidget(spacer, 5, 0)
+        page_layout.addWidget(spacer, 5, 1)
+        page_layout.addWidget(spacer, 5, 2)
+        page_layout.addWidget(spacer, 5, 3)
+        page_layout.addWidget(spacer, 5, 4)
+        page_layout.addWidget(save_button, 6, 2)
 
         event_page_widget.setLayout(page_layout)
 
-    # 'EVENT CONFIGURATION' PAGE GUI
+    # 'DIRECTORY CONFIGURATION' PAGE GUI
     def directory_page(self, directory_page_widget):
+        
         page_layout = QGridLayout()
-        page_layout.setVerticalSpacing(100)
+        page_layout.setVerticalSpacing(60)
         page_header = QLabel('<h1>Directory<br>Configuration<\h1>')
+        page_header.setWordWrap(True) 
 
-        directory_root_directory_label = QLabel('<strong>Root Directory</strong>')
-        directory_root_directory = QLineEdit()
+        root_dir = QLabel('<strong>Root Directory</strong>')
+        root_dir_text_box = QLineEdit()
 
-        directory_red_folder_label = QLabel('<strong>Red folder</strong>')
-        directory_red_folder = QLineEdit()
+        red_folder = QLabel('<strong>Red Folder</strong>')
+        red_folder_text_box = QLineEdit()
 
-        directory_blue_folder_label = QLabel('<strong>Blue Folder</strong>')
-        directory_blue_folder = QLineEdit()
+        blue_folder = QLabel('<strong>Blue Folder</strong>')
+        blue_folder_text_box = QLineEdit()
 
-        directory_white_folder_label = QLabel('<strong>White Folder</strong>')
-        directory_white_folder = QLineEdit()
+        white_folder = QLabel('<strong>White Folder</strong>')
+        white_folder_text_box = QLineEdit()
 
-        directory_start_data_ingestion_button = QPushButton()
-        directory_start_data_ingestion_button.setText('Start Data Ingestion')
+        data_ingestion_button = QPushButton('Start Data Ingestion')
+
+        spacer = QWidget()
+        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         page_layout.addWidget(page_header, 0, 0)
-        page_layout.addWidget(directory_root_directory_label, 1, 0)
-        page_layout.addWidget(directory_root_directory, 1, 1)
-        page_layout.addWidget(directory_red_folder_label, 2, 0)
-        page_layout.addWidget(directory_red_folder, 2, 1)
-        page_layout.addWidget(directory_blue_folder_label, 3, 0)
-        page_layout.addWidget(directory_blue_folder, 3, 1)
-        page_layout.addWidget(directory_white_folder_label, 4, 0)
-        page_layout.addWidget(directory_white_folder, 4, 1)
-        page_layout.addWidget(directory_start_data_ingestion_button, 5, 0)
+        page_layout.addWidget(root_dir, 1, 1)
+        page_layout.addWidget(root_dir_text_box, 1, 3)
+        page_layout.addWidget(red_folder, 2, 1)
+        page_layout.addWidget(red_folder_text_box, 2, 3)
+        page_layout.addWidget(blue_folder, 3, 1)
+        page_layout.addWidget(blue_folder_text_box, 3, 3)
+        page_layout.addWidget(white_folder, 4, 1)
+        page_layout.addWidget(white_folder_text_box, 4, 3)
+        page_layout.addWidget(spacer, 5, 0)
+        page_layout.addWidget(spacer, 5, 1)
+        page_layout.addWidget(spacer, 5, 2)
+        page_layout.addWidget(spacer, 5, 3)
+        page_layout.addWidget(spacer, 5, 4)
+        page_layout.addWidget(data_ingestion_button, 6, 2)
 
         directory_page_widget.setLayout(page_layout)
 
     def vector_page(self, vector_page_widget):
+        
         # SYSTEM BUILDS 'VECTOR CONFIGURATION' PAGE GUI
         page_layout = QGridLayout()
         page_header = QLabel('<h1>Vector<br>Configuration<\h1>')
@@ -212,21 +242,24 @@ class PICK_TOOL(QMainWindow):
         vector_table.setHorizontalHeaderLabels(['Vector Name', 'Vector Description'])
         vector_table.resizeColumnsToContents()
 
+        vector_configuration_table_header = QLabel('<h3><center>Vector Configuration Table</center></h3>')
 
         add_button = QPushButton('Add Vector')
         delete_button = QPushButton('Delete Vector')
         edit_button = QPushButton('Edit Vector')
 
-        page_layout.addWidget(page_header)
-        page_layout.addWidget(vector_table)
-        page_layout.addWidget(add_button)
-        page_layout.addWidget(delete_button)
-        page_layout.addWidget(edit_button)
+        page_layout.addWidget(page_header,0,0)
+        page_layout.addWidget(vector_configuration_table_header,1,1)
+        page_layout.addWidget(vector_table,2,1)
+        page_layout.addWidget(add_button,3,0)
+        page_layout.addWidget(delete_button,4,0)
+        page_layout.addWidget(edit_button,5,0)
 
         vector_page_widget.setLayout(page_layout)
 
     # 'LOG FILE' PAGE GUI
     def log_file_page(self, log_file_page_widget):
+        
         '''Creates Log File Configuration Page Widget'''
 
         page_layout = QGridLayout()
@@ -245,58 +278,85 @@ class PICK_TOOL(QMainWindow):
         action_report_table.setHorizontalHeaderLabels(['File Name', 'Line Number', 'Error Message'])
         action_report_table.resizeColumnsToContents()
 
-        log_file_validate_button = QPushButton()
-        log_file_validate_button.setText('Validate')
+        log_file_table_header = QLabel('<h3><center>Log File Table</center></h3>')
+        action_report_table_header = QLabel('<h3><center><br>Enforcement Action Report Table</center></h3>')
 
-        log_file_cancel_button = QPushButton('Cancel')
-        # log_file_cancel_button.setText('Cancel
-
-        page_layout.addWidget(page_header)
-        page_layout.addWidget(log_file_table)
-        page_layout.addWidget(action_report_table)
+        validate_button = QPushButton('Validate')
+        cancel_button = QPushButton('Cancel')
+        
+        page_layout.addWidget(page_header,0,0)
+        page_layout.addWidget(log_file_table_header,1,1)
+        page_layout.addWidget(log_file_table,2,1)
+        page_layout.addWidget(action_report_table_header,3,1)
+        page_layout.addWidget(action_report_table,4,1)
+        page_layout.addWidget(validate_button,5,0)
+        page_layout.addWidget(cancel_button,6,0)
 
         log_file_page_widget.setLayout(page_layout)
 
 
     # 'FILTER' PAGE GUI
-    def filter_page(self, filter_page_widget):
+    def filter_page(self, filter_page_widget):        
         '''Creates Filter Configuration Page Widget'''
         
         page_layout = QGridLayout()
-        page_layout.setVerticalSpacing(60)
+        page_layout.setVerticalSpacing(30)
         page_header = QLabel('<h1>Filter<br>Configuration<\h1>')
 
-        keyword_search_textbox_label = QLabel('<strong>Keyword Search:</strong>')
+        keyword_search = QLabel('<strong>Keyword Search:</strong>')
         keyword_search_textbox = QLineEdit()
-        creator_label = QLabel('<strong>Creator</strong>')
-        red_checkbox = QCheckBox('Red')
-        blue_checkbox = QCheckBox('Blue')
-        white_checkbox = QCheckBox('White')
-        start_timestamp_label = QLabel('<strong>Start Timestamp</strong>')
-        start_timestamp = QLineEdit()
-        end_timestamp_label = QLabel('<strong>End Timestamp</strong>')
-        end_timestamp = QLineEdit()
 
-        apply_button = QPushButton()
-        apply_button.setText('Apply')
+        creator_label = QLabel('<strong>Creator</strong>')
+        creator_red_checkbox = QCheckBox('Red')
+        creator_blue_checkbox = QCheckBox('Blue')
+        creator_white_checkbox = QCheckBox('White')
+
+        event_type_label = QLabel('<strong>Event Type</strong>')
+        event_red_checkbox = QCheckBox('Red')
+        event_blue_checkbox = QCheckBox('Blue')
+        event_white_checkbox = QCheckBox('White')
+        
+        start_timestamp = QLabel('<strong>Start Timestamp</strong>')
+        start_timestamp_textbox = QLineEdit()
+        end_timestamp = QLabel('<strong>End Timestamp</strong>')
+        end_timestamp_textbox = QLineEdit()
+
+        spacer = QWidget()
+        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        apply_button = QPushButton('Apply Filter')
 
         page_layout.addWidget(page_header, 0, 0)
-        page_layout.addWidget(keyword_search_textbox_label, 1, 0)
-        page_layout.addWidget(keyword_search_textbox, 1, 1)
-        page_layout.addWidget(creator_label, 2, 0)
-        page_layout.addWidget(red_checkbox, 2, 1)
-        page_layout.addWidget(blue_checkbox, 3, 1)
-        page_layout.addWidget(white_checkbox, 4, 1)
-        page_layout.addWidget(start_timestamp_label, 5, 0)
-        page_layout.addWidget(start_timestamp, 5, 1)
-        page_layout.addWidget(end_timestamp_label, 6,  0)
-        page_layout.addWidget(end_timestamp, 6, 1)
-        page_layout.addWidget(apply_button, 7, 0)
+        page_layout.addWidget(keyword_search, 1, 1)
+        page_layout.addWidget(keyword_search_textbox, 1, 3)
+        page_layout.addWidget(creator_label, 2, 1)
+        page_layout.addWidget(creator_red_checkbox, 2, 3)
+        page_layout.addWidget(creator_blue_checkbox, 3, 3)
+        page_layout.addWidget(creator_white_checkbox, 4, 3)
+        
+        page_layout.addWidget(spacer, 5, 0)
+        page_layout.addWidget(spacer, 5, 1)
+        page_layout.addWidget(spacer, 5, 2)
+        page_layout.addWidget(spacer, 5, 3)
+        page_layout.addWidget(spacer, 5, 4)
+
+        page_layout.addWidget(event_type_label, 6, 1)
+        page_layout.addWidget(event_red_checkbox, 6, 3)
+        page_layout.addWidget(event_blue_checkbox, 7, 3)
+        page_layout.addWidget(event_white_checkbox, 8, 3)
+        page_layout.addWidget(start_timestamp, 9, 1)
+        page_layout.addWidget(start_timestamp_textbox, 9, 3)
+        page_layout.addWidget(end_timestamp, 10,  1)
+        page_layout.addWidget(end_timestamp_textbox, 10, 3)
+
+        page_layout.addWidget(apply_button, 11, 2)
+
 
 
         filter_page_widget.setLayout(page_layout)
 
     def log_entry_page(self, log_entry_page_widget):
+        
         # makes log entry config page widget
         page_layout = QGridLayout()
         page_header = QLabel('<h1>Log Entry<br>Configuration<\h1>')
@@ -313,6 +373,7 @@ class PICK_TOOL(QMainWindow):
         log_entry_page_widget.setLayout(page_layout)
 
     def export_page(self, export_page_widget):
+        
         # makes export config page widget
         page_layout = QGridLayout()
         page_layout.setVerticalSpacing(100)
@@ -335,6 +396,7 @@ class PICK_TOOL(QMainWindow):
         export_page_widget.setLayout(page_layout)
 
     def change_page(self, change_page_widget):
+        
         # makes change config page widget
         page_layout = QGridLayout()
         page_header = QLabel('<h1><strong>Change List:</strong></h1>')
@@ -351,6 +413,7 @@ class PICK_TOOL(QMainWindow):
         change_page_widget.setLayout(page_layout)
 
     def vector_db_page(self, vector_db_page_widget):
+        
         # make vector db config page widget
         page_layout = QGridLayout()
         page_header = QLabel('<h1>VectorDB<br>Configuration<\h1>')
@@ -388,6 +451,7 @@ class PICK_TOOL(QMainWindow):
         vector_db_page_widget.setLayout(page_layout)
 
     def icon_page(self, icon_page_widget):
+        
         # makes icon config page
         page_layout = QGridLayout()
         page_header = QLabel('<h1>Icon<br>Configuration<\h1>')
@@ -413,6 +477,7 @@ class PICK_TOOL(QMainWindow):
         icon_page_widget.setLayout(page_layout)
 
     def graph_builder_page(self, graph_builder_page_widget):
+        
         # makes Graph builder Config page widget
         page_layout = QGridLayout()        
         page_layout.setVerticalSpacing(100)
@@ -449,6 +514,7 @@ class PICK_TOOL(QMainWindow):
         graph_builder_page_widget.setLayout(page_layout)
 
     def nodes_tabular_page(self, nodes_tabular_page_widget):
+        
         # makes nodes config table page widget
         page_layout = QGridLayout()
         page_header = QLabel('<h1>Nodes Configuration in Tabular Format<\h1>')
@@ -465,6 +531,7 @@ class PICK_TOOL(QMainWindow):
         nodes_tabular_page_widget.setLayout(page_layout)
 
     def nodes_graphical_page(self, nodes_graphical_page_widget):
+        
         # makes nodes config graph page widget
         page_layout = QGridLayout()
         page_header = QLabel('<h1>Nodes Configuration in Graphical Format<\h1>')
@@ -495,6 +562,7 @@ class PICK_TOOL(QMainWindow):
             page_layout)
 
     def relationship_page(self, relationship_page_widget):
+        
         # makes relationships config page widget
         page_layout = QGridLayout()
         page_header = QLabel('<h1>Relationship<br>Configuration<\h1>')
@@ -509,18 +577,24 @@ class PICK_TOOL(QMainWindow):
 
         relationship_page_widget.setLayout(page_layout)
 
-    # TOOLBAR BUTTONS
-    def home_button_clicked(self):
-        self.stackedWidget.setCurrentIndex(0)
+    # IN-PAGE BUTTONS
+    def home_connect_button_clicked(self):        
+        self.stackedWidget.setCurrentIndex(1)
         self.buttonClicked()
+        self._createToolBar()
+
+    # TOOLBAR BUTTONS
+    # def home_button_clicked(self):
+    #     self.stackedWidget.setCurrentIndex(0)
+    #     self.buttonClicked()
 
     def team_button_clicked(self):
         self.stackedWidget.setCurrentIndex(1)
         self.buttonClicked()
 
-    # def team_page_connect_button_clicked(self):
-    #     self.stackedWidget.setCurrentIndex(2)
-    #     self.buttonClicked()
+    def team_page_connect_button_clicked(self):
+        self.stackedWidget.setCurrentIndex(2)
+        self.buttonClicked()
 
     def event_button_clicked(self):
         self.stackedWidget.setCurrentIndex(2)
@@ -581,9 +655,14 @@ class PICK_TOOL(QMainWindow):
     def buttonClicked(self):
         sender = self.sender()
 
+    def nav_button_clicked(self, toolbar_index):
+        stackedWidget.setCurrentIndex(toolbar_index)
+        buttonClicked()
+
+
     def _createToolBar(self):
-        tools = QToolBar()
-        self.addToolBar(tools)
+        navigation = QToolBar()
+        self.addToolBar(navigation)
 
         # SPACERS WIDGETS FOR CENTERING TOOLBAR
         left_spacer = QWidget()
@@ -592,30 +671,30 @@ class PICK_TOOL(QMainWindow):
         left_spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         right_spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-        tools.addWidget(left_spacer)
-        tools.addAction('Home', self.home_button_clicked)
-        tools.addAction('Team', self.team_button_clicked)
-        tools.addAction('Event', self.event_button_clicked)
-        tools.addAction('Directory', self.directory_button_clicked)
-        tools.addAction('Vector', self.vector_button_clicked)
-        tools.addAction('Log File', self.log_file_button_clicked)
-        tools.addAction('Filter', self.filter_button_clicked)
-        tools.addAction('Log Entry', self.log_entry_button_clicked)
-        tools.addAction('Export', self.export_button_clicked)
-        tools.addAction('Change', self.change_button_clicked)
-        tools.addAction('Vector DB', self.vector_db_button_clicked)
-        tools.addAction('Icon', self.icon_button_clicked)
-        tools.addAction('Graph Builder', self.graph_builder_button_clicked)
-        tools.addAction('Nodes Table', self.nodes_table_button_clicked)
-        tools.addAction('Nodes Graph', self.nodes_graph_button_clicked)
-        tools.addAction('Relationships', self.relationships_button_clicked)
-        tools.addWidget(right_spacer)
+        navigation.addWidget(left_spacer)
+        #navigation.addAction('Home', self.home_button_clicked)
+        navigation.addAction('Team', self.team_button_clicked)
+        navigation.addAction('Event', self.event_button_clicked)
+        navigation.addAction('Directory', self.directory_button_clicked)
+        navigation.addAction('Vector', self.vector_button_clicked)
+        navigation.addAction('Log File', self.log_file_button_clicked)
+        navigation.addAction('Filter', self.filter_button_clicked)
+        navigation.addAction('Log Entry', self.log_entry_button_clicked)
+        navigation.addAction('Export', self.export_button_clicked)
+        navigation.addAction('Change', self.change_button_clicked)
+        navigation.addAction('Vector DB', self.vector_db_button_clicked)
+        navigation.addAction('Icon', self.icon_button_clicked)
+        navigation.addAction('Graph Builder', self.graph_builder_button_clicked)
+        navigation.addAction('Nodes Table', self.nodes_table_button_clicked)
+        navigation.addAction('Nodes Graph', self.nodes_graph_button_clicked)
+        navigation.addAction('Relationships', self.relationships_button_clicked)
+        navigation.addWidget(right_spacer)
 
     def _createStatusBar(self):        
         status = QStatusBar()
         left_spacer = QWidget()
         left_spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        message = QLabel('<strong>A Team404: Good Times, Inc. Production</strong><br>')
+        message = QLabel('<strong><center>PICK Tool, Version 0.4.0.<br><br>A Team404: Good Times, Inc. Production</center></strong>')
 
         status.addWidget(left_spacer)
         status.addWidget(message)
