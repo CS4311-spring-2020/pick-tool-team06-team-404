@@ -2,11 +2,15 @@
 
 ## What's New
 
+### Version 0.3.1 (09 March 2020)
+
+* Added initial SDD
+
+## Version History
+
 ### Version 0.3.0 (05 March 2020)
 
 * Added Splunk Tests
-
-## Version History
 
 ### Version 0.2.0 (04 March 2020)
 
