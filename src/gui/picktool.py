@@ -410,16 +410,21 @@ class PICK_TOOL(QMainWindow):
     def change_page(self, change_page_widget): 
         # makes change config page widget
         page_layout = QGridLayout()
-        page_header = QLabel('<h1><strong>Change List:</strong></h1>')
+        page_header = QLabel('<h1><strong>Change List</strong></h1>')
 
         undo_button = QPushButton()
         undo_button.setText('Undo')
         commit_button = QPushButton()
         commit_button.setText('Commit')
 
-        page_layout.addWidget(page_header)
-        page_layout.addWidget(undo_button)
-        page_layout.addWidget(commit_button)
+        spacer = QWidget()
+        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        page_layout.addWidget(page_header,0,0)
+        for i in range (0, 5):
+            page_layout.addWidget(spacer, 1, i)
+        page_layout.addWidget(undo_button,2,0)
+        page_layout.addWidget(commit_button,3,0)
 
         change_page_widget.setLayout(page_layout)
 
@@ -578,10 +583,10 @@ class PICK_TOOL(QMainWindow):
         page_layout.addWidget(nodes_graphical_interval_units_label,2,1)
         page_layout.addWidget(nodes_graphical_interval_units_dropdown,2,2)
         page_layout.addWidget(nodes_graphical_timeline,3,1)
-        page_layout.addWidget(nodes_graphical_zoom_in_button,4,1)
-        page_layout.addWidget(nodes_graphical_zoom_out_button,4,2)
         for i in range (0, 5):
-            page_layout.addWidget(spacer, 5, i)
+            page_layout.addWidget(spacer, 4, i)
+        page_layout.addWidget(nodes_graphical_zoom_in_button,5,0)
+        page_layout.addWidget(nodes_graphical_zoom_out_button,6,0)
 
         nodes_graphical_page_widget.setLayout(page_layout)
 
