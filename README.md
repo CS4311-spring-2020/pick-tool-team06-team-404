@@ -2,8 +2,13 @@
 
 ## Overview
 
+<<<<<<< HEAD
 **Date: 26 March 2020**</br>
 **Version: [0.4.0](doc/ReleaseNotes.md)**</br>
+=======
+**Date: 09 March 2020**</br>
+**Version: [0.3.1](doc/ReleaseNotes.md)**</br>
+>>>>>>> transcription-basline-v040
 **Known Errors: [Current Release](doc/KnownErrors.md)**
 
 ![homepage-image](doc/img/readme_image.png)
