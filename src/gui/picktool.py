@@ -146,7 +146,7 @@ class PICK_TOOL(QMainWindow):
     def event_page(self, event_page_widget): 
         page_layout = QGridLayout()
         page_layout.setVerticalSpacing(60)
-        page_header = QLabel('<h1>Event<br>Configuration<\h1>')
+        page_header = QLabel('<h1>Event<br>Configuration</h1>')
 
         event_name = QLabel('<strong>Event Name:</strong>')
         event_name.setWordWrap(True) 
@@ -191,7 +191,7 @@ class PICK_TOOL(QMainWindow):
 
         page_layout = QGridLayout()
         page_layout.setVerticalSpacing(60)
-        page_header = QLabel('<h1>Directory<br>Configuration<\h1>')
+        page_header = QLabel('<h1>Directory<br>Configuration</h1>')
         page_header.setWordWrap(True) 
 
         root_dir = QLabel('<strong>Root Directory</strong>')
@@ -248,7 +248,7 @@ class PICK_TOOL(QMainWindow):
 
         # SYSTEM BUILDS 'VECTOR CONFIGURATION' PAGE GUI
         page_layout = QGridLayout()
-        page_header = QLabel('<h1>Vector<br>Configuration<\h1>')
+        page_header = QLabel('<h1>Vector<br>Configuration</h1>')
 
         vector_table = QTableWidget()
         vector_table.setRowCount(34)
@@ -277,7 +277,7 @@ class PICK_TOOL(QMainWindow):
         '''Creates Log File Configuration Page Widget'''
 
         page_layout = QGridLayout()
-        page_header = QLabel('<h1>Log File<br>Configuration<\h1>')
+        page_header = QLabel('<h1>Log File<br>Configuration</h1>')
 
         #TODO: ABSTRACT THE TABLE CREATION
         log_file_table = QTableWidget()
@@ -315,7 +315,7 @@ class PICK_TOOL(QMainWindow):
 
         page_layout = QGridLayout()
         # page_layout.setVerticalSpacing(30)
-        page_header = QLabel('<h1>Filter<br>Configuration<\h1>')
+        page_header = QLabel('<h1>Filter<br>Configuration</h1>')
 
         keyword_search = QLabel('<strong>Keyword Search:</strong>')
         keyword_search_textbox = QLineEdit()
@@ -368,7 +368,7 @@ class PICK_TOOL(QMainWindow):
     # 'LOG ENTRY' PAGE GUI
     def log_entry_page(self, log_entry_page_widget):
         page_layout = QGridLayout()
-        page_header = QLabel('<h1>Log Entry<br>Configuration<\h1>')
+        page_header = QLabel('<h1>Log Entry<br>Configuration</h1>')
 
         log_entry_table_header = QLabel('<h3><center>Log Entry Table</center></h3>')
 
@@ -395,7 +395,7 @@ class PICK_TOOL(QMainWindow):
         # makes export config page widget
         page_layout = QGridLayout()
         page_layout.setVerticalSpacing(100)
-        page_header = QLabel('<h1>Export<br>Configuration<\h1>')
+        page_header = QLabel('<h1>Export<br>Configuration</h1>')
         export_menu_label = QLabel('<strong>Export As:</strong>')
 
         export_dropdown_menu = QComboBox()
@@ -446,7 +446,7 @@ class PICK_TOOL(QMainWindow):
     def vector_db_page(self, vector_db_page_widget):        
         # make vector db config page widget
         page_layout = QGridLayout()
-        page_header = QLabel('<h1>Vector DB<br>Configuration<\h1>')
+        page_header = QLabel('<h1>Vector DB<br>Configuration</h1>')
         connection_status = QLabel('<strong><center><br>Connection Status<br>To Lead:<br></center></strong>')
         connection_status.setWordWrap(True)
 
@@ -484,7 +484,7 @@ class PICK_TOOL(QMainWindow):
     def icon_page(self, icon_page_widget):
         # makes icon config page
         page_layout = QGridLayout()
-        page_header = QLabel('<h1>Icon<br>Configuration<\h1>')
+        page_header = QLabel('<h1>Icon<br>Configuration</h1>')
 
         icon_table = QTableWidget()
         icon_table.setRowCount(34)
@@ -549,22 +549,23 @@ class PICK_TOOL(QMainWindow):
         page_layout.addWidget(edit_node_button, 5, 3)
         page_layout.addWidget(edit_relationship_button, 6, 3)
 
-
-
         graph_builder_page_widget.setLayout(page_layout)
 
 
     def nodes_tabular_page(self, nodes_tabular_page_widget):        
         # makes nodes config table page widget
         page_layout = QGridLayout()
-        page_header = QLabel('<h1>Nodes<br>Configuration<\h1><h2>In Tabular Format<\h2>')
-        page_header.setWordWrap(True) 
+        page_header = QLabel('<h1>Nodes<br>Configuration</h1><h2>In Tabular Format</h2>')
+        page_header.setWordWrap(True)
 
         node_table = QTableWidget()
         node_table.setRowCount(34)
         node_table.setColumnCount(11)
-        node_table.setHorizontalHeaderLabels(['Node Property Visibility', 'Node ID', 'Node Name', 'Node Timestamp',
-                                                       'Node Description', 'Log Entry Reference', 'Log Creator', 'Event Type', 'Icon Type', 'Source', 'Node Visibility'])
+        node_table.setHorizontalHeaderLabels(['Node Property Visibility', 'Node ID',
+                                              'Node Name', 'Node Timestamp',
+                                              'Node Description', 'Log Entry Reference',
+                                              'Log Creator', 'Event Type', 'Icon Type',
+                                              'Source', 'Node Visibility'])
         node_table.resizeColumnsToContents()
         node_table_header = QLabel('<h3><center>Node Table</center></h3>')
 
@@ -579,7 +580,7 @@ class PICK_TOOL(QMainWindow):
         # makes nodes config graph page widget
         page_layout = QGridLayout()
         # page_layout.setVerticalSpacing(60)
-        page_header = page_header = QLabel('<h1>Nodes<br>Configuration<\h1><h2>In Graphical Format<\h2>')
+        page_header = page_header = QLabel('<h1>Nodes<br>Configuration</h1><h2>In Graphical Format</h2>')
         page_header.setWordWrap(True)
 
         nodes_graphical_timeline_orientation_label = QLabel('<strong>Timeline Orientation</strong>')
@@ -617,7 +618,7 @@ class PICK_TOOL(QMainWindow):
     def relationship_page(self, relationship_page_widget):
         # makes relationships config page widget
         page_layout = QGridLayout()
-        page_header = QLabel('<h1>Relationship<br>Configuration<\h1>')
+        page_header = QLabel('<h1>Relationship<br>Configuration</h1>')
 
         relationship_table = QTableWidget()
         num_columns = 5
@@ -625,15 +626,16 @@ class PICK_TOOL(QMainWindow):
         relationship_table.setRowCount(num_rows)
         relationship_table.setColumnCount(num_columns)
         relationship_table_header = QLabel('<h3><center>Relationship Table</center></h3>')
-        relationship_table.setHorizontalHeaderLabels(['', 'Relationship ID', 'Parent', 'Child', 'Label'])
+        relationship_table.setHorizontalHeaderLabels(['', 'Relationship ID', 'Parent',
+                                                      'Child', 'Label'])
         for column in range(num_columns):
             for row in range(num_rows):
-                item = QTableWidgetItem()
+                checkbox = QTableWidgetItem()
                 if column == 0:
-                    item.setFlags(QtCore.Qt.ItemIsUserCheckable |
-                                  QtCore.Qt.ItemIsEnabled)
-                    item.setCheckState(QtCore.Qt.Unchecked)
-                relationship_table.setItem(row, column, item)
+                    checkbox.setFlags(QtCore.Qt.ItemIsUserCheckable |
+                                      QtCore.Qt.ItemIsEnabled)
+                    checkbox.setCheckState(QtCore.Qt.Unchecked)
+                relationship_table.setItem(row, column, checkbox)
                 if column == 1:
                     # CREATE DROP-DOWN LABELS
                     pass
@@ -646,8 +648,6 @@ class PICK_TOOL(QMainWindow):
                 if column == 4:
                     # CREATE IMAGES
                     pass
-    
-
 
         relationship_table.resizeColumnsToContents()
 
@@ -659,7 +659,7 @@ class PICK_TOOL(QMainWindow):
 
 
     # IN-PAGE BUTTONS
-    def home_connect_button_clicked(self):        
+    def home_connect_button_clicked(self):    
         self.stackedWidget.setCurrentIndex(1)
         self.buttonClicked()
         self._createToolBar()
@@ -734,7 +734,6 @@ class PICK_TOOL(QMainWindow):
 
     def nav_button_clicked(self, toolbar_index):
         stackedWidget.setCurrentIndex(toolbar_index)
-        
         buttonClicked()
 
 
