@@ -290,7 +290,6 @@ class PICK_TOOL(QMainWindow):
 
     # 'LOG FILE' PAGE GUI
     def log_file_page(self, log_file_page_widget):
-
         '''Creates Log File Configuration Page Widget'''
 
         page_layout = QGridLayout()
@@ -303,9 +302,11 @@ class PICK_TOOL(QMainWindow):
         log_file_table.setHorizontalHeaderLabels(['File Name', 'Source', 'Cleansing Status', 'Validation Status', 'Ingestion Status', 'View Enforcement Action Report'])
         log_file_table.resizeColumnsToContents()
 
+        num_columns = 34
+        num_rows = 4
         action_report_table = QTableWidget()
-        action_report_table.setRowCount(34)
-        action_report_table.setColumnCount(4)
+        action_report_table.setRowCount(num_columns)
+        action_report_table.setColumnCount(num_rows)
         action_report_table.setHorizontalHeaderLabels(['File Name', 'Log File Name', 'Line Number', 'Error Message'])
         action_report_table.resizeColumnsToContents()
 
@@ -459,6 +460,9 @@ class PICK_TOOL(QMainWindow):
         page_layout = QGridLayout()
         page_header = QLabel('<h1><strong>Change<br>Configuration</strong></h1>')
 
+        change_list = QLabel('<h3><center>Change List</center></h3>')
+        change_list_text_box = QLineEdit()
+
         undo_button = QPushButton()
         undo_button.setText('Undo')
         commit_button = QPushButton()
@@ -470,8 +474,12 @@ class PICK_TOOL(QMainWindow):
         page_layout.addWidget(page_header, 0, 0)
         for i in range(0, 5):
             page_layout.addWidget(spacer, 1, i)
-        page_layout.addWidget(undo_button, 2, 0)
-        page_layout.addWidget(commit_button, 3, 0)
+        page_layout.addWidget(change_list, 2, 2)
+        page_layout.addWidget(change_list_text_box, 3, 2)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 4, i)
+        page_layout.addWidget(undo_button, 5, 0)
+        page_layout.addWidget(commit_button, 6, 0)
 
         change_page_widget.setLayout(page_layout)
 
