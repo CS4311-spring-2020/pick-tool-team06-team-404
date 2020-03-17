@@ -250,11 +250,28 @@ class PICK_TOOL(QMainWindow):
         page_layout = QGridLayout()
         page_header = QLabel('<h1>Vector<br>Configuration</h1>')
 
+        num_columns = 3
+        num_rows = 34
         vector_table = QTableWidget()
-        vector_table.setRowCount(34)
-        vector_table.setColumnCount(2)
-        vector_table.setHorizontalHeaderLabels(['Vector Name', 'Vector Description'])
+        vector_table.setRowCount(num_rows)
+        vector_table.setColumnCount(num_columns)
+        vector_table.setHorizontalHeaderLabels(['','Vector Name', 'Vector Description'])
         vector_table.resizeColumnsToContents()
+        for column in range(num_columns):
+            for row in range(num_rows):
+                checkbox = QTableWidgetItem()
+                if column == 0:
+                    checkbox.setFlags(QtCore.Qt.ItemIsUserCheckable |
+                                        QtCore.Qt.ItemIsEnabled)
+                    checkbox.setCheckState(QtCore.Qt.Unchecked)
+                vector_table.setItem(row, column, checkbox)
+                if column == 1:
+                    # TODO CREATE TEXT FIELD VECTOR
+                    pass
+                if column == 2:
+
+                    # TODO CREATE TEXT FIELD VECTOR DESCRIPTION
+                    pass
 
         vector_configuration_table_header = QLabel('<h3><center>Vector Table</center></h3>')
 
@@ -314,7 +331,6 @@ class PICK_TOOL(QMainWindow):
         '''Creates Filter Configuration Page Widget'''
 
         page_layout = QGridLayout()
-        # page_layout.setVerticalSpacing(30)
         page_header = QLabel('<h1>Filter<br>Configuration</h1>')
 
         keyword_search = QLabel('<strong>Keyword Search:</strong>')
@@ -367,22 +383,39 @@ class PICK_TOOL(QMainWindow):
 
     # 'LOG ENTRY' PAGE GUI
     def log_entry_page(self, log_entry_page_widget):
+        '''Creates Log Entry Configuration Page Widget'''
         page_layout = QGridLayout()
         page_header = QLabel('<h1>Log Entry<br>Configuration</h1>')
 
         log_entry_table_header = QLabel('<h3><center>Log Entry Table</center></h3>')
 
+        num_rows = 34
+        num_columns = 5
         log_entry_table = QTableWidget()
-        rows = 34
-        log_entry_table.setRowCount(rows)
-        log_entry_table.setColumnCount(5)
-
-        #FIXME: SET CHECKBOXES IN THE LOG ENTRY TABLE
+        log_entry_table.setRowCount(num_rows)
+        log_entry_table.setColumnCount(num_columns)
         log_entry_table.setHorizontalHeaderLabels(['', 'List Number', 'Log Entry Timestamp', 'Log Entry Event', 'Vector'])
-        for i in range(rows):
-            log_entry_table.setCellWidget(0, rows, QCheckBox())
-
         log_entry_table.resizeColumnsToContents()
+        for column in range(num_columns):
+            for row in range(num_rows):
+                checkbox = QTableWidgetItem()
+                if column == 0:
+                    checkbox.setFlags(QtCore.Qt.ItemIsUserCheckable |
+                                        QtCore.Qt.ItemIsEnabled)
+                    checkbox.setCheckState(QtCore.Qt.Unchecked)
+                    log_entry_table.setItem(row, column, checkbox)
+                if column == 1:
+                    # CREATE TEXT FIELD OF LIST NUMBER
+                    pass
+                if column == 2:
+                    # CREATE TEXT FIELD OF TIME STAMPS
+                    pass
+                if column == 3:
+                    # CREATE TEXT FIELD OF LOG ENTRY EVENT
+                    pass
+                if column == 4:
+                    # CREATE TEXT FIELD OF VECTOR
+                    pass
 
         page_layout.addWidget(page_header, 0, 0)
         page_layout.addWidget(log_entry_table_header, 1, 1)
@@ -390,9 +423,9 @@ class PICK_TOOL(QMainWindow):
 
         log_entry_page_widget.setLayout(page_layout)
 
-
+    # 'EXPORT PAGE' GUI
     def export_page(self, export_page_widget):
-        # makes export config page widget
+        '''Creates Export Page Widget'''
         page_layout = QGridLayout()
         page_layout.setVerticalSpacing(100)
         page_header = QLabel('<h1>Export<br>Configuration</h1>')
@@ -420,9 +453,9 @@ class PICK_TOOL(QMainWindow):
 
         export_page_widget.setLayout(page_layout)
 
-
-    def change_page(self, change_page_widget): 
-        # makes change config page widget
+    # 'CHANGE PAGE' GUI
+    def change_page(self, change_page_widget):
+        '''Creates Change Configuration Page Widget'''
         page_layout = QGridLayout()
         page_header = QLabel('<h1><strong>Change<br>Configuration</strong></h1>')
 
@@ -442,9 +475,9 @@ class PICK_TOOL(QMainWindow):
 
         change_page_widget.setLayout(page_layout)
 
-
-    def vector_db_page(self, vector_db_page_widget):        
-        # make vector db config page widget
+    # 'VECTOR DB PAGE' GUI
+    def vector_db_page(self, vector_db_page_widget):
+        '''Creates Vector DB Configuration Page Widget'''
         page_layout = QGridLayout()
         page_header = QLabel('<h1>Vector DB<br>Configuration</h1>')
         connection_status = QLabel('<strong><center><br>Connection Status<br>To Lead:<br></center></strong>')
@@ -455,15 +488,55 @@ class PICK_TOOL(QMainWindow):
         pulled_table_header = QLabel('<h3><center>Pulled Vector DB Table (Analyst)</center></h3>')
         pushed_table_header = QLabel('<h3><center><br>Pushed Vector DB Table (Analyst)</center></h3>')
 
+        num_rows = 34
+        num_columns = 4
         pulled_table = QTableWidget()
-        pulled_table.setRowCount(34)
-        pulled_table.setColumnCount(1)
+        pulled_table.setRowCount(num_rows)
+        pulled_table.setColumnCount(num_columns)
+        pulled_table.setHorizontalHeaderLabels(['', 'Vector', 'Description', 'Graph'])
         pulled_table.resizeColumnsToContents()
 
+        for column in range(num_columns):
+            for row in range(num_rows):
+                checkbox = QTableWidgetItem()
+                if column == 0:
+                    checkbox.setFlags(QtCore.Qt.ItemIsUserCheckable |
+                                        QtCore.Qt.ItemIsEnabled)
+                    checkbox.setCheckState(QtCore.Qt.Unchecked)
+                    pulled_table.setItem(row, column, checkbox)
+                if column == 1:
+                    # CREATE TEXT FIELDS VECTOR NAME
+                    pass
+                if column == 2:
+                    # CREATE TEXT FIELDS VECTOR DESCRIPTION
+                    pass
+                if column == 3:
+                    # CREATE GRAPHS
+                    pass
+
         pushed_table = QTableWidget()
-        pushed_table.setRowCount(34)
-        pushed_table.setColumnCount(1)
+        pushed_table.setRowCount(num_rows)
+        pushed_table.setColumnCount(num_columns)
+        pushed_table.setHorizontalHeaderLabels(['', 'Vector', 'Description', 'Graph'])
         pushed_table.resizeColumnsToContents()
+
+        for column in range(num_columns):
+            for row in range(num_rows):
+                checkbox = QTableWidgetItem()
+                if column == 0:
+                    checkbox.setFlags(QtCore.Qt.ItemIsUserCheckable |
+                                        QtCore.Qt.ItemIsEnabled)
+                    checkbox.setCheckState(QtCore.Qt.Unchecked)
+                    pushed_table.setItem(row, column, checkbox)
+                if column == 1:
+                    # CREATE TEXT FIELDS VECTOR NAME
+                    pass
+                if column == 2:
+                    # CREATE TEXT FIELDS VECTOR DESCRIPTION
+                    pass
+                if column == 3:
+                    # CREATE GRAPHS
+                    pass
 
         pull_button = QPushButton('Pull')
         push_button = QPushButton('Push')
@@ -480,18 +553,38 @@ class PICK_TOOL(QMainWindow):
 
         vector_db_page_widget.setLayout(page_layout)
 
-
+    # 'ICON PAGE' GUI
     def icon_page(self, icon_page_widget):
-        # makes icon config page
+        '''Creates Icon Configuration Page Widget'''
         page_layout = QGridLayout()
         page_header = QLabel('<h1>Icon<br>Configuration</h1>')
-
-        icon_table = QTableWidget()
-        icon_table.setRowCount(34)
-        icon_table.setColumnCount(4)
-        icon_table.setHorizontalHeaderLabels(['Select', 'Icon Name', 'Icon Source', 'Image Preview'])
-        icon_table.resizeColumnsToContents()
         icon_table_header = QLabel('<h3><center>Icon Table (Analyst)</center></h3>')
+
+        # CREATES ICON TABLE
+        num_rows = 34
+        num_columns = 4
+        icon_table = QTableWidget()
+        icon_table.setRowCount(num_rows)
+        icon_table.setColumnCount(num_columns)
+        icon_table.setHorizontalHeaderLabels(['', 'Icon Name', 'Icon Source', 'Image Preview'])
+        icon_table.resizeColumnsToContents()
+        for column in range(num_columns):
+            for row in range(num_rows):
+                checkbox = QTableWidgetItem()
+                if column == 0:
+                    checkbox.setFlags(QtCore.Qt.ItemIsUserCheckable |
+                                        QtCore.Qt.ItemIsEnabled)
+                    checkbox.setCheckState(QtCore.Qt.Unchecked)
+                    icon_table.setItem(row, column, checkbox)
+                if column == 1:
+                    # CREATE TEXT FIELDS ICON NAME
+                    pass
+                if column == 2:
+                    # CREATE TEXT FIELDS ICON SOURCE
+                    pass
+                if column == 3:
+                    # CREATE IMAGES
+                    pass
 
         add_button = QPushButton()
         add_button.setText('Add Icon')
@@ -509,11 +602,10 @@ class PICK_TOOL(QMainWindow):
 
         icon_page_widget.setLayout(page_layout)
 
-
+    # 'GRAPH BUILDER' GUI
     def graph_builder_page(self, graph_builder_page_widget):
-        # makes Graph builder Config page widget
+        '''Creates Graph Builder Configuration Page Widget'''
         page_layout = QGridLayout()       
-        # page_layout.setVerticalSpacing(100)
         page_header = QLabel('<h1>Graph Builder<br>Configuration</h1>')
         vector_label = QLabel('<strong>Vector:</strong>')
 
@@ -551,22 +643,42 @@ class PICK_TOOL(QMainWindow):
 
         graph_builder_page_widget.setLayout(page_layout)
 
-
+    # 'NODES TABLE' GUI
     def nodes_tabular_page(self, nodes_tabular_page_widget):        
-        # makes nodes config table page widget
+        '''Creates Nodes Configuration Table Page Widget'''
         page_layout = QGridLayout()
         page_header = QLabel('<h1>Nodes<br>Configuration</h1><h2>In Tabular Format</h2>')
         page_header.setWordWrap(True)
 
+        num_rows = 34
+        num_columns = 12
         node_table = QTableWidget()
-        node_table.setRowCount(34)
-        node_table.setColumnCount(11)
-        node_table.setHorizontalHeaderLabels(['Node Property Visibility', 'Node ID',
+        node_table.setRowCount(num_rows)
+        node_table.setColumnCount(num_columns)
+        node_table.setHorizontalHeaderLabels(['', 'Node Property Visibility', 'Node ID',
                                               'Node Name', 'Node Timestamp',
                                               'Node Description', 'Log Entry Reference',
                                               'Log Creator', 'Event Type', 'Icon Type',
                                               'Source', 'Node Visibility'])
         node_table.resizeColumnsToContents()
+        for column in range(num_columns):
+            for row in range(num_rows):
+                checkbox = QTableWidgetItem()
+                if column == 0:
+                    checkbox.setFlags(QtCore.Qt.ItemIsUserCheckable |
+                                        QtCore.Qt.ItemIsEnabled)
+                    checkbox.setCheckState(QtCore.Qt.Unchecked)
+                    node_table.setItem(row, column, checkbox)
+                if column == 1:
+                    # CREATE TEXT FIELDS ICON NAME
+                    pass
+                if column == 2:
+                    # CREATE TEXT FIELDS ICON SOURCE
+                    pass
+                if column == 3:
+                    # CREATE IMAGES
+                    pass
+
         node_table_header = QLabel('<h3><center>Node Table</center></h3>')
 
         page_layout.addWidget(page_header, 0, 0)
@@ -576,10 +688,10 @@ class PICK_TOOL(QMainWindow):
         nodes_tabular_page_widget.setLayout(page_layout)
 
 
+    # 'NODES GRAPH' GUI
     def nodes_graphical_page(self, nodes_graphical_page_widget):        
-        # makes nodes config graph page widget
+        '''Creates Nodes Configuration Graph Page Widget'''
         page_layout = QGridLayout()
-        # page_layout.setVerticalSpacing(60)
         page_header = page_header = QLabel('<h1>Nodes<br>Configuration</h1><h2>In Graphical Format</h2>')
         page_header.setWordWrap(True)
 
@@ -615,14 +727,15 @@ class PICK_TOOL(QMainWindow):
         nodes_graphical_page_widget.setLayout(page_layout)
 
 
+    # 'RELATIONSHIP' GUI
     def relationship_page(self, relationship_page_widget):
-        # makes relationships config page widget
+        '''Creates Relationship Configuration Graph Page Widget'''
         page_layout = QGridLayout()
         page_header = QLabel('<h1>Relationship<br>Configuration</h1>')
 
-        relationship_table = QTableWidget()
         num_columns = 5
         num_rows = 34
+        relationship_table = QTableWidget()
         relationship_table.setRowCount(num_rows)
         relationship_table.setColumnCount(num_columns)
         relationship_table_header = QLabel('<h3><center>Relationship Table</center></h3>')
