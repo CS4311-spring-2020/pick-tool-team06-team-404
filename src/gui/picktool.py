@@ -153,7 +153,7 @@ class PICK_TOOL(QMainWindow):
 
         event_name_textbox = QLineEdit()
 
-        event_description = QLabel('<strong>Event description:</strong>')
+        event_description = QLabel('<strong>Event Description:</strong>')
         event_description_textbox = QLineEdit()
 
         start_timestamp = QLabel('<strong>Event Start Timestamp:</strong>')
@@ -201,21 +201,21 @@ class PICK_TOOL(QMainWindow):
 
         # root_dir_search = TKinter()
 
-        red_folder = QLabel('<strong>Red Folder</strong>')
+        red_folder = QLabel('<strong>Red Team Folder</strong>')
         red_folder_text_box = QLineEdit()
 
         ### TODO: ADD TKINTER SUPPORT FOR DIRECRTORY-SEARCH SUPPORT ###
 
         # red_folder_search = TKinter()
 
-        blue_folder = QLabel('<strong>Blue Folder</strong>')
+        blue_folder = QLabel('<strong>Blue Team Folder</strong>')
         blue_folder_text_box = QLineEdit()
 
         ### TODO: ADD TKINTER SUPPORT FOR DIRECRTORY-SEARCH SUPPORT ###
 
         # blue_folder_search = TKinter()
 
-        white_folder = QLabel('<strong>White Folder</strong>')
+        white_folder = QLabel('<strong>White Team Folder</strong>')
         white_folder_text_box = QLineEdit()
 
         ### TODO: ADD TKINTER SUPPORT FOR DIRECRTORY-SEARCH SUPPORT ###
@@ -300,7 +300,7 @@ class PICK_TOOL(QMainWindow):
         log_file_table = QTableWidget()
         log_file_table.setRowCount(34)
         log_file_table.setColumnCount(6)
-        log_file_table.setHorizontalHeaderLabels(['File Name', 'Source', 'Cleansing Status', 'Validation Status', 'Ingestion Status', 'View EA Report'])
+        log_file_table.setHorizontalHeaderLabels(['File Name', 'Source', 'Cleansing Status', 'Validation Status', 'Ingestion Status', 'View Enforcement Action Report'])
         log_file_table.resizeColumnsToContents()
 
         action_report_table = QTableWidget()
@@ -429,12 +429,12 @@ class PICK_TOOL(QMainWindow):
         page_layout = QGridLayout()
         page_layout.setVerticalSpacing(100)
         page_header = QLabel('<h1>Export<br>Configuration</h1>')
-        export_menu_label = QLabel('<strong>Export As:</strong>')
+        export_menu_label = QLabel('<strong>Export Format:</strong>')
 
         export_dropdown_menu = QComboBox()
         export_dropdown_menu.addItem('PDF')
-        export_dropdown_menu.addItem('GIF')
-        export_dropdown_menu.addItem('ABC')
+        export_dropdown_menu.addItem('PNG')
+        export_dropdown_menu.addItem('JPEG')
 
         export_export_button = QPushButton()
         export_export_button.setText('Export')
@@ -577,13 +577,13 @@ class PICK_TOOL(QMainWindow):
                     checkbox.setCheckState(QtCore.Qt.Unchecked)
                     icon_table.setItem(row, column, checkbox)
                 if column == 1:
-                    # CREATE TEXT FIELDS ICON NAME
+                    # print("Icon Name Text Field Goes Here")
                     pass
                 if column == 2:
-                    # CREATE TEXT FIELDS ICON SOURCE
+                    # print("Icon Source Field Goes Here")
                     pass
                 if column == 3:
-                    # CREATE IMAGES
+                    # print("Images go here")
                     pass
 
         add_button = QPushButton()
