@@ -15,16 +15,11 @@ NOTES:
 
 import sys
 import PyQt5
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-
-# View
-
-# QStackedWidget
-# Trigger.Connect()
-# Clicked.Connet()
+from tkinter import *
 
 
 class PICK_TOOL(QMainWindow):
@@ -71,19 +66,23 @@ class PICK_TOOL(QMainWindow):
         self.nodes_graphical_page(config_dict['nodes_graphical'])
         self.relationship_page(config_dict['relationship'])
 
-        # INITALIZE THE MAIN WINDOW
-        self.setFixedSize(1600, 1000)
+        # INITALIZE WINDOW
+        title_bar = self.style().pixelMetric(QStyle.PM_TitleBarHeight,
+                                             QStyleOptionTitleBar(), self)
+        screen_resolution = app.desktop().availableGeometry()
+        screen_resolution.setHeight(screen_resolution.height() - (title_bar*2))
+
+        self.setGeometry(screen_resolution)
+        self.setWindowIcon(QtGui.QIcon('src/gui/pick-image.ico'))
+        self.setWindowTitle('PICK Tool - Team404: Good Times, Inc.')
         self.center()
-        self.setWindowTitle('PICK System')
         self.setCentralWidget(self.stackedWidget)
-        #self._createToolBar()
         self._createStatusBar()
         self.show()
 
     # 'HOME' PAGE
     def home_page(self, home_page_widget):
         page_layout = QGridLayout()
-        
         # Team404 Logo
         team_logo = QLabel()
         image = QPixmap('src/gui/team_404_logo.PNG')
@@ -93,10 +92,10 @@ class PICK_TOOL(QMainWindow):
 
         # Page Heading
         page_header = QLabel('<center><h1>Prevent Mitigate Recover (PMR) Insight Collective Knowledge System<br><br>PICK Tool</h1><br><h2>Government Warning Notice</h2> This is a U.S. Government computer system, which may be accessed and used only for authorized Government business by authorized personnel. Unauthorized access or use of this computer system may subject violators to criminal, civil, and/or administrative action. All information on this computer system may be intercepted, recorded, read, copied, and disclosed by and to authorized personnel for official purposes, including criminal investigations. Such information includes sensitive data encrypted to comply with confidentiality and privacy requirements. Access or use of this computer system by any person, whether authorized or unauthorized, constitutes consent to these terms. There is no right of privacy in this system.</center>')
-        page_header.setWordWrap(True) 
+        page_header.setWordWrap(True)
 
         # Connect Button
-        connect_button = QPushButton('Connect')
+        connect_button = QPushButton('Accept and Continue')
         connect_button.clicked.connect(self.home_connect_button_clicked)
 
         # Compile Page Widgets
@@ -115,9 +114,9 @@ class PICK_TOOL(QMainWindow):
         lead_ip_address = QLabel('<strong>Lead IP Address:</strong>')
 
         # 255.255.255.255 is an example, this needs to be changed later
-        ip_address = QLineEdit('255.255.255.255')
+        ip_address = QLineEdit('')
         established_connections = QLabel('<strong>No. of Established Connections to the lead\'s IP address:</strong>')
-        established_connections.setWordWrap(True) 
+        established_connections.setWordWrap(True)
 
         # 4 is an example, this needs to be changed later
         connections_value = QLabel('4')
@@ -129,17 +128,17 @@ class PICK_TOOL(QMainWindow):
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         page_layout.addWidget(page_header, 0, 0)
-        page_layout.addWidget(lead_ip_address, 1, 1)
-        page_layout.addWidget(ip_address, 1, 3)
-        page_layout.addWidget(established_connections, 2, 1)
-        page_layout.addWidget(connections_value, 2, 3)
-        page_layout.addWidget(lead, 3, 1)
-        page_layout.addWidget(lead_checkbox, 3, 3)
-
-        for i in range (0, 5):
-            page_layout.addWidget(spacer, 4, i)
-
-        page_layout.addWidget(connect_button, 5, 2)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 1, i)
+        page_layout.addWidget(lead_ip_address, 2, 1)
+        page_layout.addWidget(ip_address, 2, 3)
+        page_layout.addWidget(established_connections, 3, 1)
+        page_layout.addWidget(connections_value, 3, 3)
+        page_layout.addWidget(lead, 4, 1)
+        page_layout.addWidget(lead_checkbox, 4, 3)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 5, i)
+        page_layout.addWidget(connect_button, 6, 0)
 
         team_page_widget.setLayout(page_layout)
 
@@ -171,23 +170,25 @@ class PICK_TOOL(QMainWindow):
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         page_layout.addWidget(page_header, 0, 0)
-        page_layout.addWidget(event_name, 1, 1)
-        page_layout.addWidget(event_name_textbox, 1, 3)
-        page_layout.addWidget(event_description, 2, 1)
-        page_layout.addWidget(event_description_textbox, 2, 3)
-        page_layout.addWidget(start_timestamp, 3, 1)
-        page_layout.addWidget(start_timestamp_textbox, 3, 3)
-        page_layout.addWidget(end_timestamp, 4, 1)
-        page_layout.addWidget(end_timestamp_textbox, 4, 3)
-        for i in range (0, 5):
-            page_layout.addWidget(spacer, 5, i)
-        page_layout.addWidget(save_button, 6, 2)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 1, i)
+        page_layout.addWidget(event_name, 2, 1)
+        page_layout.addWidget(event_name_textbox, 2, 3)
+        page_layout.addWidget(event_description, 3, 1)
+        page_layout.addWidget(event_description_textbox, 3, 3)
+        page_layout.addWidget(start_timestamp, 4, 1)
+        page_layout.addWidget(start_timestamp_textbox, 4, 3)
+        page_layout.addWidget(end_timestamp, 5, 1)
+        page_layout.addWidget(end_timestamp_textbox, 5, 3)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 6, i)
+        page_layout.addWidget(save_button, 7, 0)
 
         event_page_widget.setLayout(page_layout)
 
     # 'DIRECTORY CONFIGURATION' PAGE GUI
     def directory_page(self, directory_page_widget):
-        
+
         page_layout = QGridLayout()
         page_layout.setVerticalSpacing(60)
         page_header = QLabel('<h1>Directory<br>Configuration<\h1>')
@@ -202,14 +203,14 @@ class PICK_TOOL(QMainWindow):
 
         red_folder = QLabel('<strong>Red Folder</strong>')
         red_folder_text_box = QLineEdit()
-        
+
         ### TODO: ADD TKINTER SUPPORT FOR DIRECRTORY-SEARCH SUPPORT ###
 
         # red_folder_search = TKinter()
 
         blue_folder = QLabel('<strong>Blue Folder</strong>')
         blue_folder_text_box = QLineEdit()
-        
+
         ### TODO: ADD TKINTER SUPPORT FOR DIRECRTORY-SEARCH SUPPORT ###
 
         # blue_folder_search = TKinter()
@@ -227,22 +228,24 @@ class PICK_TOOL(QMainWindow):
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         page_layout.addWidget(page_header, 0, 0)
-        page_layout.addWidget(root_dir, 1, 1)
-        page_layout.addWidget(root_dir_text_box, 1, 3)
-        page_layout.addWidget(red_folder, 2, 1)
-        page_layout.addWidget(red_folder_text_box, 2, 3)
-        page_layout.addWidget(blue_folder, 3, 1)
-        page_layout.addWidget(blue_folder_text_box, 3, 3)
-        page_layout.addWidget(white_folder, 4, 1)
-        page_layout.addWidget(white_folder_text_box, 4, 3)
-        for i in range (0, 5):
-            page_layout.addWidget(spacer, 5, i)
-        page_layout.addWidget(data_ingestion_button, 6, 2)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 1, i)
+        page_layout.addWidget(root_dir, 2, 1)
+        page_layout.addWidget(root_dir_text_box, 2, 3)
+        page_layout.addWidget(red_folder, 3, 1)
+        page_layout.addWidget(red_folder_text_box, 3, 3)
+        page_layout.addWidget(blue_folder, 4, 1)
+        page_layout.addWidget(blue_folder_text_box, 4, 3)
+        page_layout.addWidget(white_folder, 5, 1)
+        page_layout.addWidget(white_folder_text_box, 5, 3)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 6, i)
+        page_layout.addWidget(data_ingestion_button, 7, 0)
 
         directory_page_widget.setLayout(page_layout)
 
     def vector_page(self, vector_page_widget):
-        
+
         # SYSTEM BUILDS 'VECTOR CONFIGURATION' PAGE GUI
         page_layout = QGridLayout()
         page_header = QLabel('<h1>Vector<br>Configuration<\h1>')
@@ -259,18 +262,18 @@ class PICK_TOOL(QMainWindow):
         delete_button = QPushButton('Delete Vector')
         edit_button = QPushButton('Edit Vector')
 
-        page_layout.addWidget(page_header,0,0)
-        page_layout.addWidget(vector_configuration_table_header,1,1)
-        page_layout.addWidget(vector_table,2,1)
-        page_layout.addWidget(add_button,3,0)
-        page_layout.addWidget(delete_button,4,0)
-        page_layout.addWidget(edit_button,5,0)
+        page_layout.addWidget(page_header, 0, 0)
+        page_layout.addWidget(vector_configuration_table_header, 1, 1)
+        page_layout.addWidget(vector_table, 2, 1)
+        page_layout.addWidget(add_button, 3, 0)
+        page_layout.addWidget(delete_button, 4, 0)
+        page_layout.addWidget(edit_button, 5, 0)
 
         vector_page_widget.setLayout(page_layout)
 
     # 'LOG FILE' PAGE GUI
     def log_file_page(self, log_file_page_widget):
-        
+
         '''Creates Log File Configuration Page Widget'''
 
         page_layout = QGridLayout()
@@ -294,14 +297,14 @@ class PICK_TOOL(QMainWindow):
 
         validate_button = QPushButton('Validate')
         cancel_button = QPushButton('Cancel')
-        
-        page_layout.addWidget(page_header,0,0)
-        page_layout.addWidget(log_file_table_header,1,1)
-        page_layout.addWidget(log_file_table,2,1)
-        page_layout.addWidget(action_report_table_header,3,1)
-        page_layout.addWidget(action_report_table,4,1)
-        page_layout.addWidget(validate_button,5,0)
-        page_layout.addWidget(cancel_button,6,0)
+
+        page_layout.addWidget(page_header, 0, 0)
+        page_layout.addWidget(log_file_table_header, 1, 1)
+        page_layout.addWidget(log_file_table, 2, 1)
+        page_layout.addWidget(action_report_table_header, 3, 1)
+        page_layout.addWidget(action_report_table, 4, 1)
+        page_layout.addWidget(validate_button, 5, 0)
+        page_layout.addWidget(cancel_button, 6, 0)
 
         log_file_page_widget.setLayout(page_layout)
 
@@ -309,9 +312,9 @@ class PICK_TOOL(QMainWindow):
     # 'FILTER' PAGE GUI
     def filter_page(self, filter_page_widget):        
         '''Creates Filter Configuration Page Widget'''
-        
+
         page_layout = QGridLayout()
-        page_layout.setVerticalSpacing(30)
+        # page_layout.setVerticalSpacing(30)
         page_header = QLabel('<h1>Filter<br>Configuration<\h1>')
 
         keyword_search = QLabel('<strong>Keyword Search:</strong>')
@@ -326,7 +329,7 @@ class PICK_TOOL(QMainWindow):
         event_red_checkbox = QCheckBox('Red')
         event_blue_checkbox = QCheckBox('Blue')
         event_white_checkbox = QCheckBox('White')
-        
+
         start_timestamp = QLabel('<strong>Start Timestamp</strong>')
         start_timestamp_textbox = QLineEdit()
         end_timestamp = QLabel('<strong>End Timestamp</strong>')
@@ -338,23 +341,27 @@ class PICK_TOOL(QMainWindow):
         apply_button = QPushButton('Apply Filter')
 
         page_layout.addWidget(page_header, 0, 0)
-        page_layout.addWidget(keyword_search, 1, 1)
-        page_layout.addWidget(keyword_search_textbox, 1, 3)
-        page_layout.addWidget(creator_label, 2, 1)
-        page_layout.addWidget(creator_red_checkbox, 2, 3)
-        page_layout.addWidget(creator_blue_checkbox, 3, 3)
-        page_layout.addWidget(creator_white_checkbox, 4, 3)
-        for i in range (0, 5):
-            page_layout.addWidget(spacer, 5, i)
-        page_layout.addWidget(event_type_label, 6, 1)
-        page_layout.addWidget(event_red_checkbox, 6, 3)
-        page_layout.addWidget(event_blue_checkbox, 7, 3)
-        page_layout.addWidget(event_white_checkbox, 8, 3)
-        page_layout.addWidget(start_timestamp, 9, 1)
-        page_layout.addWidget(start_timestamp_textbox, 9, 3)
-        page_layout.addWidget(end_timestamp, 10,  1)
-        page_layout.addWidget(end_timestamp_textbox, 10, 3)
-        page_layout.addWidget(apply_button, 11, 2)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 1, i)
+        page_layout.addWidget(keyword_search, 2, 1)
+        page_layout.addWidget(keyword_search_textbox, 2, 3)
+        page_layout.addWidget(creator_label, 3, 1)
+        page_layout.addWidget(creator_red_checkbox, 3, 3)
+        page_layout.addWidget(creator_blue_checkbox, 4, 3)
+        page_layout.addWidget(creator_white_checkbox, 5, 3)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 6, i)
+        page_layout.addWidget(event_type_label, 7, 1)
+        page_layout.addWidget(event_red_checkbox, 7, 3)
+        page_layout.addWidget(event_blue_checkbox, 8, 3)
+        page_layout.addWidget(event_white_checkbox, 9, 3)
+        page_layout.addWidget(start_timestamp, 10, 1)
+        page_layout.addWidget(start_timestamp_textbox, 10, 3)
+        page_layout.addWidget(end_timestamp, 11, 1)
+        page_layout.addWidget(end_timestamp_textbox, 11, 3)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 12, i)
+        page_layout.addWidget(apply_button, 13, 0)
 
         filter_page_widget.setLayout(page_layout)
 
@@ -372,14 +379,14 @@ class PICK_TOOL(QMainWindow):
 
         #FIXME: SET CHECKBOXES IN THE LOG ENTRY TABLE
         log_entry_table.setHorizontalHeaderLabels(['', 'List Number', 'Log Entry Timestamp', 'Log Entry Event', 'Vector'])
-        for i in range (rows):
+        for i in range(rows):
             log_entry_table.setCellWidget(0, rows, QCheckBox())
 
         log_entry_table.resizeColumnsToContents()
 
-        page_layout.addWidget(page_header,0,0)
-        page_layout.addWidget(log_entry_table_header,1,1)
-        page_layout.addWidget(log_entry_table,2,1)
+        page_layout.addWidget(page_header, 0, 0)
+        page_layout.addWidget(log_entry_table_header, 1, 1)
+        page_layout.addWidget(log_entry_table, 2, 1)
 
         log_entry_page_widget.setLayout(page_layout)
 
@@ -399,10 +406,17 @@ class PICK_TOOL(QMainWindow):
         export_export_button = QPushButton()
         export_export_button.setText('Export')
 
+        spacer = QWidget()
+        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
         page_layout.addWidget(page_header, 0, 0)
-        page_layout.addWidget(export_menu_label, 1, 0)
-        page_layout.addWidget(export_dropdown_menu, 1, 1)
-        page_layout.addWidget(export_export_button, 2, 0)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 1, i)
+        page_layout.addWidget(export_menu_label, 2, 2)
+        page_layout.addWidget(export_dropdown_menu, 2, 3)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 3, i)
+        page_layout.addWidget(export_export_button, 4, 0)
 
         export_page_widget.setLayout(page_layout)
 
@@ -410,7 +424,7 @@ class PICK_TOOL(QMainWindow):
     def change_page(self, change_page_widget): 
         # makes change config page widget
         page_layout = QGridLayout()
-        page_header = QLabel('<h1><strong>Change List</strong></h1>')
+        page_header = QLabel('<h1><strong>Change<br>Configuration</strong></h1>')
 
         undo_button = QPushButton()
         undo_button.setText('Undo')
@@ -420,11 +434,11 @@ class PICK_TOOL(QMainWindow):
         spacer = QWidget()
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-        page_layout.addWidget(page_header,0,0)
-        for i in range (0, 5):
+        page_layout.addWidget(page_header, 0, 0)
+        for i in range(0, 5):
             page_layout.addWidget(spacer, 1, i)
-        page_layout.addWidget(undo_button,2,0)
-        page_layout.addWidget(commit_button,3,0)
+        page_layout.addWidget(undo_button, 2, 0)
+        page_layout.addWidget(commit_button, 3, 0)
 
         change_page_widget.setLayout(page_layout)
 
@@ -454,16 +468,16 @@ class PICK_TOOL(QMainWindow):
         pull_button = QPushButton('Pull')
         push_button = QPushButton('Push')
 
-        page_layout.addWidget(page_header, 0,0)
-        page_layout.addWidget(pulled_table_header,1,1)
-        page_layout.addWidget(pulled_table,2,1)
-        page_layout.addWidget(pushed_table_header,5,1)
-        page_layout.addWidget(pushed_table,6,1)
-        page_layout.addWidget(connection_status,7,0)
-        page_layout.addWidget(connected_hosts,7,1)
-        page_layout.addWidget(pull_button,8,0)
-        page_layout.addWidget(push_button,9,0)
- 
+        page_layout.addWidget(page_header, 0, 0)
+        page_layout.addWidget(pulled_table_header, 1, 1)
+        page_layout.addWidget(pulled_table, 2, 1)
+        page_layout.addWidget(pushed_table_header, 5, 1)
+        page_layout.addWidget(pushed_table, 6, 1)
+        page_layout.addWidget(connection_status, 7, 0)
+        page_layout.addWidget(connected_hosts, 7, 1)
+        page_layout.addWidget(pull_button, 8, 0)
+        page_layout.addWidget(push_button, 9, 0)
+
         vector_db_page_widget.setLayout(page_layout)
 
 
@@ -486,28 +500,28 @@ class PICK_TOOL(QMainWindow):
         icon_edit_icon_button = QPushButton()
         icon_edit_icon_button.setText('Edit Icon')
 
-        page_layout.addWidget(page_header,0,0)
-        page_layout.addWidget(icon_table_header,1,1)
-        page_layout.addWidget(icon_table,2,1)
-        page_layout.addWidget(add_button,3,0)
-        page_layout.addWidget(icon_delete_icon_button,4,0)
-        page_layout.addWidget(icon_edit_icon_button,5,0)
+        page_layout.addWidget(page_header, 0, 0)
+        page_layout.addWidget(icon_table_header, 1, 1)
+        page_layout.addWidget(icon_table, 2, 1)
+        page_layout.addWidget(add_button, 3, 0)
+        page_layout.addWidget(icon_delete_icon_button, 4, 0)
+        page_layout.addWidget(icon_edit_icon_button, 5, 0)
 
         icon_page_widget.setLayout(page_layout)
 
 
-    def graph_builder_page(self, graph_builder_page_widget):        
+    def graph_builder_page(self, graph_builder_page_widget):
         # makes Graph builder Config page widget
-        page_layout = QGridLayout()        
-        page_layout.setVerticalSpacing(100)
+        page_layout = QGridLayout()       
+        # page_layout.setVerticalSpacing(100)
         page_header = QLabel('<h1>Graph Builder<br>Configuration</h1>')
         vector_label = QLabel('<strong>Vector:</strong>')
 
         vector_dropdown_menu = QComboBox()
-        vector_dropdown_menu.addItem('Sample Vector 1')
-        vector_dropdown_menu.addItem('Sample Vector 2')
+        vector_dropdown_menu.addItem('Select Vector')
+        vector_dropdown_menu.addItem('Select Vector 2')
         description_label = QLabel('<strong>Description:</strong>')
-        graph_builder_description_label = QLineEdit('Example Description')
+        graph_builder_description_label = QLineEdit('')
 
         add_node_button = QPushButton('Add Node')
         add_relationship_button = QPushButton('Add Relationship')
@@ -516,19 +530,26 @@ class PICK_TOOL(QMainWindow):
         edit_node_button = QPushButton('Edit Node')
         edit_relationship_button = QPushButton('Edit Relationship')
 
-        page_layout.addWidget(page_header,0,0)
-        page_layout.addWidget(vector_label,1,1)
-        page_layout.addWidget(vector_dropdown_menu,1,2)
+        spacer = QWidget()
+        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-        page_layout.addWidget(description_label,2,1)
-        page_layout.addWidget(graph_builder_description_label,2,2)
+        page_layout.addWidget(page_header, 0, 0)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 1, i)
+        page_layout.addWidget(vector_label, 2, 1)
+        page_layout.addWidget(vector_dropdown_menu, 2, 2)
+        page_layout.addWidget(description_label, 3, 1)
+        page_layout.addWidget(graph_builder_description_label, 3, 2)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 4, i)
+        page_layout.addWidget(add_node_button, 5, 1)
+        page_layout.addWidget(add_relationship_button, 6, 1)
+        page_layout.addWidget(delete_node_button, 5, 2)
+        page_layout.addWidget(delete_relationship_button, 6, 2)
+        page_layout.addWidget(edit_node_button, 5, 3)
+        page_layout.addWidget(edit_relationship_button, 6, 3)
 
-        page_layout.addWidget(add_node_button,3,0)
-        page_layout.addWidget(add_relationship_button,3,2)
-        page_layout.addWidget(delete_node_button,4,0)
-        page_layout.addWidget(delete_relationship_button,4,2)
-        page_layout.addWidget(edit_node_button,5,0)
-        page_layout.addWidget(edit_relationship_button,5,2)
+
 
         graph_builder_page_widget.setLayout(page_layout)
 
@@ -547,9 +568,9 @@ class PICK_TOOL(QMainWindow):
         node_table.resizeColumnsToContents()
         node_table_header = QLabel('<h3><center>Node Table</center></h3>')
 
-        page_layout.addWidget(page_header,0,0)
-        page_layout.addWidget(node_table_header,1,1)
-        page_layout.addWidget(node_table,2,1)
+        page_layout.addWidget(page_header, 0, 0)
+        page_layout.addWidget(node_table_header, 1, 1)
+        page_layout.addWidget(node_table, 2, 1)
 
         nodes_tabular_page_widget.setLayout(page_layout)
 
@@ -557,18 +578,18 @@ class PICK_TOOL(QMainWindow):
     def nodes_graphical_page(self, nodes_graphical_page_widget):        
         # makes nodes config graph page widget
         page_layout = QGridLayout()
-        page_layout.setVerticalSpacing(60)
+        # page_layout.setVerticalSpacing(60)
         page_header = page_header = QLabel('<h1>Nodes<br>Configuration<\h1><h2>In Graphical Format<\h2>')
-        page_header.setWordWrap(True) 
+        page_header.setWordWrap(True)
 
         nodes_graphical_timeline_orientation_label = QLabel('<strong>Timeline Orientation</strong>')
         nodes_graphical_timeline_orientation_dropdown = QComboBox()
-        nodes_graphical_timeline_orientation_dropdown.addItem('example orientation')
+        nodes_graphical_timeline_orientation_dropdown.addItem('Select Orientation')
 
         nodes_graphical_interval_units_label = QLabel('<strong>Interval Units</strong>')
         nodes_graphical_interval_units_dropdown = QComboBox()
-        nodes_graphical_interval_units_dropdown.addItem('example interval unit')
-        nodes_graphical_timeline = QLabel('<strong>A TIMELINE IS SUPPOSED TO GO HERE</strong>')
+        nodes_graphical_interval_units_dropdown.addItem('Select Units')
+        nodes_graphical_timeline = QLabel('<h3><strong><center>MALTIGO GRAPH GOES HERE!</center></strong></h3>')
         nodes_graphical_zoom_in_button = QPushButton()
         nodes_graphical_zoom_in_button.setText('Zoom In')
         nodes_graphical_zoom_out_button = QPushButton()
@@ -577,16 +598,18 @@ class PICK_TOOL(QMainWindow):
         spacer = QWidget()
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-        page_layout.addWidget(page_header,0,0)
-        page_layout.addWidget(nodes_graphical_timeline_orientation_label,1,1)
-        page_layout.addWidget(nodes_graphical_timeline_orientation_dropdown,1,2)
-        page_layout.addWidget(nodes_graphical_interval_units_label,2,1)
-        page_layout.addWidget(nodes_graphical_interval_units_dropdown,2,2)
-        page_layout.addWidget(nodes_graphical_timeline,3,1)
-        for i in range (0, 5):
-            page_layout.addWidget(spacer, 4, i)
-        page_layout.addWidget(nodes_graphical_zoom_in_button,5,0)
-        page_layout.addWidget(nodes_graphical_zoom_out_button,6,0)
+        page_layout.addWidget(page_header, 0, 0)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 1, i)
+        page_layout.addWidget(nodes_graphical_timeline_orientation_label, 2, 1)
+        page_layout.addWidget(nodes_graphical_timeline_orientation_dropdown, 2, 2)
+        page_layout.addWidget(nodes_graphical_interval_units_label, 3, 1)
+        page_layout.addWidget(nodes_graphical_interval_units_dropdown, 3, 2)
+        page_layout.addWidget(nodes_graphical_timeline, 4, 2)
+        for i in range(0, 5):
+            page_layout.addWidget(spacer, 5, i)
+        page_layout.addWidget(nodes_graphical_zoom_in_button, 6, 0)
+        page_layout.addWidget(nodes_graphical_zoom_out_button, 7, 0)
 
         nodes_graphical_page_widget.setLayout(page_layout)
 
@@ -597,13 +620,40 @@ class PICK_TOOL(QMainWindow):
         page_header = QLabel('<h1>Relationship<br>Configuration<\h1>')
 
         relationship_table = QTableWidget()
-        relationship_table.setRowCount(34)
-        relationship_table.setColumnCount(7)
+        num_columns = 5
+        num_rows = 34
+        relationship_table.setRowCount(num_rows)
+        relationship_table.setColumnCount(num_columns)
         relationship_table_header = QLabel('<h3><center>Relationship Table</center></h3>')
+        relationship_table.setHorizontalHeaderLabels(['', 'Relationship ID', 'Parent', 'Child', 'Label'])
+        for column in range(num_columns):
+            for row in range(num_rows):
+                item = QTableWidgetItem()
+                if column == 0:
+                    item.setFlags(QtCore.Qt.ItemIsUserCheckable |
+                                  QtCore.Qt.ItemIsEnabled)
+                    item.setCheckState(QtCore.Qt.Unchecked)
+                relationship_table.setItem(row, column, item)
+                if column == 1:
+                    # CREATE DROP-DOWN LABELS
+                    pass
+                if column == 2:
+                    # CREATE TEXT FIELDS PARENT
+                    pass
+                if column == 3:
+                    # CREATE IMAGES??
+                    pass
+                if column == 4:
+                    # CREATE IMAGES
+                    pass
+    
 
-        page_layout.addWidget(page_header,0,0)
-        page_layout.addWidget(relationship_table_header,1,1)
-        page_layout.addWidget(relationship_table,2,1)
+
+        relationship_table.resizeColumnsToContents()
+
+        page_layout.addWidget(page_header, 0, 0)
+        page_layout.addWidget(relationship_table_header, 1, 1)
+        page_layout.addWidget(relationship_table, 2, 1)
 
         relationship_page_widget.setLayout(page_layout)
 
@@ -684,6 +734,7 @@ class PICK_TOOL(QMainWindow):
 
     def nav_button_clicked(self, toolbar_index):
         stackedWidget.setCurrentIndex(toolbar_index)
+        
         buttonClicked()
 
 
@@ -721,7 +772,7 @@ class PICK_TOOL(QMainWindow):
         status = QStatusBar()
         left_spacer = QWidget()
         left_spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        message = QLabel('<strong><center>PICK Tool, Version 0.4.0.<br><br>A Team404: Good Times, Inc. Production</center></strong>')
+        message = QLabel('<strong><center>PICK Tool, Version 0.4.0.<br>A Team404: Good Times, Inc. Production</center></strong>')
 
         status.addWidget(left_spacer)
         status.addWidget(message)
