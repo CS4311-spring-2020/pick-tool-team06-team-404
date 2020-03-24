@@ -112,8 +112,11 @@ class PICK_TOOL(QMainWindow):
         page_layout.setVerticalSpacing(60)
         page_header = QLabel('<h1>Team<br>Configuration</h1>')
         lead_ip_address = QLabel('<strong>Lead IP Address:</strong>')
+        user_ip_address = QLabel('<strong>User IP Address:</strong>')
+        
+        # 192.168.1.13 is an example, this needs to be changed later
+        user_ip_address_value = QLabel('192.168.1.13')
 
-        # 255.255.255.255 is an example, this needs to be changed later
         ip_address = QLineEdit('')
         established_connections = QLabel('<strong>No. of Established Connections to the lead\'s IP address:</strong>')
         established_connections.setWordWrap(True)
@@ -132,13 +135,15 @@ class PICK_TOOL(QMainWindow):
             page_layout.addWidget(spacer, 1, i)
         page_layout.addWidget(lead_ip_address, 2, 1)
         page_layout.addWidget(ip_address, 2, 3)
-        page_layout.addWidget(established_connections, 3, 1)
-        page_layout.addWidget(connections_value, 3, 3)
-        page_layout.addWidget(lead, 4, 1)
-        page_layout.addWidget(lead_checkbox, 4, 3)
+        page_layout.addWidget(user_ip_address, 3, 1)
+        page_layout.addWidget(user_ip_address_value, 3, 3)
+        page_layout.addWidget(established_connections, 4, 1)
+        page_layout.addWidget(connections_value, 4, 3)
+        page_layout.addWidget(lead, 5, 1)
+        page_layout.addWidget(lead_checkbox, 5, 3)
         for i in range(0, 5):
-            page_layout.addWidget(spacer, 5, i)
-        page_layout.addWidget(connect_button, 6, 0)
+            page_layout.addWidget(spacer, 6, i)
+        page_layout.addWidget(connect_button, 7, 0)
 
         team_page_widget.setLayout(page_layout)
 
@@ -192,35 +197,37 @@ class PICK_TOOL(QMainWindow):
         page_layout = QGridLayout()
         page_layout.setVerticalSpacing(60)
         page_header = QLabel('<h1>Directory<br>Configuration</h1>')
-        page_header.setWordWrap(True) 
+        page_header.setWordWrap(True)
+
+        ### TODO: ADD TKINTER SUPPORT FOR DIRECRTORY-SEARCH SUPPORT ###
 
         root_dir = QLabel('<strong>Root Directory</strong>')
         root_dir_text_box = QLineEdit()
-
-        ### TODO: ADD TKINTER SUPPORT FOR DIRECRTORY-SEARCH SUPPORT ###
-
-        # root_dir_search = TKinter()
+        root_dir_button = QPushButton()
+        root_dir_button.setGeometry(QRect(20,20, 20,10))
+        root_dir_button.setIcon(QtGui.QIcon('src/gui/directory-search/black.png'))
+        root_dir_button.setIconSize(QtCore.QSize(20,20))
 
         red_folder = QLabel('<strong>Red Team Folder</strong>')
         red_folder_text_box = QLineEdit()
-
-        ### TODO: ADD TKINTER SUPPORT FOR DIRECRTORY-SEARCH SUPPORT ###
-
-        # red_folder_search = TKinter()
+        red_folder_button = QPushButton()
+        red_folder_button.setGeometry(QRect(20,20, 20,10))
+        red_folder_button.setIcon(QtGui.QIcon('src/gui/directory-search/red.png'))
+        red_folder_button.setIconSize(QtCore.QSize(20,20))
 
         blue_folder = QLabel('<strong>Blue Team Folder</strong>')
         blue_folder_text_box = QLineEdit()
-
-        ### TODO: ADD TKINTER SUPPORT FOR DIRECRTORY-SEARCH SUPPORT ###
-
-        # blue_folder_search = TKinter()
+        blue_folder_button = QPushButton()
+        blue_folder_button.setGeometry(QRect(20,20, 20,10))
+        blue_folder_button.setIcon(QtGui.QIcon('src/gui/directory-search/blue.png'))
+        blue_folder_button.setIconSize(QtCore.QSize(20,20))
 
         white_folder = QLabel('<strong>White Team Folder</strong>')
         white_folder_text_box = QLineEdit()
-
-        ### TODO: ADD TKINTER SUPPORT FOR DIRECRTORY-SEARCH SUPPORT ###
-
-        # white_folder_search = TKinter()
+        white_folder_button = QPushButton()
+        white_folder_button.setGeometry(QRect(20,20, 20,10))
+        white_folder_button.setIcon(QtGui.QIcon('src/gui/directory-search/white.png'))
+        white_folder_button.setIconSize(QtCore.QSize(20,20))
 
         data_ingestion_button = QPushButton('Start Data Ingestion')
 
@@ -231,13 +238,18 @@ class PICK_TOOL(QMainWindow):
         for i in range(0, 5):
             page_layout.addWidget(spacer, 1, i)
         page_layout.addWidget(root_dir, 2, 1)
-        page_layout.addWidget(root_dir_text_box, 2, 3)
+        page_layout.addWidget(root_dir_text_box, 2, 2)
+        page_layout.addWidget(root_dir_button, 2, 3)
         page_layout.addWidget(red_folder, 3, 1)
-        page_layout.addWidget(red_folder_text_box, 3, 3)
+        page_layout.addWidget(red_folder_text_box, 3, 2)
+        page_layout.addWidget(red_folder_button, 3, 3)
         page_layout.addWidget(blue_folder, 4, 1)
-        page_layout.addWidget(blue_folder_text_box, 4, 3)
+        page_layout.addWidget(blue_folder_text_box, 4, 2)
+        page_layout.addWidget(blue_folder_button, 4, 3)
         page_layout.addWidget(white_folder, 5, 1)
-        page_layout.addWidget(white_folder_text_box, 5, 3)
+        page_layout.addWidget(white_folder_text_box, 5, 2)
+        page_layout.addWidget(white_folder_button, 5, 3)
+
         for i in range(0, 5):
             page_layout.addWidget(spacer, 6, i)
         page_layout.addWidget(data_ingestion_button, 7, 0)
@@ -297,10 +309,34 @@ class PICK_TOOL(QMainWindow):
 
         #TODO: ABSTRACT THE TABLE CREATION
         log_file_table = QTableWidget()
-        log_file_table.setRowCount(34)
-        log_file_table.setColumnCount(6)
+        num_rows = 34
+        num_columns = 6
+        log_file_table.setRowCount(num_rows)
+        log_file_table.setColumnCount(num_columns)
         log_file_table.setHorizontalHeaderLabels(['File Name', 'Source', 'Cleansing Status', 'Validation Status', 'Ingestion Status', 'View Enforcement Action Report'])
         log_file_table.resizeColumnsToContents()
+        for column in range(num_columns):
+            for row in range(num_rows):
+                if column == 0:
+                    pass
+                if column == 1:
+                    # CREATE TEXT FIELD OF LIST NUMBER
+                    pass
+                if column == 2:
+                    # CREATE TEXT FIELD OF TIME STAMPS
+                    pass
+                if column == 3:
+                    # CREATE TEXT FIELD OF LOG ENTRY EVENT
+                    pass
+                if column == 4:
+                    # CREATE TEXT FIELD OF VECTOR
+                    pass
+                if column == 5:
+                    btn = QPushButton(log_file_table)
+                    btn.setText('View Report')
+                    log_file_table.setCellWidget(row, column, btn)
+
+        #for index in range(4):
 
         num_columns = 34
         num_rows = 4
@@ -396,7 +432,6 @@ class PICK_TOOL(QMainWindow):
         log_entry_table.setRowCount(num_rows)
         log_entry_table.setColumnCount(num_columns)
         log_entry_table.setHorizontalHeaderLabels(['', 'List Number', 'Log Entry Timestamp', 'Log Entry Event', 'Vector'])
-        log_entry_table.resizeColumnsToContents()
         for column in range(num_columns):
             for row in range(num_rows):
                 checkbox = QTableWidgetItem()
@@ -415,9 +450,13 @@ class PICK_TOOL(QMainWindow):
                     # CREATE TEXT FIELD OF LOG ENTRY EVENT
                     pass
                 if column == 4:
-                    # CREATE TEXT FIELD OF VECTOR
-                    pass
+                    dropdown_box = QComboBox()
+                    dropdown_box_vectors = ["Vector 1", "Vector 2", "Vector 3"]
+                    for vector in dropdown_box_vectors:
+                        dropdown_box.addItem(vector)
+                    log_entry_table.setCellWidget(row, column, dropdown_box)
 
+        log_entry_table.resizeColumnsToContents()
         page_layout.addWidget(page_header, 0, 0)
         page_layout.addWidget(log_entry_table_header, 1, 1)
         page_layout.addWidget(log_entry_table, 2, 1)
@@ -892,7 +931,7 @@ class PICK_TOOL(QMainWindow):
         status = QStatusBar()
         left_spacer = QWidget()
         left_spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        message = QLabel('<strong><center>PICK Tool, Version 0.4.0.<br>A Team404: Good Times, Inc. Production</center></strong>')
+        message = QLabel('<strong><center>PICK Tool, Version 0.4.0.<br>A Team404: Good Corn, Inc. Production</center></strong>')
 
         status.addWidget(left_spacer)
         status.addWidget(message)
