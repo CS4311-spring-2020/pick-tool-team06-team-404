@@ -2,11 +2,24 @@
 
 ## What's New
 
+### Version 0.4.0 (02 April 2020)
+
+* New Feature: Reworked GUI
+* New Feature: Log Ingestion Complete
+* New Feature: Transcription Test Complete
+* Fixed: Native Splunk Integration
+* Updated README
+
+## Version History
+
+### Version 0.3.2 (31 March 2020)
+
+* Added final SDD
+* Added Use Case Scenario for Searching/Filtering
+
 ### Version 0.3.1 (09 March 2020)
 
 * Added initial SDD
-
-## Version History
 
 ### Version 0.3.0 (05 March 2020)
 

@@ -113,7 +113,7 @@ class PICK_TOOL(QMainWindow):
         page_header = QLabel('<h1>Team<br>Configuration</h1>')
         lead_ip_address = QLabel('<strong>Lead IP Address:</strong>')
         user_ip_address = QLabel('<strong>User IP Address:</strong>')
-        
+
         # 192.168.1.13 is an example, this needs to be changed later
         user_ip_address_value = QLabel('192.168.1.13')
 
@@ -274,7 +274,7 @@ class PICK_TOOL(QMainWindow):
                 checkbox = QTableWidgetItem()
                 if column == 0:
                     checkbox.setFlags(QtCore.Qt.ItemIsUserCheckable |
-                                        QtCore.Qt.ItemIsEnabled)
+                                      QtCore.Qt.ItemIsEnabled)
                     checkbox.setCheckState(QtCore.Qt.Unchecked)
                 vector_table.setItem(row, column, checkbox)
                 if column == 1:
@@ -313,7 +313,9 @@ class PICK_TOOL(QMainWindow):
         num_columns = 6
         log_file_table.setRowCount(num_rows)
         log_file_table.setColumnCount(num_columns)
-        log_file_table.setHorizontalHeaderLabels(['File Name', 'Source', 'Cleansing Status', 'Validation Status', 'Ingestion Status', 'View Enforcement Action Report'])
+        log_file_table.setHorizontalHeaderLabels(['File Name', 'Source', 'Cleansing Status',
+                                                  'Validation Status', 'Ingestion Status',
+                                                  'View Enforcement Action Report'])
         log_file_table.resizeColumnsToContents()
         for column in range(num_columns):
             for row in range(num_rows):
@@ -343,7 +345,8 @@ class PICK_TOOL(QMainWindow):
         action_report_table = QTableWidget()
         action_report_table.setRowCount(num_columns)
         action_report_table.setColumnCount(num_rows)
-        action_report_table.setHorizontalHeaderLabels(['File Name', 'Log File Name', 'Line Number', 'Error Message'])
+        action_report_table.setHorizontalHeaderLabels(['File Name', 'Log File Name',
+                                                       'Line Number', 'Error Message'])
         action_report_table.resizeColumnsToContents()
 
         log_file_table_header = QLabel('<h3><center>Log File Table</center></h3>')
@@ -437,7 +440,7 @@ class PICK_TOOL(QMainWindow):
                 checkbox = QTableWidgetItem()
                 if column == 0:
                     checkbox.setFlags(QtCore.Qt.ItemIsUserCheckable |
-                                        QtCore.Qt.ItemIsEnabled)
+                                      QtCore.Qt.ItemIsEnabled)
                     checkbox.setCheckState(QtCore.Qt.Unchecked)
                     log_entry_table.setItem(row, column, checkbox)
                 if column == 1:

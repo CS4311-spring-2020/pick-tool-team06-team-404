@@ -2,7 +2,7 @@
 
 ## Overview
 
-**Date: 26 March 2020**</br>
+**Date: 02 April 2020**</br>
 **Version: [0.4.0](doc/ReleaseNotes.md)**</br>
 **Known Errors: [Current Release](doc/KnownErrors.md)**
 
@@ -45,7 +45,7 @@ Software best practices for this project include:
 * One-line Docstrings in each function
 * Single spaces between commas
 * Up to 100 characters per line
-* production-Style variable & function names
+* Production-Style variable & function names
 * No trailing whitespace
 
 **Note**: All other Python best practices not mentioned herein shall be dictated by the python linting file that Visual Studio Code (VSCode) uses to perform static code analysis.
