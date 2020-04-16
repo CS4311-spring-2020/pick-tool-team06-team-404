@@ -1,3 +1,0 @@
-Thu Mar 22 2019 00:15:06 mailsv1 sshd[60445]: pam_unix(sshd:session): session opened for user mdubios by (uid=0)
-Thu Mar 22 2019 00:15:06 mailsv1 sshd[3759]: Failed password for djohnson from 194.8.74.23 port 3769 ssh2
-Thu Mar 22 2019 00:15:08 mailsv1 sshd[5276]: Failed password for invalid user appserver from 194.8.74.23 port 3351
