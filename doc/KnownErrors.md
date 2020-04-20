@@ -2,12 +2,17 @@
 
 ## Current Release
 
+### Version 0.8.0 (23 April 2020)
+
+* Missing DB
+* Missing Code Documentation
+
+## Previous Releases
+
 ### Version 0.3.2 (31 March 2020)
 
 * TravisCI builds are exiting with 1: ```(Core Dumped) code 134```; instead of ```0```
 * Project repository is missing a complete ```README.md```
-
-## Previous Releases
 
 ### Version 0.3.1 (09 March 2020)
 

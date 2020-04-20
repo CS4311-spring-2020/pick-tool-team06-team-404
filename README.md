@@ -20,7 +20,7 @@ PICK Tool shall facilitate the job of White Team analysts during an Adversarial 
 
 ## Notes to Developers
 
-Team404 has made strides to follow the [[software best practices](#software-best-practices) listed herein. Unfortunately, due to the nature of first-experience of remote work due to the COVID-19 Pandemic, our team has identified units of code that do not follow best practices.</br>
+Team404 has made strides to follow the [software best practices](#software-best-practices) listed herein. Unfortunately, due to the nature of first-experience of remote work due to the COVID-19 Pandemic, our team has identified units of code that do not follow best practices.</br>
 
 It is our hope that going forward, we can fix these issues as we continue to adapt to our "new normal."
 

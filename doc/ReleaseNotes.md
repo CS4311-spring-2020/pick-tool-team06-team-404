@@ -11,12 +11,12 @@
 * Added/Fixed Test Plan
 * Completed top-level README
 
+## Version History
+
 ### Version 0.3.2 (31 March 2020)
 
 * Added final SDD
 * Added Use Case Scenario for Searching/Filtering
-
-## Version History
 
 ### Version 0.3.1 (09 March 2020)
 
