@@ -2,11 +2,11 @@
 
 ## Overview
 
-**Date: 31 March 2020**</br>
-**Version: [0.3.2](doc/ReleaseNotes.md)**</br>
+**Date: 23 April 2020**</br>
+**Version: [0.8.0](doc/ReleaseNotes.md)**</br>
 **Known Errors: [Current Release](doc/KnownErrors.md)**
 
-## Motivation
+## Motivation & Purpose
 
 The following is an excerpt from [[3](#resources)], which defines the scope and motivation of PICK Tool:
 
@@ -14,11 +14,15 @@ The following is an excerpt from [[3](#resources)], which defines the scope and 
 
 "The University of Texas at El Paso (UTEP) and LSH are collaborating to develop Prevent, Mitigate, and Recover (PMR) Insight Collective Knowledge System (PICK) that will provide the ability to correlate red team’s activities to blue team’s responses and graphically represent the events that took place during an adversarial assessment.
 
-## Our Approach
-
 ## Explaining PICK Tool to Users
 
+PICK Tool shall facilitate the job of White Team analysts during an Adversarial Assessment (AA) of a simulated cyber-attack between a Red Team (attackers) and Blue Team (defenders). In doing do, this will reduce the time it currently takes analysts to perform an assessment from one month to about two weeks. Through this, PICK Tool shall assist analysts in telling the true story pertaining to these simulated attacks. To help satisfy these needs, analysts will utilize PICK Tool to search through and filter through logs, or recorded notes from the systems of attackers and defenders, as they may pertain to a simulated attack. With PICK Tool, White Team-analysts can use this software to construct a vector or visual graph of events that satisfy an objective.
+
 ## Notes to Developers
+
+Team404 has made strides to follow the [[software best practices](#software-best-practices) listed herein. Unfortunately, due to the nature of first-experience of remote work due to the COVID-19 Pandemic, our team has identified units of code that do not follow best practices.</br>
+
+It is our hope that going forward, we can fix these issues as we continue to adapt to our "new normal."
 
 ### Directory Structure
 
