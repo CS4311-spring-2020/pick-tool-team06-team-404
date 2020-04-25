@@ -1,13 +1,16 @@
 import sys
+import os
+import datetime
+import csv
+from PyQt5.QtWidgets import *
+from PyQt5 import QtCore
+
+sys.path.append(sys.path[0][:-16])
+
 from src.models.AdversarialAssessment import AdversarialAssessment
 from src.views.gui import PICK_UI
 from src.models import LogEntry, Vector
-from PyQt5.QtWidgets import *
-from PyQt5 import QtCore
 from src.controllers.splunk import SplunkTest
-import datetime
-import os
-import csv
 
 UI = None
 
@@ -192,7 +195,6 @@ def directory_directory_changed():
     x.lin_red_dir.resize(400, 20)
     x.lin_white_dir.resize(400, 20)
     x.lin_blue_dir.resize(400, 20)
-    isdir = os.path.isdir(x.lin_root_dir.text() + '/red')
 
 
 def directory_ingest_clicked():
