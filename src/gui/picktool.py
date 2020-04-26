@@ -14,6 +14,9 @@ NOTES:
 
 import sys
 from PyQt5.QtWidgets import *
+from PyQt5 import QtGui
+from PyQt5.QtGui import QBrush, QPen
+from PyQt5.QtCore import Qt
 
 
 # View
@@ -62,7 +65,7 @@ class PickTool(QMainWindow):
         self.change_configuration(config_dict['change'])
         vector_db_configuration(config_dict['vector_db'])
         self.icon_configuration(config_dict['icon'])
-        self.graph_builder_configuration(config_dict['graph_builder'])
+        self.graph_builder_configuration(self, config_dict['graph_builder'])
         self.nodes_tabular_configuration(config_dict['nodes_tabular'])
         self.nodes_graphical_configuration(config_dict['nodes_graphical'])
         self.relationship_configuration(config_dict['relationship'])
@@ -325,9 +328,23 @@ class PickTool(QMainWindow):
         icon_layout.addWidget(icon_edit_icon_button)
 
         icon_configuration_page_widget.setLayout(icon_layout)
+    
+    def addRedNode(self):
+        redbrush = QBrush(Qt.red)
+        bluebrush = QBrush(Qt.blue)
+        blackpen = QPen(Qt.black)
+        elipse = self.scene.addEllipse(10, 10, 100, 100, blackpen, redbrush)
+        elipse.setFlag(QGraphicsItem.ItemIsMovable)
+    
+    def addBlueNode(self):
+        redbrush = QBrush(Qt.red)
+        bluebrush = QBrush(Qt.blue)
+        blackpen = QPen(Qt.black)
+        elipse = self.scene.addEllipse(10, 10, 100, 100, blackpen, bluebrush)
+        elipse.setFlag(QGraphicsItem.ItemIsMovable)
 
     @staticmethod
-    def graph_builder_configuration(graph_builder_configuration_page_widget):
+    def graph_builder_configuration(self, graph_builder_configuration_page_widget):
         # makes Graph builder Config page widget
         graph_builder_layout = QGridLayout()
         graph_builder_vector_label = QLabel('Vector: ')
@@ -335,11 +352,31 @@ class PickTool(QMainWindow):
         graph_builder_vector_dropdown_menu = QComboBox()
         graph_builder_vector_dropdown_menu.addItem('example vector 1')
         graph_builder_vector_dropdown_menu.addItem('example vector 2')
+        
+        self.scene = QGraphicsScene()
+        '''
+        redbrush = QBrush(Qt.red)
+        bluebrush = QBrush(Qt.blue)
+        blackpen = QPen(Qt.black)
+        blackpen.setWidth(3)
+        
+        elipse = self.scene.addEllipse(30, 30, 100, 100, blackpen, bluebrush)
+        elipse.setFlag(QGraphicsItem.ItemIsMovable)
+        '''
+        
+        view = QGraphicsView(self.scene)
+        view.setGeometry(0, 0, 500, 500)
+        
         graph_builder_description_label_label = QLabel('Description')
         graph_builder_description_label = QLineEdit()
         graph_builder_description_label.setText('Example description')
-        graph_builder_add_node_button = QPushButton()
-        graph_builder_add_node_button.setText('Add Node')
+        graph_builder_add_red_node_button = QPushButton()
+        graph_builder_add_red_node_button.setText('Add Red Node')
+        graph_builder_add_red_node_button.clicked.connect(self.addRedNode)
+        graph_builder_add_blue_node_button = QPushButton()
+        graph_builder_add_blue_node_button.setText('Add Blue Node')
+        graph_builder_add_blue_node_button.clicked.connect(self.addBlueNode)
+        
         graph_builder_add_relationship_button = QPushButton()
         graph_builder_add_relationship_button.setText('Add Relationship')
         graph_builder_delete_node_button = QPushButton()
@@ -350,17 +387,22 @@ class PickTool(QMainWindow):
         graph_builder_edit_node_button.setText('Edit Node')
         graph_builder_edit_relationship_button = QPushButton()
         graph_builder_edit_relationship_button.setText('Edit Relationship')
+        
+        graph_builder_layout.setRowStretch(2, 2)
+        graph_builder_layout.setColumnStretch(0, 2)
 
-        graph_builder_layout.addWidget(graph_builder_vector_label)
-        graph_builder_layout.addWidget(graph_builder_vector_dropdown_menu)
-        graph_builder_layout.addWidget(graph_builder_description_label_label)
-        graph_builder_layout.addWidget(graph_builder_description_label)
-        graph_builder_layout.addWidget(graph_builder_add_node_button)
-        graph_builder_layout.addWidget(graph_builder_add_relationship_button)
-        graph_builder_layout.addWidget(graph_builder_delete_node_button)
-        graph_builder_layout.addWidget(graph_builder_delete_relationship_button)
-        graph_builder_layout.addWidget(graph_builder_edit_node_button)
-        graph_builder_layout.addWidget(graph_builder_edit_relationship_button)
+        graph_builder_layout.addWidget(graph_builder_vector_label, 0, 0)
+        graph_builder_layout.addWidget(graph_builder_vector_dropdown_menu, 1, 0)
+        graph_builder_layout.addWidget(view, 2, 0)
+        graph_builder_layout.addWidget(graph_builder_description_label_label, 3, 0)
+        graph_builder_layout.addWidget(graph_builder_description_label, 4, 0)
+        graph_builder_layout.addWidget(graph_builder_add_red_node_button, 5, 0)
+        graph_builder_layout.addWidget(graph_builder_add_blue_node_button, 5, 1)
+        graph_builder_layout.addWidget(graph_builder_add_relationship_button, 6, 0)
+        graph_builder_layout.addWidget(graph_builder_delete_node_button, 7, 0)
+        graph_builder_layout.addWidget(graph_builder_delete_relationship_button, 8, 0)
+        graph_builder_layout.addWidget(graph_builder_edit_node_button, 9, 0)
+        graph_builder_layout.addWidget(graph_builder_edit_relationship_button, 10, 0)
 
         graph_builder_configuration_page_widget.setLayout(graph_builder_layout)
 
@@ -428,6 +470,10 @@ class PickTool(QMainWindow):
 
         relationship_configuration_page_widget.setLayout(relationship_layout)
 
+    
+        
+        
+    
     def team_configuration_connect_button_clicked(self):
         self.stackedWidget.setCurrentIndex(1)
         self.button_clicked()
