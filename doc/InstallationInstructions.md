@@ -36,8 +36,8 @@
 
 ## References
 
-[1] “About Kali Linux,” Kali Linux. [Online]. Available: https://www.kali.org/about-us/. [Accessed: 29-Apr-2020].
-[2] “Welcome to Python.org,” Python.org. [Online]. Available: https://www.python.org/. [Accessed: 29-Apr-2020].
-[3] “Splunk,” Wikipedia, 26-Mar-2020. [Online]. Available: https://en.wikipedia.org/wiki/Splunk. [Accessed: 29-Apr-2020].
-[4] Splunk, “splunk/splunk-sdk-python,” GitHub, 24-Mar-2020. [Online]. Available: https://github.com/splunk/splunk-sdk-python. [Accessed: 29-Apr-2020].
+[1] “About Kali Linux,” Kali Linux. [Online]. Available: https://www.kali.org/about-us/. [Accessed: 29-Apr-2020].</br>
+[2] “Welcome to Python.org,” Python.org. [Online]. Available: https://www.python.org/. [Accessed: 29-Apr-2020].</br>
+[3] “Splunk,” Wikipedia, 26-Mar-2020. [Online]. Available: https://en.wikipedia.org/wiki/Splunk. [Accessed: 29-Apr-2020].</br>
+[4] Splunk, “splunk/splunk-sdk-python,” GitHub, 24-Mar-2020. [Online]. Available: https://github.com/splunk/splunk-sdk-python. [Accessed: 29-Apr-2020].</br>
 [5] “PyQt5,” PyPI. [Online]. Available: https://pypi.org/project/PyQt5/. [Accessed: 29-Apr-2020].
