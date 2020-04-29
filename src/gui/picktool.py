@@ -333,14 +333,14 @@ class PickTool(QMainWindow):
         redbrush = QBrush(Qt.red)
         bluebrush = QBrush(Qt.blue)
         blackpen = QPen(Qt.black)
-        elipse = self.scene.addEllipse(10, 10, 100, 100, blackpen, redbrush)
+        elipse = self.scene.addRect(10, 10, 100, 100, blackpen, redbrush)
         elipse.setFlag(QGraphicsItem.ItemIsMovable)
     
     def addBlueNode(self):
         redbrush = QBrush(Qt.red)
         bluebrush = QBrush(Qt.blue)
         blackpen = QPen(Qt.black)
-        elipse = self.scene.addEllipse(10, 10, 100, 100, blackpen, bluebrush)
+        elipse = self.scene.addRect(10, 10, 100, 100, blackpen, bluebrush)
         elipse.setFlag(QGraphicsItem.ItemIsMovable)
     
     def addRelationship(self):
