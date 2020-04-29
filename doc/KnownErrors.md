@@ -2,6 +2,15 @@
 
 ## Current Release
 
+### Version 0.9.0 (30 April 2020)
+
+* Missing DB Facade
+* Missing Code Documentation
+* Missing Refined SDD
+* Missing Refined Test Plan
+
+## Previous Releases
+
 ### Version 0.8.0 (28 April 2020)
 
 * Missing DB
@@ -10,8 +19,6 @@
 * Missing Splunk Integration
 * Missing Code Documentation
 * Missing Dependency List
-
-## Previous Releases
 
 ### Version 0.3.2 (31 March 2020)
 
