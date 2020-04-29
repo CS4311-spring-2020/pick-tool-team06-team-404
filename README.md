@@ -4,7 +4,7 @@
 
 **Date: 28 April 2020**</br>
 **Version: [0.8.0](doc/ReleaseNotes.md)**</br>
-**Known Errors: [Current Release](doc/KnownErrors.md)**
+**Known Errors: [Current Release](doc/KnownErrors.md)**</br>
 **Dependencies: [Project Dependencies](doc/ProjectDependencies.md)**
 
 ## Motivation & Purpose
