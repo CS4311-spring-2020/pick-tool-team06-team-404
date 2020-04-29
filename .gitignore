@@ -25,3 +25,8 @@ log/
 
 # System Files
 ~*
+
+# Pycharm
+src/controllers/splunk/__pycache__/
+src/models/__pycache__/
+src/views/__pycache__/
