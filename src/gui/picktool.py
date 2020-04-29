@@ -342,6 +342,14 @@ class PickTool(QMainWindow):
         blackpen = QPen(Qt.black)
         elipse = self.scene.addEllipse(10, 10, 100, 100, blackpen, bluebrush)
         elipse.setFlag(QGraphicsItem.ItemIsMovable)
+    
+    def addRelationship(self):
+        redbrush = QBrush(Qt.red)
+        bluebrush = QBrush(Qt.blue)
+        blackpen = QPen(Qt.black)
+        blackpen.setWidth(5)
+        line = self.scene.addLine(10, 10, 200, 200, blackpen)
+        line.setFlag(QGraphicsItem.ItemIsMovable)
 
     @staticmethod
     def graph_builder_configuration(self, graph_builder_configuration_page_widget):
@@ -379,6 +387,8 @@ class PickTool(QMainWindow):
         
         graph_builder_add_relationship_button = QPushButton()
         graph_builder_add_relationship_button.setText('Add Relationship')
+        graph_builder_add_relationship_button.clicked.connect(self.addRelationship)
+        
         graph_builder_delete_node_button = QPushButton()
         graph_builder_delete_node_button.setText('Delete Node')
         graph_builder_delete_relationship_button = QPushButton()
