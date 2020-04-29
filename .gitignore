@@ -25,3 +25,6 @@ log/
 
 # System Files
 ~*
+
+# Pycharm
+/__pycache__
