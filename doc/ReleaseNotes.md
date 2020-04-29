@@ -2,12 +2,11 @@
 
 ## What's New
 
-### Version 0.8.0 (23 April 2020)
+### Version 0.8.0 (28 April 2020)
 
 * Fixed Git directory structure
 * Added Online & Offline Audio Transcription
 * Added OCR for images
-* Added Splunk Integration
 * Added/Fixed Test Plan
 * Completed top-level README
 

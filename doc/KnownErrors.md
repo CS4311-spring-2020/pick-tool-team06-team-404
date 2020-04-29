@@ -2,9 +2,12 @@
 
 ## Current Release
 
-### Version 0.8.0 (23 April 2020)
+### Version 0.8.0 (28 April 2020)
 
 * Missing DB
+* Missing Graph
+* Missing Calendar
+* Missing Splunk Integration
 * Missing Code Documentation
 
 ## Previous Releases
