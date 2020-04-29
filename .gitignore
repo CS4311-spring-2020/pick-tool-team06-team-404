@@ -27,4 +27,6 @@ log/
 ~*
 
 # Pycharm
- __pycache__
+src/controllers/splunk/__pycache__/
+src/models/__pycache__/
+src/views/__pycache__/
