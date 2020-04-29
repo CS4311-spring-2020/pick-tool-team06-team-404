@@ -9,6 +9,7 @@
 * Missing Calendar
 * Missing Splunk Integration
 * Missing Code Documentation
+* Missing Dependency List
 
 ## Previous Releases
 
