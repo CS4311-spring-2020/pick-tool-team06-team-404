@@ -1,7 +1,24 @@
 import socket
+
+from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtWidgets import *
 
 window = None
+
+
+def Calendar(x, y):
+    item = QCalendarWidget()
+    item.move(x, y)
+    item.adjustSize()
+    return item
+
+
+def Graphics(self, scene, x, y):
+    item = QGraphicsView(scene, window)
+    item.move(x, y)
+    item.resize(1000, 500)
+    self.widgets.append(item)
+    return item
 
 
 def Label(self, name, x, y):
@@ -12,11 +29,13 @@ def Label(self, name, x, y):
     return item
 
 
-def Button(self, name, x, y):
+def Button(self, name, x, y, icon=None):
     item = QPushButton(name, window)
     item.move(x, y)
     item.adjustSize()
     self.widgets.append(item)
+    if icon is not None:
+        item.setIcon(QIcon(QPixmap('../../res/icons/' + icon)))
     return item
 
 
@@ -73,6 +92,10 @@ class PICK_UI(QWidget):
         self.height = 720
         self.widgets = []
 
+        self.lbl_coord = Label(self, '', 5, 690)
+        self.lbl_coord.resize(200, 40)
+        self.setMouseTracking(True)
+
         self.team_ui = TeamView()
         self.event_ui = EventView()
         self.directory_ui = DirectoryView()
@@ -84,15 +107,17 @@ class PICK_UI(QWidget):
         self.change_ui = ChangeView()
         self.vector_db_ui = VectorDBUI
         self.icon_ui = IconView()
-        self.graph_builder_ui = GraphBuilderView()
+        self.graph_ui = GraphView()
         self.vector_table_ui = VectorTableView()
-        self.vector_graph_ui = VectorGraphView()
         self.relationships_ui = RelationshipsView()
         self.menu = self.Menu()
 
         self.ui = View()
 
         self.init_ui()
+
+    def mouseMoveEvent(self, event):
+        self.lbl_coord.setText('x:%d  y:%d' % (event.x(), event.y()))
 
     def init_ui(self):
         self.setWindowTitle(self.title)
@@ -177,16 +202,26 @@ class EventView(View):
     def __init__(self):
         super().__init__()
         self.lbl_title = Label(self, '<h1>Event Configuration<\\h1>', 50, 50)
-        self.lbl_name = Label(self, 'Event Name: ', 300, 200)
-        self.lin_name = LineEdit(self, '', 400, 200)
-        self.lbl_description = Label(self, 'Event Description: ', 300, 250)
-        self.txt_description = TextBox(self, 400, 250)
-        self.lbl_start_time = Label(self, 'Start Time: ', 300, 450)
-        self.lin_start_date = LineEdit(self, '', 400, 450)
-        self.lin_start_time = LineEdit(self, '', 480, 450)
-        self.lbl_end_time = Label(self, 'End Time: ', 300, 500)
-        self.lin_end_date = LineEdit(self, '', 400, 500)
-        self.lin_end_time = LineEdit(self, '', 480, 500)
+        self.lbl_name = Label(self, 'Event Name: ', 300, 150)
+        self.lin_name = LineEdit(self, '', 400, 150)
+        self.lbl_description = Label(self, 'Event Description: ', 300, 200)
+        self.txt_description = TextBox(self, 400, 200)
+        self.lbl_start_time = Label(self, 'Start Time: ', 300, 400)
+        self.lin_start_date = LineEdit(self, '', 400, 400)
+        self.btn_cal_start_date = Button(self, '', 470, 399, 'calendar.png')
+        self.btn_cal_start_date.resize(22, 22)
+        self.cal_start_date = Calendar(600, 400)
+        self.cal_start_date.hide()
+        self.cal_start_date.setWindowTitle('Start Date')
+        self.lin_start_time = LineEdit(self, '', 510, 400)
+        self.lbl_end_time = Label(self, 'End Time: ', 300, 450)
+        self.lin_end_date = LineEdit(self, '', 400, 450)
+        self.btn_cal_end_date = Button(self, '', 470, 449, 'calendar.png')
+        self.btn_cal_end_date.resize(22, 22)
+        self.cal_end_date = Calendar(600, 400)
+        self.cal_end_date.hide()
+        self.cal_start_date.setWindowTitle('End Date')
+        self.lin_end_time = LineEdit(self, '', 510, 450)
         self.btn_save = Button(self, 'Save', 1000, 600)
         self.lin_name.resize(300, 20)
         self.txt_description.resize(500, 160)
@@ -224,14 +259,17 @@ class DirectoryView(View):
 class VectorView(View):
     def __init__(self):
         super().__init__()
-        self.lbl_title = Label(self, '<h1>Vector Configuration<\\h1>', 50, 50)
-        self.tbl_vector = Table(self, 100, 200)
-        self.btn_add = Button(self, 'Add Vector', 400, 600)
-        self.btn_delete = Button(self, 'Delete Vector', 600, 600)
-        self.btn_save = Button(self, 'Save Changes', 800, 600)
+        self.lbl_title = Label(self, '<h1>Vectors<\\h1>', 50, 50)
+        self.tbl_vector = Table(self, 100, 180)
+        self.btn_add = Button(self, 'Add Vector', 400, 630)
+        self.btn_delete = Button(self, 'Delete Vector', 600, 630)
+        self.btn_save = Button(self, 'Save Changes', 800, 630)
+        self.lbl_active = Label(self, 'Active Vector:', 100, 130)
+        self.lbl_val_active = Label(self, '', 180, 130)
+        self.lbl_val_active.resize(100, 15)
         self.tbl_vector.setRowCount(1)
         self.tbl_vector.setColumnCount(2)
-        self.tbl_vector.setMinimumSize(1050, 360)
+        self.tbl_vector.setMinimumSize(1050, 420)
         self.tbl_vector.setColumnWidth(0, 200)
         self.tbl_vector.setColumnWidth(1, 800)
         self.tbl_vector.setHorizontalHeaderLabels(['Vector Name', 'Vector Description'])
@@ -345,21 +383,20 @@ class IconView(View):
         self.clear()
 
 
-class GraphBuilderView(View):
+class GraphView(View):
     def __init__(self):
         super().__init__()
-        self.lbl_title = Label(self, '<h1Graph Builder<\\h1>', 50, 50)
-        self.cmb_graph_builder = ComboBox(self, 200, 200)
-        self.lbl_description = Label(self, 'Description: ', 200, 200)
-        self.lin_description = LineEdit(self, '', 200, 200)
-        self.btn_add_node = Button(self, 'Add Node', 200, 200)
-        self.btn_delete_node = Button(self, 'Delete Node', 200, 200)
-        self.btn_edit_node = Button(self, 'Edit Node', 200, 200)
-        self.btn_add_relationship = Button(self, 'Add Relationship', 200, 200)
-        self.btn_delete_relationship = Button(self, 'Delete Relationship', 200, 200)
-        self.btn_edit_relationship = Button(self, 'Edit Relationship', 200, 200)
-        self.cmb_graph_builder.addItem('example vector 1')
-        self.cmb_graph_builder.addItem('example vector 2')
+        self.lbl_title = Label(self, '<h1>Graph<\\h1>', 50, 50)
+        self.scene = QGraphicsScene()
+        self.graph = Graphics(self, self.scene, 200, 120)
+        self.cmb_graph_builder = ComboBox(self, 40, 120)
+        self.cmb_graph_builder.resize(120, 20)
+        self.btn_add_node = Button(self, 'Add Node', 50, 250)
+        self.btn_delete_node = Button(self, 'Delete Node', 50, 300)
+        self.btn_edit_node = Button(self, 'Edit Node', 50, 350)
+        self.btn_add_relationship = Button(self, 'Add Relationship', 50, 500)
+        self.btn_delete_relationship = Button(self, 'Delete Relationship', 50, 550)
+        self.btn_edit_relationship = Button(self, 'Edit Relationship', 50, 600)
 
         self.clear()
 
@@ -369,29 +406,13 @@ class VectorTableView(View):
         super().__init__()
         self.lbl_title = Label(self, '<h1>Vector Table<\\h1>', 50, 50)
         self.tbl_logs = Table(self, 50, 100)
+        self.btn_graph = Button(self, "View Graph", 600, 60)
         self.tbl_logs.setRowCount(2)
-        self.tbl_logs.setColumnCount(10)
+        self.tbl_logs.setColumnCount(11)
         self.tbl_logs.setHorizontalHeaderLabels(
-            ['Visible', 'Node ID', 'Node Name', 'Node Timestamp', 'Node Description',
+            ['Significant', 'Visible', 'Node ID', 'Node Name', 'Node Timestamp', 'Node Description',
              'Reference', 'Log Creator', 'Event Type', 'Icon Type', 'Source'])
-        self.tbl_logs.setMinimumSize(1150, 560)
-
-        self.clear()
-
-
-class VectorGraphView(View):
-    def __init__(self):
-        super().__init__()
-        self.lbl_title = Label(self, '<h1>Vector Graph<\\h1>', 50, 50)
-        self.lbl_timeline_orientation = Label(self, 'Timeline Orientation', 200, 200)
-        self.cmb_timeline_orientation = ComboBox(self, 200, 200)
-        self.lbl_interval_units = Label(self, 'Interval Units', 300, 300)
-        self.cmb_interval_units = ComboBox(self, 300, 300)
-        self.lbl_timeline = Label(self, 'A TIMELINE IS SUPPOSED TO GO HERE', 200, 200)
-        self.btn_zoom_in = Button(self, 'Zoom In', 300, 300)
-        self.btn_zoom_out = Button(self, 'Zoom Out', 300, 300)
-        self.cmb_timeline_orientation.addItem('example orientation')
-        self.cmb_interval_units.addItem('example interval unit')
+        self.tbl_logs.setMinimumSize(1150, 520)
 
         self.clear()
 

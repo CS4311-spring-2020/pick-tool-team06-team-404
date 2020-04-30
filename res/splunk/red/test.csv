@@ -1,2 +1,2 @@
-False,3, Node 1, Forgot Password,3/3/2005-09:34:18,,Blue,Red,password.png,res/splunk/red/secure.txt
-True,4, Node 2, Remembered Password,3/3/2005-11:30:22,,Blue,Red,password.png,res/splunk/red/secure.txt
+True,False,3, Node 1, 3/3/2005-09:34:18,Forgot Password,,Blue,Red,password.png,res/splunk/red/secure.txt
+True,True,4, Node 2, 3/3/2005-11:30:22,Remembered Password,,Blue,Red,password.png,res/splunk/red/secure.txt

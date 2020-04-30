@@ -2,17 +2,21 @@ import sys
 import os
 import datetime
 import csv
+
+from PyQt5.QtCore import QDate
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore
 
-sys.path.append(sys.path[0][:-16])
-
+from src.controllers.splunk import SplunkTest
+from src.models import LogEntry, Vector
 from src.models.AdversarialAssessment import AdversarialAssessment
 from src.views.gui import PICK_UI
-from src.models import LogEntry, Vector
-from src.controllers.splunk import SplunkTest
 
 UI = None
+
+
+def convert_date(date):
+    return datetime.datetime.strptime(date, '%a %b %d %Y').strftime('%m/%d/%Y')
 
 
 def validate_date(date_text):
@@ -85,6 +89,22 @@ def set_team_buttons():
 def set_event_buttons():
     x = UI.event_ui
     x.btn_save.clicked.connect(event_btn_save_clicked)
+    x.btn_cal_start_date.clicked.connect(x.cal_start_date.show)
+    x.cal_start_date.clicked[QDate].connect(start_calendar_clicked)
+    x.btn_cal_end_date.clicked.connect(x.cal_end_date.show)
+    x.cal_end_date.clicked[QDate].connect(end_calendar_clicked)
+
+
+def start_calendar_clicked():
+    x = UI.event_ui
+    x.lin_start_date.setText(convert_date(x.cal_start_date.selectedDate().toString()))
+    x.cal_start_date.hide()
+
+
+def end_calendar_clicked():
+    x = UI.event_ui
+    x.lin_end_date.setText(convert_date(x.cal_end_date.selectedDate().toString()))
+    x.cal_end_date.hide()
 
 
 def set_directory_buttons():
@@ -99,6 +119,29 @@ def set_vector_buttons():
     x.btn_add.clicked.connect(vector_add_clicked)
     x.btn_delete.clicked.connect(vector_delete_clicked)
     x.btn_save.clicked.connect(vector_save_clicked)
+    x.tbl_vector.clicked.connect(vector_table_clicked)
+
+
+def vector_table_clicked():
+    x = UI.vector_ui
+    try:
+        x.lbl_val_active.setText(x.tbl_vector.item(x.tbl_vector.currentRow(), 0).text())
+    except:
+        pass
+
+
+def set_vector_table_buttons():
+    x = UI.vector_table_ui
+    x.btn_graph.clicked.connect(graph_ui_clicked)
+    pass
+
+
+def vector_btn_graph_clicked():
+    UI.load(UI.graph_ui)
+
+
+def set_vector_graph_buttons():
+    pass
 
 
 def set_buttons():
@@ -107,18 +150,18 @@ def set_buttons():
     set_event_buttons()
     set_directory_buttons()
     set_vector_buttons()
+    #     set_log_file_buttons()
+    #     set_filter_buttons()
+    #     set_log_entry_buttons()
+    #     set_export_buttons()
+    #     set_change_buttons()
+    #     set_vector_db_buttons()
+    #     set_icon_buttons()
+    #     set_graph_builder_buttons()
+    set_vector_table_buttons()
+    set_vector_graph_buttons()
 
 
-#     set_log_file_buttons()
-#     set_filter_buttons()
-#     set_log_entry_buttons()
-#     set_export_buttons()
-#     set_change_buttons()
-#     set_vector_db_buttons()
-#     set_icon_buttons()
-#     set_graph_builder_buttons()
-#     set_vector_table_buttons()
-#     set_vector_graph_buttons()
 #     set_relationships_buttons()
 
 
@@ -170,6 +213,12 @@ def event_btn_save_clicked():
         msg.setText("Wrong 'End time' format")
         msg.exec_()
         return
+    a = datetime.datetime.strptime(x.lin_start_date.text(), "%m/%d/%Y")
+    b = datetime.datetime.strptime(x.lin_end_date.text(), "%m/%d/%Y")
+    if a > b:
+        msg.setText("Start time can't be after end time")
+        msg.exec_()
+        return
     AA.name = x.lin_name.text()
     AA.description = x.txt_description.toPlainText()
     AA.time_start = x.lin_start_date.text() + '-' + x.lin_start_time.text()
@@ -202,6 +251,19 @@ def directory_ingest_clicked():
     msg.setWindowTitle("Error")
     msg.setStyleSheet("QLabel{min-width: 200px;}")
     directory = UI.directory_ui.lin_root_dir.text()
+    AA.root_dir = directory
+    read_files(directory)
+
+    # debug
+    print("BEGIN")
+    # testing = SplunkTest.Splunkimport()
+    # testing.upload_logfiles(UI.directory_ui.lin_root_dir.text())
+    # testing.transform_log_entry()
+    print("END")
+    UI.load(UI.vector_ui)
+
+    return
+    # ignore
     if not os.path.isdir(directory):
         msg.setText("Root directory not found")
         msg.exec_()
@@ -223,9 +285,9 @@ def directory_ingest_clicked():
     read_files(directory)
 
     print("BEGIN")
-    testing = SplunkTest.Splunkimport()
-    testing.upload_logfiles(UI.directory_ui.lin_root_dir.text())
-    testing.transform_log_entry()
+    # testing = SplunkTest.Splunkimport()
+    # testing.upload_logfiles(UI.directory_ui.lin_root_dir.text())
+    # testing.transform_log_entry()
     print("END")
     UI.load(UI.vector_ui)
 
@@ -256,6 +318,9 @@ def read_files(directory):
 
     pass
 
+############
+#  VECTOR  #
+############
 
 def vector_ui_clicked():
     UI.load(UI.vector_ui)
@@ -274,8 +339,14 @@ def vector_delete_clicked():
 def vector_save_clicked():
     x = UI.vector_ui.tbl_vector
     for i in range(x.rowCount()):
-        AA.vector.append(Vector.Vector(x.item(i, 0), x.item(i, 1)))
-        print('w')
+        try:
+            AA.vector.append(Vector.Vector(x.item(i, 0).text(), x.item(i, 1).text()))
+        except:
+            pass
+
+##############
+#  LOG FILE  #
+##############
 
 
 def log_file_ui_clicked():
@@ -323,8 +394,10 @@ def table_ui_clicked():
 
 
 def graph_ui_clicked():
-    # UI.load(UI.vector_graph_ui)
-    pass
+    x = UI.graph_ui
+    UI.load(x)
+    for v in AA.vector:
+        x.cmb_graph_builder.addItem(v.name)
 
 
 def relationship_ui_clicked():

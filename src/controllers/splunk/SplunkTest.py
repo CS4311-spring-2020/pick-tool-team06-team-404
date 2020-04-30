@@ -1,6 +1,7 @@
+import os
+
 import splunklib.client as client
 import splunklib.results as results
-import os
 
 
 class Logentry(object):
