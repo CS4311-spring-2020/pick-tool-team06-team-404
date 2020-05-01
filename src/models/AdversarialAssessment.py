@@ -7,5 +7,6 @@ class AdversarialAssessment:
         self.time_start = []
         self.time_end = []
         self.vector = []
+        self.current_vector = None
         self.root_dir = ''
         self.log_entries = []

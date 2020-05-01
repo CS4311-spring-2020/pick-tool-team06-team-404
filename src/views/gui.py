@@ -407,6 +407,7 @@ class VectorTableView(View):
         self.lbl_title = Label(self, '<h1>Vector Table<\\h1>', 50, 50)
         self.tbl_logs = Table(self, 50, 100)
         self.btn_graph = Button(self, "View Graph", 600, 60)
+        self.btn_save = Button(self, 'Save', 1000, 600)
         self.tbl_logs.setRowCount(2)
         self.tbl_logs.setColumnCount(11)
         self.tbl_logs.setHorizontalHeaderLabels(

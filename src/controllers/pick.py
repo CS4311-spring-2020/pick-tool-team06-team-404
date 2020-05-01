@@ -133,7 +133,19 @@ def vector_table_clicked():
 def set_vector_table_buttons():
     x = UI.vector_table_ui
     x.btn_graph.clicked.connect(graph_ui_clicked)
+    x.btn_save.clicked.connect(vector_table_btn_save)
     pass
+
+
+def vector_table_btn_save():
+    x = UI.vector_table_ui.tbl_logs
+    n = lambda p: x.item(i, p).text()
+    for i in range(x.rowCount()):
+        try:
+            AA.current_vector.log_entries.append(
+                LogEntry.LogEntry(n(0), n(1), n(2), n(3), n(4), n(5), n(6), n(7), n(8), n(9)))
+        except:
+            pass
 
 
 def vector_btn_graph_clicked():
@@ -318,6 +330,7 @@ def read_files(directory):
 
     pass
 
+
 ############
 #  VECTOR  #
 ############
@@ -343,6 +356,7 @@ def vector_save_clicked():
             AA.vector.append(Vector.Vector(x.item(i, 0).text(), x.item(i, 1).text()))
         except:
             pass
+
 
 ##############
 #  LOG FILE  #
