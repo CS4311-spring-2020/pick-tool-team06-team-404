@@ -4,11 +4,14 @@ import datetime
 import csv
 
 from PyQt5.QtCore import QDate
+from PyQt5.QtGui import QBrush, QIcon, QPixmap
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore
+from PyQt5.QtCore import Qt
 
 from src.controllers.splunk import SplunkTest
-from src.models import LogEntry, Vector
+from src.models.Vector import Vector
+from src.models.LogEntry import LogEntry
 from src.models.AdversarialAssessment import AdversarialAssessment
 from src.views.gui import PICK_UI
 
@@ -73,7 +76,6 @@ def set_menu_buttons():
     x.change.clicked.connect(change_ui_clicked)
     x.vector_db.clicked.connect(vector_db_ui_clicked)
     x.icon.clicked.connect(icon_ui_clicked)
-    x.graph_builder.clicked.connect(graph_builder_ui_clicked)
     x.vector_table.clicked.connect(table_ui_clicked)
     x.vector_graph.clicked.connect(graph_ui_clicked)
     x.relationships.clicked.connect(relationship_ui_clicked)
@@ -119,37 +121,6 @@ def set_vector_buttons():
     x.btn_add.clicked.connect(vector_add_clicked)
     x.btn_delete.clicked.connect(vector_delete_clicked)
     x.btn_save.clicked.connect(vector_save_clicked)
-    x.tbl_vector.clicked.connect(vector_table_clicked)
-
-
-def vector_table_clicked():
-    x = UI.vector_ui
-    try:
-        x.lbl_val_active.setText(x.tbl_vector.item(x.tbl_vector.currentRow(), 0).text())
-    except:
-        pass
-
-
-def set_vector_table_buttons():
-    x = UI.vector_table_ui
-    x.btn_graph.clicked.connect(graph_ui_clicked)
-    x.btn_save.clicked.connect(vector_table_btn_save)
-    pass
-
-
-def vector_table_btn_save():
-    x = UI.vector_table_ui.tbl_logs
-    n = lambda p: x.item(i, p).text()
-    for i in range(x.rowCount()):
-        try:
-            AA.current_vector.log_entries.append(
-                LogEntry.LogEntry(n(0), n(1), n(2), n(3), n(4), n(5), n(6), n(7), n(8), n(9)))
-        except:
-            pass
-
-
-def vector_btn_graph_clicked():
-    UI.load(UI.graph_ui)
 
 
 def set_vector_graph_buttons():
@@ -266,16 +237,6 @@ def directory_ingest_clicked():
     AA.root_dir = directory
     read_files(directory)
 
-    # debug
-    print("BEGIN")
-    # testing = SplunkTest.Splunkimport()
-    # testing.upload_logfiles(UI.directory_ui.lin_root_dir.text())
-    # testing.transform_log_entry()
-    print("END")
-    UI.load(UI.vector_ui)
-
-    return
-    # ignore
     if not os.path.isdir(directory):
         msg.setText("Root directory not found")
         msg.exec_()
@@ -297,9 +258,9 @@ def directory_ingest_clicked():
     read_files(directory)
 
     print("BEGIN")
-    # testing = SplunkTest.Splunkimport()
-    # testing.upload_logfiles(UI.directory_ui.lin_root_dir.text())
-    # testing.transform_log_entry()
+    testing = SplunkTest.Splunkimport()
+    testing.upload_logfiles(UI.directory_ui.lin_root_dir.text())
+    testing.transform_log_entry()
     print("END")
     UI.load(UI.vector_ui)
 
@@ -312,7 +273,18 @@ def read_files(directory):
     print(data_read)
 
     for row in data_read:
-        log = LogEntry.LogEntry(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9])
+        log = LogEntry()
+        log.icon = row[0]
+        log.description = row[1]
+        log.name = row[2]
+        log.creator = row[3]
+        log.source = row[4]
+        log.id = row[5]
+        log.visibility = row[6]
+        log.source = row[7]
+        log.timestamp = row[8]
+        log.icon = row[9]
+
         a.append(log)
 
     x = UI.vector_table_ui.tbl_logs
@@ -351,11 +323,26 @@ def vector_delete_clicked():
 
 def vector_save_clicked():
     x = UI.vector_ui.tbl_vector
+    list = []
+    i = 0
+    while i < x.rowCount():
+        if x.item(i, 0) is None and x.item(i, 0) is None:
+            x.removeRow(i)
+        else:
+            i += 1
+
     for i in range(x.rowCount()):
         try:
-            AA.vector.append(Vector.Vector(x.item(i, 0).text(), x.item(i, 1).text()))
+            list.append(Vector(x.item(i, 0).text(), x.item(i, 1).text()))
         except:
-            pass
+            msg = QMessageBox()
+            msg.setWindowTitle("Error")
+            msg.setStyleSheet("QLabel{min-width: 200px;}")
+            msg.setText("Vector in row " + str(i + 1) + " is missing a field")
+            msg.exec_()
+            return
+    AA.vector = list
+    AA.current_vector = AA.vector[0]
 
 
 ##############
@@ -398,26 +385,83 @@ def icon_ui_clicked():
     pass
 
 
-def graph_builder_ui_clicked():
-    # UI.load(UI.graph_builder_ui)
+#########
+# Table #
+#########
+def table_ui_clicked():
+    x = UI.vector_table_ui
+    UI.load(x)
+    for v in AA.vector:
+        x.cmb_vectors.addItem(v.name)
+
+
+def set_vector_table_buttons():
+    x = UI.vector_table_ui
+    x.btn_graph.clicked.connect(graph_ui_clicked)
+    x.btn_save.clicked.connect(vector_table_btn_save)
     pass
 
 
-def table_ui_clicked():
-    UI.load(UI.vector_table_ui)
+def vector_table_btn_save():
+    x = UI.vector_table_ui.tbl_logs
+    n = lambda p: x.item(i, p).text()
+    for i in range(x.rowCount()):
+        try:
+            log = LogEntry()
+            log.icon = QIcon(QPixmap('../../res/icons/node_icons' + x.item(i, get_column(x, 'Icon')).text()))
+            AA.current_vector.log_entries.append(log)
+        except:
+            pass
+
+
+def get_column(widget, column):
+    for x in range(widget.columnCount()):
+        if column == widget.horizontalHeaderItem(x).text():
+            return x
+    return -1
+
+
+#########
+# Graph #
+#########
 
 
 def graph_ui_clicked():
+    def display(n):
+        x = UI.graph_ui
+        color = None
+        if str(n.log_entry.type).lower() == 'red':
+            color = Qt.red
+        if str(n.log_entry.type).lower() == 'blue':
+            color = Qt.blue
+        if str(n.log_entry.type).lower() == 'white':
+            color = Qt.white
+        ellipse = x.scene.addRect(10, 10, 100, 100, x.blackpen, QBrush(color))
+        ellipse.setFlag(QGraphicsItem.ItemIsMovable)
+
     x = UI.graph_ui
+
     UI.load(x)
     for v in AA.vector:
-        x.cmb_graph_builder.addItem(v.name)
+        x.cmb_vectors.addItem(v.name)
+    if AA.current_vector is None:
+        AA.current_vector = AA.vector[0]
+    for n in AA.current_vector.nodes:
+        display(n)
 
+
+################
+# Relationship #
+################
 
 def relationship_ui_clicked():
     # UI.load(UI.relationships_ui)
     pass
 
+
+########
+# MAIN #
+########
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

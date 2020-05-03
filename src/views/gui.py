@@ -1,6 +1,7 @@
 import socket
 
-from PyQt5.QtGui import QPixmap, QIcon
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap, QIcon, QBrush, QPen
 from PyQt5.QtWidgets import *
 
 window = None
@@ -141,9 +142,8 @@ class PICK_UI(QWidget):
             self.change = Button(self, 'Change', 720, 0)
             self.vector_db = Button(self, 'Vector DB', 800, 0)
             self.icon = Button(self, 'Icon', 880, 0)
-            self.graph_builder = Button(self, 'Graph Builder', 960, 0)
-            self.vector_table = Button(self, 'Vector Table', 1040, 0)
-            self.vector_graph = Button(self, 'Vector Graph', 1120, 0)
+            self.vector_table = Button(self, 'Table', 1040, 0)
+            self.vector_graph = Button(self, 'Graph', 1120, 0)
             self.relationships = Button(self, 'Relationships', 1200, 0)
             self.exit.show()
             self.team.show()
@@ -157,7 +157,6 @@ class PICK_UI(QWidget):
             self.change.show()
             self.vector_db.show()
             self.icon.show()
-            self.graph_builder.show()
             self.vector_table.show()
             self.vector_graph.show()
             self.relationships.show()
@@ -260,16 +259,13 @@ class VectorView(View):
     def __init__(self):
         super().__init__()
         self.lbl_title = Label(self, '<h1>Vectors<\\h1>', 50, 50)
-        self.tbl_vector = Table(self, 100, 180)
+        self.tbl_vector = Table(self, 100, 100)
         self.btn_add = Button(self, 'Add Vector', 400, 630)
         self.btn_delete = Button(self, 'Delete Vector', 600, 630)
         self.btn_save = Button(self, 'Save Changes', 800, 630)
-        self.lbl_active = Label(self, 'Active Vector:', 100, 130)
-        self.lbl_val_active = Label(self, '', 180, 130)
-        self.lbl_val_active.resize(100, 15)
         self.tbl_vector.setRowCount(1)
         self.tbl_vector.setColumnCount(2)
-        self.tbl_vector.setMinimumSize(1050, 420)
+        self.tbl_vector.setMinimumSize(1050, 500)
         self.tbl_vector.setColumnWidth(0, 200)
         self.tbl_vector.setColumnWidth(1, 800)
         self.tbl_vector.setHorizontalHeaderLabels(['Vector Name', 'Vector Description'])
@@ -386,11 +382,12 @@ class IconView(View):
 class GraphView(View):
     def __init__(self):
         super().__init__()
+        self.blackpen = QPen(Qt.black)
         self.lbl_title = Label(self, '<h1>Graph<\\h1>', 50, 50)
         self.scene = QGraphicsScene()
         self.graph = Graphics(self, self.scene, 200, 120)
-        self.cmb_graph_builder = ComboBox(self, 40, 120)
-        self.cmb_graph_builder.resize(120, 20)
+        self.cmb_vectors = ComboBox(self, 40, 120)
+        self.cmb_vectors.resize(120, 20)
         self.btn_add_node = Button(self, 'Add Node', 50, 250)
         self.btn_delete_node = Button(self, 'Delete Node', 50, 300)
         self.btn_edit_node = Button(self, 'Edit Node', 50, 350)
@@ -400,20 +397,30 @@ class GraphView(View):
 
         self.clear()
 
+    def addRedNode(self):
+        elipse = self.scene.addRect(10, 10, 100, 100, self.blackpen, QBrush(Qt.red))
+        elipse.setFlag(QGraphicsItem.ItemIsMovable)
+
+    def addBlueNode(self):
+        elipse = self.scene.addRect(10, 10, 100, 100, self.blackpen, QBrush(Qt.blue))
+        elipse.setFlag(QGraphicsItem.ItemIsMovable)
+
 
 class VectorTableView(View):
     def __init__(self):
         super().__init__()
         self.lbl_title = Label(self, '<h1>Vector Table<\\h1>', 50, 50)
-        self.tbl_logs = Table(self, 50, 100)
-        self.btn_graph = Button(self, "View Graph", 600, 60)
-        self.btn_save = Button(self, 'Save', 1000, 600)
+        self.tbl_logs = Table(self, 50, 150)
+        self.btn_graph = Button(self, "View Graph", 600, 100)
+        self.btn_save = Button(self, 'Save', 1000, 660)
+        self.cmb_vectors = ComboBox(self, 50, 100)
+        self.cmb_vectors.resize(150, 20)
         self.tbl_logs.setRowCount(2)
         self.tbl_logs.setColumnCount(11)
         self.tbl_logs.setHorizontalHeaderLabels(
-            ['Significant', 'Visible', 'Node ID', 'Node Name', 'Node Timestamp', 'Node Description',
-             'Reference', 'Log Creator', 'Event Type', 'Icon Type', 'Source'])
-        self.tbl_logs.setMinimumSize(1150, 520)
+            ['Significant', 'Visible', 'ID', 'Name', 'Timestamp', 'Description',
+             'Reference', 'Creator', 'Event Type', 'Icon', 'Source'])
+        self.tbl_logs.setMinimumSize(1150, 500)
 
         self.clear()
 
