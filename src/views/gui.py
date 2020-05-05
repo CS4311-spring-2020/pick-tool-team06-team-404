@@ -1,7 +1,40 @@
 import socket
+
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap, QIcon, QPen
 from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QWidget
+import sys
+import os
+
+sys.path.append(os.path.dirname(__file__) + "/..")
+from QGraphViz.QGraphViz import QGraphViz
+from QGraphViz.DotParser import Graph
+from QGraphViz.Engines import Dot
+
+from PyQt5.QtGui import QFont
 
 window = None
+
+
+def Calendar(x, y):
+    item = QCalendarWidget()
+    item.move(x, y)
+    item.adjustSize()
+    return item
+
+
+def Graphics(self, x, y):
+    item = QGraphViz(window,
+                     auto_freeze=True,
+                     hilight_Nodes=True,
+                     )
+    item.setStyleSheet("background-color:white;")
+    item.new(Dot(Graph("Main_Graph"), font=QFont("Arial", 12), margins=[40, 40]))
+    item.move(x, y)
+    item.resize(1150, 500)
+    self.widgets.append(item)
+    return item
 
 
 def Label(self, name, x, y):
@@ -12,11 +45,13 @@ def Label(self, name, x, y):
     return item
 
 
-def Button(self, name, x, y):
+def Button(self, name, x, y, icon=None):
     item = QPushButton(name, window)
     item.move(x, y)
     item.adjustSize()
     self.widgets.append(item)
+    if icon is not None:
+        item.setIcon(QIcon(QPixmap('../../res/icons/' + icon)))
     return item
 
 
@@ -73,26 +108,26 @@ class PICK_UI(QWidget):
         self.height = 720
         self.widgets = []
 
+        self.lbl_coord = Label(self, '', 5, 690)
+        self.lbl_coord.resize(200, 40)
+        self.setMouseTracking(True)
+
         self.team_ui = TeamView()
         self.event_ui = EventView()
         self.directory_ui = DirectoryView()
         self.vector_ui = VectorView()
         self.log_file_ui = LogFileView()
         self.filter_ui = FilterView()
-        self.log_entry_ui = LogEntryView()
-        self.export_ui = ExportView()
-        self.change_ui = ChangeView()
-        self.vector_db_ui = VectorDBUI
-        self.icon_ui = IconView()
-        self.graph_builder_ui = GraphBuilderView()
-        self.vector_table_ui = VectorTableView()
-        self.vector_graph_ui = VectorGraphView()
+        self.graph_ui = GraphView()
+        self.vector_table_ui = TableView()
         self.relationships_ui = RelationshipsView()
-        self.menu = self.Menu()
 
         self.ui = View()
 
         self.init_ui()
+
+    def mouseMoveEvent(self, event):
+        self.lbl_coord.setText('x:%d  y:%d' % (event.x(), event.y()))
 
     def init_ui(self):
         self.setWindowTitle(self.title)
@@ -100,42 +135,6 @@ class PICK_UI(QWidget):
 
         self.load(self.team_ui)
         self.show()
-
-    class Menu:
-        def __init__(self):
-            self.widgets = []
-            self.exit = Button(self, 'Exit', 0, 0)
-            self.team = Button(self, 'Team', 80, 0)
-            self.event = Button(self, 'Event', 160, 0)
-            self.directory = Button(self, 'Directory', 240, 0)
-            self.vector = Button(self, 'Vector', 320, 0)
-            self.log_file = Button(self, 'Log File', 400, 0)
-            self.filter = Button(self, 'Filter', 480, 0)
-            self.log_entry = Button(self, 'Log Entry', 560, 0)
-            self.export = Button(self, 'Export', 640, 0)
-            self.change = Button(self, 'Change', 720, 0)
-            self.vector_db = Button(self, 'Vector DB', 800, 0)
-            self.icon = Button(self, 'Icon', 880, 0)
-            self.graph_builder = Button(self, 'Graph Builder', 960, 0)
-            self.vector_table = Button(self, 'Vector Table', 1040, 0)
-            self.vector_graph = Button(self, 'Vector Graph', 1120, 0)
-            self.relationships = Button(self, 'Relationships', 1200, 0)
-            self.exit.show()
-            self.team.show()
-            self.event.show()
-            self.directory.show()
-            self.vector.show()
-            self.log_file.show()
-            self.filter.show()
-            self.log_entry.show()
-            self.export.show()
-            self.change.show()
-            self.vector_db.show()
-            self.icon.show()
-            self.graph_builder.show()
-            self.vector_table.show()
-            self.vector_graph.show()
-            self.relationships.show()
 
     def load(self, ui):
         if self.ui == ui:
@@ -177,17 +176,28 @@ class EventView(View):
     def __init__(self):
         super().__init__()
         self.lbl_title = Label(self, '<h1>Event Configuration<\\h1>', 50, 50)
-        self.lbl_name = Label(self, 'Event Name: ', 300, 200)
-        self.lin_name = LineEdit(self, '', 400, 200)
-        self.lbl_description = Label(self, 'Event Description: ', 300, 250)
-        self.txt_description = TextBox(self, 400, 250)
-        self.lbl_start_time = Label(self, 'Start Time: ', 300, 450)
-        self.lin_start_date = LineEdit(self, '', 400, 450)
-        self.lin_start_time = LineEdit(self, '', 480, 450)
-        self.lbl_end_time = Label(self, 'End Time: ', 300, 500)
-        self.lin_end_date = LineEdit(self, '', 400, 500)
-        self.lin_end_time = LineEdit(self, '', 480, 500)
-        self.btn_save = Button(self, 'Save', 1000, 600)
+        self.lbl_name = Label(self, 'Event Name: ', 300, 150)
+        self.lin_name = LineEdit(self, '', 400, 150)
+        self.lbl_description = Label(self, 'Event Description: ', 300, 200)
+        self.txt_description = TextBox(self, 400, 200)
+        self.lbl_start_time = Label(self, 'Start Time: ', 300, 400)
+        self.lin_start_date = LineEdit(self, '', 400, 400)
+        self.btn_cal_start_date = Button(self, '', 470, 399, 'calendar.png')
+        self.btn_cal_start_date.resize(22, 22)
+        self.cal_start_date = Calendar(600, 400)
+        self.cal_start_date.hide()
+        self.cal_start_date.setWindowTitle('Start Date')
+        self.lin_start_time = LineEdit(self, '', 510, 400)
+        self.lbl_end_time = Label(self, 'End Time: ', 300, 450)
+        self.lin_end_date = LineEdit(self, '', 400, 450)
+        self.btn_cal_end_date = Button(self, '', 470, 449, 'calendar.png')
+        self.btn_cal_end_date.resize(22, 22)
+        self.cal_end_date = Calendar(600, 400)
+        self.cal_end_date.hide()
+        self.cal_start_date.setWindowTitle('End Date')
+        self.lin_end_time = LineEdit(self, '', 510, 450)
+        self.btn_back = Button(self, 'Back', 200, 600)
+        self.btn_save = Button(self, 'Continue', 1000, 600)
         self.lin_name.resize(300, 20)
         self.txt_description.resize(500, 160)
         self.lin_start_date.setPlaceholderText('MM/DD/YYYY')
@@ -215,6 +225,12 @@ class DirectoryView(View):
         self.lin_blue_dir = Label(self, '', 450, 350)
         self.lbl_white_dir = Label(self, 'White Directory: ', 350, 400)
         self.lin_white_dir = Label(self, '', 450, 400)
+        self.lbl_splunk = Label(self, '<h3>Splunk</h3>', 350, 500)
+        self.lbl_user = Label(self, 'Username: ', 350, 550)
+        self.lin_user = LineEdit(self, '', 410, 550)
+        self.lbl_password = Label(self, 'Password: ', 600, 550)
+        self.lin_password = LineEdit(self, '', 660, 550)
+        self.lin_password.setEchoMode(QLineEdit.Password)
         self.btn_ingestion = Button(self, 'Start Ingestion', 1000, 600)
         self.lin_root_dir.resize(340, 20)
 
@@ -224,14 +240,14 @@ class DirectoryView(View):
 class VectorView(View):
     def __init__(self):
         super().__init__()
-        self.lbl_title = Label(self, '<h1>Vector Configuration<\\h1>', 50, 50)
-        self.tbl_vector = Table(self, 100, 200)
-        self.btn_add = Button(self, 'Add Vector', 400, 600)
-        self.btn_delete = Button(self, 'Delete Vector', 600, 600)
-        self.btn_save = Button(self, 'Save Changes', 800, 600)
+        self.lbl_title = Label(self, '<h1>Vectors<\\h1>', 50, 50)
+        self.tbl_vector = Table(self, 150, 100)
+        self.btn_add = Button(self, 'Add Vector', 50, 100)
+        self.btn_delete = Button(self, 'Delete Vector', 50, 150)
+        self.btn_save = Button(self, 'Continue', 1000, 630)
         self.tbl_vector.setRowCount(1)
         self.tbl_vector.setColumnCount(2)
-        self.tbl_vector.setMinimumSize(1050, 360)
+        self.tbl_vector.setMinimumSize(1050, 500)
         self.tbl_vector.setColumnWidth(0, 200)
         self.tbl_vector.setColumnWidth(1, 800)
         self.tbl_vector.setHorizontalHeaderLabels(['Vector Name', 'Vector Description'])
@@ -242,18 +258,19 @@ class VectorView(View):
 class LogFileView(View):
     def __init__(self):
         super().__init__()
-        self.lbl_title = Label(self, '<h1>Log File Configuration<\\h1>', 50, 50)
-        self.tbl_log_file = Table(self, 100, 100)
-        self.tbl_file_action_report = Table(self, 100, 300)
-        self.btn_validate = Button(self, "Validate", 100, 300)
-        self.btn_cancel = Button(self, "Cancel", 100, 300)
-        self.tbl_log_file.setHorizontalHeaderLabels(
-            ['File Name', 'Source', 'Cleansing Status', 'Validation', 'Ingestion Status', 'View EA Report'])
-        self.tbl_log_file.setRowCount(34)
-        self.tbl_log_file.setColumnCount(6)
-        self.tbl_file_action_report.setRowCount(34)
-        self.tbl_file_action_report.setColumnCount(3)
-        self.tbl_file_action_report.setHorizontalHeaderLabels(['File Name', 'Line Number', 'Error Message'])
+        self.lbl_title = Label(self, '<h1>Log Entries<\\h1>', 50, 50)
+        self.tbl_logs = Table(self, 50, 150)
+        self.btn_continue = Button(self, 'Continue', 1125, 660)
+        self.tbl_logs.setRowCount(2)
+        self.tbl_logs.setColumnCount(5)
+        self.tbl_logs.setHorizontalHeaderLabels(
+            ['Name', 'Timestamp', 'Description', 'Creator', 'Source'])
+        self.tbl_logs.setMinimumSize(1150, 500)
+        self.tbl_logs.setColumnWidth(0, 135)
+        self.tbl_logs.setColumnWidth(1, 150)
+        self.tbl_logs.setColumnWidth(2, 400)
+        self.tbl_logs.setColumnWidth(3, 65)
+        self.tbl_logs.setColumnWidth(4, 380)
 
         self.clear()
 
@@ -274,124 +291,36 @@ class FilterView(View):
         self.clear()
 
 
-class LogEntryView(View):
+class GraphView(View):
     def __init__(self):
         super().__init__()
-        self.lbl_title = Label(self, '<h1>Log Entry<\\h1>', 50, 50)
-        self.tbl_log_entry = Table(self, 100, 100)
-        self.tbl_log_entry.setRowCount(34)
-        self.tbl_log_entry.setColumnCount(5)
-        self.tbl_log_entry.setHorizontalHeaderLabels(
-            ['', 'List Number', 'Log Entry Timestamp', 'Log Entry Event', 'Vector'])
+        self.blackpen = QPen(Qt.black)
+        self.lbl_title = Label(self, '<h1>Graph<\\h1>', 50, 50)
+        self.graph = Graphics(self, 50, 150)
+        self.cmb_vectors = ComboBox(self, 50, 100)
+        self.cmb_vectors.resize(150, 20)
+        self.btn_table = Button(self, "Table", 50, 660)
+        self.btn_relationships = Button(self, "Relationships", 150, 660)
+        self.btn_save = Button(self, 'Save', 1125, 660)
 
         self.clear()
 
 
-class ExportView(View):
-    def __init__(self):
-        super().__init__()
-        self.lbl_title = Label(self, '<h1>Export<\\h1>', 50, 50)
-        self.cmb_export = ComboBox(self, 200, 200)
-        self.btn_export = Button(self, 'Export', 300, 300)
-        self.cmb_export.addItem('PDF')
-        self.cmb_export.addItem('GIF')
-        self.cmb_export.addItem('ABC')
-
-        self.clear()
-
-
-class ChangeView(View):
-    def __init__(self):
-        super().__init__()
-        self.lbl_title = Label(self, '<h1>Change List<\\h1>', 50, 50)
-        self.btn_undo = Button(self, 'Undo', 100, 100)
-        self.btn_commit = Button(self, 'Commit', 100, 200)
-
-        self.clear()
-
-
-class VectorDBUI(View):
-    def __init__(self):
-        super().__init__()
-        self.lbl_title = Label(self, '<h1>Vector Data Base<\\h1>', 50, 50)
-        self.lbl_connection = Label(self, 'Connection status to lead: ', 200, 200)
-        self.lbl_connection_val = Label(self, '4', 200, 200)
-        self.lbl_pulled_table = Label(self, 'PULLED vector DB table (Analyst)', 200, 200)
-        self.tbl_pulled = Table(self, 300, 300)
-        self.btn_pull = Button(self, 'Pull', 500, 500)
-        self.lbl_pushed_table = Label(self, 'PUSHED vector DB table (Analyst)', 200, 400)
-        self.tbl_pushed = Table(self, 300, 300)
-        self.btn_push = Button(self, 'Push', 500, 500)
-        self.tbl_pulled.setRowCount(34)
-        self.tbl_pulled.setColumnCount(1)
-        self.tbl_pushed.setRowCount(34)
-        self.tbl_pushed.setColumnCount(1)
-
-        self.clear()
-
-
-class IconView(View):
-    def __init__(self):
-        super().__init__()
-        self.lbl_title = Label(self, '<h1>Icon Configuration<\\h1>', 50, 50)
-        self.tbl_icon = Table(self, 100, 200)
-        self.btn_add_icon = Button(self, 'Add Icon', 100, 100)
-        self.btn_delete_icon = Button(self, 'Delete Icon', 100, 100)
-        self.btn_edit_icon = Button(self, 'Edit Icon', 100, 100)
-        self.tbl_icon.setRowCount(34)
-        self.tbl_icon.setColumnCount(4)
-        self.tbl_icon.setHorizontalHeaderLabels(['Select', 'Icon Name', 'Icon Source', 'Image Preview'])
-
-        self.clear()
-
-
-class GraphBuilderView(View):
-    def __init__(self):
-        super().__init__()
-        self.lbl_title = Label(self, '<h1Graph Builder<\\h1>', 50, 50)
-        self.cmb_graph_builder = ComboBox(self, 200, 200)
-        self.lbl_description = Label(self, 'Description: ', 200, 200)
-        self.lin_description = LineEdit(self, '', 200, 200)
-        self.btn_add_node = Button(self, 'Add Node', 200, 200)
-        self.btn_delete_node = Button(self, 'Delete Node', 200, 200)
-        self.btn_edit_node = Button(self, 'Edit Node', 200, 200)
-        self.btn_add_relationship = Button(self, 'Add Relationship', 200, 200)
-        self.btn_delete_relationship = Button(self, 'Delete Relationship', 200, 200)
-        self.btn_edit_relationship = Button(self, 'Edit Relationship', 200, 200)
-        self.cmb_graph_builder.addItem('example vector 1')
-        self.cmb_graph_builder.addItem('example vector 2')
-
-        self.clear()
-
-
-class VectorTableView(View):
+class TableView(View):
     def __init__(self):
         super().__init__()
         self.lbl_title = Label(self, '<h1>Vector Table<\\h1>', 50, 50)
-        self.tbl_logs = Table(self, 50, 100)
-        self.tbl_logs.setRowCount(2)
+        self.tbl_logs = Table(self, 50, 150)
+        self.btn_graph = Button(self, "Graph", 50, 660)
+        self.btn_relationships = Button(self, "Relationships", 150, 660)
+        self.cmb_vectors = ComboBox(self, 50, 100)
+        self.cmb_vectors.resize(150, 20)
+        # self.tbl_logs.setRowCount(2)
         self.tbl_logs.setColumnCount(10)
         self.tbl_logs.setHorizontalHeaderLabels(
-            ['Visible', 'Node ID', 'Node Name', 'Node Timestamp', 'Node Description',
-             'Reference', 'Log Creator', 'Event Type', 'Icon Type', 'Source'])
-        self.tbl_logs.setMinimumSize(1150, 560)
-
-        self.clear()
-
-
-class VectorGraphView(View):
-    def __init__(self):
-        super().__init__()
-        self.lbl_title = Label(self, '<h1>Vector Graph<\\h1>', 50, 50)
-        self.lbl_timeline_orientation = Label(self, 'Timeline Orientation', 200, 200)
-        self.cmb_timeline_orientation = ComboBox(self, 200, 200)
-        self.lbl_interval_units = Label(self, 'Interval Units', 300, 300)
-        self.cmb_interval_units = ComboBox(self, 300, 300)
-        self.lbl_timeline = Label(self, 'A TIMELINE IS SUPPOSED TO GO HERE', 200, 200)
-        self.btn_zoom_in = Button(self, 'Zoom In', 300, 300)
-        self.btn_zoom_out = Button(self, 'Zoom Out', 300, 300)
-        self.cmb_timeline_orientation.addItem('example orientation')
-        self.cmb_interval_units.addItem('example interval unit')
+            ['Significant', 'Visible', 'ID', 'Name', 'Timestamp', 'Description', 'Creator', 'Event Type', 'Icon',
+             'Source'])
+        self.tbl_logs.setMinimumSize(1150, 500)
 
         self.clear()
 
@@ -400,8 +329,16 @@ class RelationshipsView(View):
     def __init__(self):
         super().__init__()
         self.lbl_title = Label(self, '<h1>Relationship Configuration<\\h1>', 50, 50),
-        self.tbl_relationship = Table(self, 200, 200)
-        self.tbl_relationship.setRowCount(34)
-        self.tbl_relationship.setColumnCount(7)
+        self.tbl_relationships = Table(self, 50, 150)
+        self.cmb_vectors = ComboBox(self, 50, 100)
+        self.cmb_vectors.resize(150, 20)
+        self.tbl_relationships.setRowCount(1)
+        self.tbl_relationships.setColumnCount(2)
+        self.tbl_relationships.setHorizontalHeaderLabels(
+            ['Parent', 'Child'])
+        self.tbl_relationships.setMinimumSize(1150, 500)
+        self.btn_table = Button(self, "Table", 50, 660)
+        self.btn_graph = Button(self, "Graph", 150, 660)
+        self.btn_add = Button(self, 'Add Row', 1125, 660)
 
         self.clear()

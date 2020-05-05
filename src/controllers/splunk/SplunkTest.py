@@ -1,6 +1,7 @@
+import os
+
 import splunklib.client as client
 import splunklib.results as results
-import os
 
 
 class Logentry(object):
@@ -16,8 +17,8 @@ class Logentry(object):
 
 HOST = "localhost"
 PORT = 8089
-USERNAME = "jntorres217"
-PASSWORD = "Jaconian@1520"
+USERNAME = "admin"
+PASSWORD = "changeme"
 
 
 class Splunkimport:

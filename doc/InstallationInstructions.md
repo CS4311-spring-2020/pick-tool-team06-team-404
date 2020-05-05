@@ -16,6 +16,9 @@
 
  - From [[3](#references)], "Splunk captures, indexes, and correlates real-time data in a searchable repository from which it can generate graphs, reports, alerts, dashboards, and visualizations."
  - PICK Tool depends on Splunk Enterpise and requires dependency, which can be downloaded [here](https://www.splunk.com/en_us/download/splunk-enterprise.html).
+    - You will need the following information to login to and Download Splunk Enterprise:
+        - **Username**: jntorres217
+        - **Password**: Jaconian@1520
 
 4. Users must install or verify the installation of the **Splunk Python JDK**
 
