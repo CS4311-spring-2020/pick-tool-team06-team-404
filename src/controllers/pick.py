@@ -2,6 +2,16 @@ import sys
 import os
 import datetime
 import csv
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QVBoxLayout
+import sys
+import os
+
+sys.path.append(os.path.dirname(__file__) + "/..")
+from QGraphViz.QGraphViz import QGraphViz
+from QGraphViz.DotParser import Graph
+from QGraphViz.Engines import Dot
+
+from PyQt5.QtGui import QFont
 
 sys.path.append(sys.path[0][:-16])
 
@@ -224,11 +234,11 @@ def directory_ingest_clicked():
 
     if not read_files(directory):
         return
-    # print("BEGIN")
-    # testing = SplunkTest.Splunkimport()
-    # testing.upload_logfiles(UI.directory_ui.lin_root_dir.text())
-    # testing.transform_log_entry()
-    # print("END")
+    print("BEGIN")
+    testing = SplunkTest.Splunkimport()
+    testing.upload_logfiles(UI.directory_ui.lin_root_dir.text())
+    testing.transform_log_entry()
+    print("END")
     UI.load(UI.log_file_ui)
 
 
@@ -378,7 +388,7 @@ def table_ui_clicked():
         tbl.setCellWidget(i, 1, QCheckBox())
         if log in c_vector.log_visible:
             tbl.cellWidget(i, 1).setChecked(True)
-        log_entry.id = str(i+1)
+        log_entry.id = str(i + 1)
         tbl.setItem(i, 2, QTableWidgetItem(log_entry.id))
         tbl.setItem(i, 3, QTableWidgetItem(log_entry.name))
         tbl.setItem(i, 4, QTableWidgetItem(log_entry.timestamp))
@@ -405,7 +415,7 @@ def cmb_box_change():
 
 def vector_table_btn_save():
     x = UI.vector_table_ui.tbl_logs
-    cv= AA.vector[AA.current_vector]
+    cv = AA.vector[AA.current_vector]
     for i in range(x.rowCount()):
         log = LogEntry()
         error = ''
@@ -429,7 +439,7 @@ def vector_table_btn_save():
             if x.cellWidget(i, get_column(x, 'Visible')).isChecked():
                 cv.log_visible.add(log.id)
             elif log.id in cv.log_visible:
-                    cv.log_visible.remove(log.id)
+                cv.log_visible.remove(log.id)
             if x.cellWidget(i, get_column(x, 'Significant')).isChecked():
                 cv.log_entries.add(log.id)
             elif log.id in cv.log_entries:
@@ -464,27 +474,14 @@ def set_graph_buttons():
 
 
 def graph_btn_save():
-    for node in AA.vector[AA.current_vector].nodes:
-        pass
+    fname = QFileDialog.getSaveFileName(UI.graph_ui.graph, "Save", "", "*.json")
+    if fname[0] != "":
+        UI.graph_ui.graph.saveAsJson(fname[0])
 
 
 def graph_ui_clicked():
-    def display(n):
-        x = UI.graph_ui
-        color = None
-        if str(n.color).lower() == 'red':
-            color = Qt.red
-        if str(n.color).lower() == 'blue':
-            color = Qt.blue
-        if str(n.color).lower() == 'white':
-            color = Qt.white
-        n.rect = x.scene.addRect(n.x, n.y, 100, 100, x.blackpen, QBrush(color))
-        n.rect.setFlag(QGraphicsItem.ItemIsMovable)
-
     x = UI.graph_ui
-
     UI.load(x)
-    x.scene.clear()
     for v in AA.vector:
         x.cmb_vectors.addItem(v)
     if AA.current_vector in set([v for v in AA.vector]):
@@ -492,11 +489,32 @@ def graph_ui_clicked():
     else:
         AA.current_vector = AA.vector[0].name
 
-    for log in AA.vector[AA.current_vector].log_entries:
-        if log in AA.vector[AA.current_vector].log_visible:
-            node = Node(AA.log_entries[log])
-            AA.vector[AA.current_vector].nodes.append(node)
-            display(node)
+    display_graph(AA.current_vector)
+
+
+def display_graph(vector):
+    x = UI.graph_ui
+    graph = x.graph
+    graph.engine.graph = Graph("MainGraph")
+    graph.build()
+    graph.repaint()
+
+    nodes = {}
+    for log in AA.vector[vector].log_visible:
+        le = AA.log_entries[log]
+        nodes[le.id] = graph.addNode(graph.engine.graph, "Node", label=le.name + '\n' + le.timestamp, shape="polygon",
+                                     fillcolor=le.type)
+
+    tbl_rel = UI.relationships_ui.tbl_relationships
+    for row in range(tbl_rel.rowCount()):
+        try:
+            node1 = AA.log_entries[tbl_rel.item(row, 0).text()].id
+            node2 = AA.log_entries[tbl_rel.item(row, 1).text()].id
+            graph.addEdge(nodes[node1], nodes[node2], {"width": 5, "color": "black"})
+        except:
+            pass
+
+    x.graph.build()
 
 
 ################

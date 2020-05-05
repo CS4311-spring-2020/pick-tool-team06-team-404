@@ -1,8 +1,19 @@
 import socket
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap, QIcon, QBrush, QPen
+from PyQt5.QtGui import QPixmap, QIcon, QBrush, QPen, QColor
 from PyQt5.QtWidgets import *
+from PyQt5.uic.Compiler.qtproxies import QtGui
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QVBoxLayout
+import sys
+import os
+
+sys.path.append(os.path.dirname(__file__) + "/..")
+from QGraphViz.QGraphViz import QGraphViz
+from QGraphViz.DotParser import Graph
+from QGraphViz.Engines import Dot
+
+from PyQt5.QtGui import QFont
 
 window = None
 
@@ -14,8 +25,13 @@ def Calendar(x, y):
     return item
 
 
-def Graphics(self, scene, x, y):
-    item = QGraphicsView(scene, window)
+def Graphics(self, x, y):
+    item = QGraphViz(window,
+                     auto_freeze=True,
+                     hilight_Nodes=True,
+                     )
+    item.setStyleSheet("background-color:white;")
+    item.new(Dot(Graph("Main_Graph"), font=QFont("Arial", 12), margins=[20, 20]))
     item.move(x, y)
     item.resize(1150, 500)
     self.widgets.append(item)
@@ -103,10 +119,6 @@ class PICK_UI(QWidget):
         self.vector_ui = VectorView()
         self.log_file_ui = LogFileView()
         self.filter_ui = FilterView()
-        self.log_entry_ui = LogEntryView()
-        self.change_ui = ChangeView()
-        self.vector_db_ui = VectorDBUI
-        self.icon_ui = IconView()
         self.graph_ui = GraphView()
         self.vector_table_ui = TableView()
         self.relationships_ui = RelationshipsView()
@@ -280,78 +292,17 @@ class FilterView(View):
         self.clear()
 
 
-class LogEntryView(View):
-    def __init__(self):
-        super().__init__()
-        self.lbl_title = Label(self, '<h1>Log Entry<\\h1>', 50, 50)
-        self.tbl_log_entry = Table(self, 100, 100)
-        self.tbl_log_entry.setRowCount(34)
-        self.tbl_log_entry.setColumnCount(5)
-        self.tbl_log_entry.setHorizontalHeaderLabels(
-            ['', 'List Number', 'Log Entry Timestamp', 'Log Entry Event', 'Vector'])
-
-        self.clear()
-
-
-class ChangeView(View):
-    def __init__(self):
-        super().__init__()
-        self.lbl_title = Label(self, '<h1>Change List<\\h1>', 50, 50)
-        self.btn_undo = Button(self, 'Undo', 100, 100)
-        self.btn_commit = Button(self, 'Commit', 100, 200)
-
-        self.clear()
-
-
-class VectorDBUI(View):
-    def __init__(self):
-        super().__init__()
-        self.lbl_title = Label(self, '<h1>Vector Data Base<\\h1>', 50, 50)
-        self.lbl_connection = Label(self, 'Connection status to lead: ', 200, 200)
-        self.lbl_connection_val = Label(self, '4', 200, 200)
-        self.lbl_pulled_table = Label(self, 'PULLED vector DB table (Analyst)', 200, 200)
-        self.tbl_pulled = Table(self, 300, 300)
-        self.btn_pull = Button(self, 'Pull', 500, 500)
-        self.lbl_pushed_table = Label(self, 'PUSHED vector DB table (Analyst)', 200, 400)
-        self.tbl_pushed = Table(self, 300, 300)
-        self.btn_push = Button(self, 'Push', 500, 500)
-        self.tbl_pulled.setRowCount(34)
-        self.tbl_pulled.setColumnCount(1)
-        self.tbl_pushed.setRowCount(34)
-        self.tbl_pushed.setColumnCount(1)
-
-        self.clear()
-
-
-class IconView(View):
-    def __init__(self):
-        super().__init__()
-        self.lbl_title = Label(self, '<h1>Icon Configuration<\\h1>', 50, 50)
-        self.tbl_icon = Table(self, 100, 200)
-        self.btn_add_icon = Button(self, 'Add Icon', 100, 100)
-        self.btn_delete_icon = Button(self, 'Delete Icon', 100, 100)
-        self.btn_edit_icon = Button(self, 'Edit Icon', 100, 100)
-        self.tbl_icon.setRowCount(34)
-        self.tbl_icon.setColumnCount(4)
-        self.tbl_icon.setHorizontalHeaderLabels(['Select', 'Icon Name', 'Icon Source', 'Image Preview'])
-
-        self.clear()
-
-
 class GraphView(View):
     def __init__(self):
         super().__init__()
         self.blackpen = QPen(Qt.black)
         self.lbl_title = Label(self, '<h1>Graph<\\h1>', 50, 50)
-        self.scene = QGraphicsScene()
-        self.graph = Graphics(self, self.scene, 50, 150)
+        self.graph = Graphics(self, 50, 150)
         self.cmb_vectors = ComboBox(self, 50, 100)
         self.cmb_vectors.resize(150, 20)
         self.btn_table = Button(self, "Table", 50, 660)
         self.btn_relationships = Button(self, "Relationships", 150, 660)
         self.btn_save = Button(self, 'Save', 1125, 660)
-        self.rect = self.scene.addRect(1, 1, 100, 100, self.blackpen, QBrush(Qt.blue))
-        self.rect.setFlag(QGraphicsItem.ItemIsMovable)
 
         self.clear()
 
@@ -393,10 +344,10 @@ class RelationshipsView(View):
         self.tbl_relationships = Table(self, 50, 150)
         self.cmb_vectors = ComboBox(self, 50, 100)
         self.cmb_vectors.resize(150, 20)
-        self.tbl_relationships.setRowCount(2)
+        self.tbl_relationships.setRowCount(1)
         self.tbl_relationships.setColumnCount(3)
         self.tbl_relationships.setHorizontalHeaderLabels(
-            ['Parent', 'Child', 'Label'])
+            ['Parent', 'Child'])
         self.tbl_relationships.setMinimumSize(1150, 500)
         self.btn_table = Button(self, "Table", 50, 660)
         self.btn_graph = Button(self, "Graph", 150, 660)
