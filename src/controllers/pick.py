@@ -234,11 +234,11 @@ def directory_ingest_clicked():
 
     if not read_files(directory):
         return
-    print("BEGIN")
-    testing = SplunkTest.Splunkimport()
-    testing.upload_logfiles(UI.directory_ui.lin_root_dir.text())
-    testing.transform_log_entry()
-    print("END")
+    # print("BEGIN")
+    # testing = SplunkTest.Splunkimport()
+    # testing.upload_logfiles(UI.directory_ui.lin_root_dir.text())
+    # testing.transform_log_entry()
+    # print("END")
     UI.load(UI.log_file_ui)
 
 

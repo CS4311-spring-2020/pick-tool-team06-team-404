@@ -17,8 +17,8 @@ class Logentry(object):
 
 HOST = "localhost"
 PORT = 8089
-USERNAME = "ArthurTodd"
-PASSWORD = "5tgb^YHN"
+USERNAME = "admin"
+PASSWORD = "changeme"
 
 
 class Splunkimport:
