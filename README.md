@@ -2,8 +2,8 @@
 
 ## Overview
 
-**Date: 28 April 2020**</br>
-**Version: [0.8.0](doc/ReleaseNotes.md)**</br>
+**Date: 30 April 2020**</br>
+**Version: [0.9.0](doc/ReleaseNotes.md)**</br>
 **Known Errors: [Current Release](doc/KnownErrors.md)**</br>
 **Installation: [Installation Instructions](doc/InstallationInstructions.md)**
 
@@ -181,9 +181,7 @@ Upon a successful review of the Pull Request, the reviewer shall:
 
 ### Project Dependencies
 
-The dependencies for this project are as follows:
-
-1. PyQt5
+The dependencies for this project are listed in the Installation Instructions, located [here](doc/InstallationInstructions.md)
 
 ### Warnings & Known Issues
 
@@ -200,8 +198,8 @@ The dependencies for this project are as follows:
  ```
 
 2. Partial development for this project was done on Microsoft Visual Studio Code (*VSCode*).
-* If developing in VSCode, **DO NOT ENABLE *Microsoft Python Language Server* or *Microsoft Python Language Server (preview)***
-* Enabling the language server will render all python code unusable.
+ - If developing in VSCode, **DO NOT ENABLE *Microsoft Python Language Server* or *Microsoft Python Language Server (preview)***
+ - Enabling the language server will render all python code unusable.
  ***Resolution(s)** (Select one):
     1. Bypass the language server by reverting ```python.jediEnabled``` to ```true```.
     2. Reinstall VSCode

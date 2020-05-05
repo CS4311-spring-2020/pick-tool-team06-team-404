@@ -2,6 +2,15 @@
 
 ## What's New
 
+### Version 0.9.0 (30 April 2020)
+
+* Added Graph Integration
+* Added Calendar Integration
+* Added Splunk Integration
+* Added Dependency List // Install Instrcutions
+
+## Version History
+
 ### Version 0.8.0 (28 April 2020)
 
 * Fixed Git directory structure
@@ -9,8 +18,6 @@
 * Added OCR for images
 * Added/Fixed Test Plan
 * Completed top-level README
-
-## Version History
 
 ### Version 0.3.2 (31 March 2020)
 
