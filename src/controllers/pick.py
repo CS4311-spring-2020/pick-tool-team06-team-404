@@ -3,10 +3,9 @@ import os
 import datetime
 import csv
 
-from src.models.Node import Node
-
 sys.path.append(sys.path[0][:-16])
 
+from src.models.Node import Node
 from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QBrush, QIcon, QPixmap
 from PyQt5.QtWidgets import *
