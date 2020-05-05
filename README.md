@@ -2,8 +2,8 @@
 
 ## Overview
 
-**Date: 28 April 2020**</br>
-**Version: [0.8.0](doc/ReleaseNotes.md)**</br>
+**Date: 05 May 2020**</br>
+**Version: [0.9.5](doc/ReleaseNotes.md)**</br>
 **Known Errors: [Current Release](doc/KnownErrors.md)**</br>
 **Installation: [Installation Instructions](doc/InstallationInstructions.md)**
 

@@ -2,6 +2,16 @@
 
 ## What's New
 
+### Version 0.9.5 (05 May 2020)
+
+* Fixed Git directory structure
+* Added Calendar Integration
+* Added Splunk Upload Implementation
+* Added Graph Functionality
+* Bug Fixes & Performace Enhancements
+
+## Version History
+
 ### Version 0.8.0 (28 April 2020)
 
 * Fixed Git directory structure
@@ -9,8 +19,6 @@
 * Added OCR for images
 * Added/Fixed Test Plan
 * Completed top-level README
-
-## Version History
 
 ### Version 0.3.2 (31 March 2020)
 

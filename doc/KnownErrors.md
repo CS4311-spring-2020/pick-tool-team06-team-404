@@ -2,6 +2,14 @@
 
 ## Current Release
 
+### Version 0.9.5 (05 May 2020)
+
+* Missing Complete DB Implementation
+* Missing Splunk Dpwnload
+* Missing Code Documentation
+
+## Previous Releases
+
 ### Version 0.8.0 (28 April 2020)
 
 * Missing DB
@@ -10,8 +18,6 @@
 * Missing Splunk Integration
 * Missing Code Documentation
 * Missing Dependency List
-
-## Previous Releases
 
 ### Version 0.3.2 (31 March 2020)
 
