@@ -4,6 +4,7 @@ class Vector:
         self.id = None
         self.name = name
         self.description = description
-        self.log_entries = []
+        self.log_entries = set()
+        self.log_visible = set()
         self.nodes = []
         self.relationships = []

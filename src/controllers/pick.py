@@ -3,6 +3,10 @@ import os
 import datetime
 import csv
 
+from src.models.Node import Node
+
+sys.path.append(sys.path[0][:-16])
+
 from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QBrush, QIcon, QPixmap
 from PyQt5.QtWidgets import *
@@ -62,25 +66,6 @@ def file_dialog():
         return ''
 
 
-def set_menu_buttons():
-    x = UI.menu
-    x.exit.clicked.connect(UI.close)
-    x.team.clicked.connect(team_ui_clicked)
-    x.event.clicked.connect(event_ui_clicked)
-    x.directory.clicked.connect(directory_ui_clicked)
-    x.vector.clicked.connect(vector_ui_clicked)
-    x.log_file.clicked.connect(log_file_ui_clicked)
-    x.filter.clicked.connect(filter_ui_clicked)
-    x.log_entry.clicked.connect(log_entry_ui_clicked)
-    x.export.clicked.connect(export_ui_clicked)
-    x.change.clicked.connect(change_ui_clicked)
-    x.vector_db.clicked.connect(vector_db_ui_clicked)
-    x.icon.clicked.connect(icon_ui_clicked)
-    x.vector_table.clicked.connect(table_ui_clicked)
-    x.vector_graph.clicked.connect(graph_ui_clicked)
-    x.relationships.clicked.connect(relationship_ui_clicked)
-
-
 def set_team_buttons():
     x = UI.team_ui
     x.chk_lead.clicked.connect(team_chk_lead_clicked)
@@ -95,6 +80,7 @@ def set_event_buttons():
     x.cal_start_date.clicked[QDate].connect(start_calendar_clicked)
     x.btn_cal_end_date.clicked.connect(x.cal_end_date.show)
     x.cal_end_date.clicked[QDate].connect(end_calendar_clicked)
+    x.btn_back.clicked.connect(team_ui_clicked)
 
 
 def start_calendar_clicked():
@@ -120,32 +106,25 @@ def set_vector_buttons():
     x = UI.vector_ui
     x.btn_add.clicked.connect(vector_add_clicked)
     x.btn_delete.clicked.connect(vector_delete_clicked)
-    x.btn_save.clicked.connect(vector_save_clicked)
+    x.btn_save.clicked.connect(vector_btn_continue_clicked)
 
 
-def set_vector_graph_buttons():
+def set_relationships_buttons():
     pass
 
 
 def set_buttons():
-    set_menu_buttons()
     set_team_buttons()
     set_event_buttons()
     set_directory_buttons()
     set_vector_buttons()
-    #     set_log_file_buttons()
-    #     set_filter_buttons()
+    set_log_file_buttons()
     #     set_log_entry_buttons()
     #     set_export_buttons()
-    #     set_change_buttons()
     #     set_vector_db_buttons()
-    #     set_icon_buttons()
-    #     set_graph_builder_buttons()
     set_vector_table_buttons()
-    set_vector_graph_buttons()
-
-
-#     set_relationships_buttons()
+    set_graph_buttons()
+    set_relationships_buttons()
 
 
 def team_chk_lead_clicked():
@@ -165,7 +144,10 @@ def team_btn_continue_clicked():
 
 
 def team_ui_clicked():
-    UI.load(UI.team_ui)
+    x = UI.team_ui
+    UI.load(x)
+    if x.chk_lead.isChecked():
+        x.btn_connect.hide()
 
 
 def event_ui_clicked():
@@ -235,72 +217,67 @@ def directory_ingest_clicked():
     msg.setStyleSheet("QLabel{min-width: 200px;}")
     directory = UI.directory_ui.lin_root_dir.text()
     AA.root_dir = directory
-    read_files(directory)
 
     if not os.path.isdir(directory):
         msg.setText("Root directory not found")
         msg.exec_()
         return
-    if not os.path.isdir(directory + '/red'):
-        msg.setText("Red directory not found")
-        msg.exec_()
-        return
-    if not os.path.isdir(directory + '/blue'):
-        msg.setText("Blue directory not found")
-        msg.exec_()
-        return
-    if not os.path.isdir(directory + '/white'):
-        msg.setText("White directory not found")
-        msg.exec_()
-        return
 
-    AA.root_dir = directory
-    read_files(directory)
-
-    print("BEGIN")
-    testing = SplunkTest.Splunkimport()
-    testing.upload_logfiles(UI.directory_ui.lin_root_dir.text())
-    testing.transform_log_entry()
-    print("END")
-    UI.load(UI.vector_ui)
+    if not read_files(directory):
+        return
+    # print("BEGIN")
+    # testing = SplunkTest.Splunkimport()
+    # testing.upload_logfiles(UI.directory_ui.lin_root_dir.text())
+    # testing.transform_log_entry()
+    # print("END")
+    UI.load(UI.log_file_ui)
 
 
 def read_files(directory):
     a = AA.log_entries
-    with open(directory + '/red/test.csv', 'r') as fp:
-        reader = csv.reader(fp, delimiter=',', quotechar='"')
-        data_read = [row for row in reader]
-    print(data_read)
+    id = 1
+    err = False
+    for creator in ['red', 'blue', 'white']:
+        try:
+            for file in os.listdir(directory + '/' + creator):
+                for line in open(directory + '/' + creator + '/' + file, 'r').readlines():
+                    if line == '':
+                        continue
+                    strsplit = line.split()
+                    if len(strsplit) < 8:
+                        continue
+                    log = LogEntry()
+                    log.id = id
+                    log.name = ' '.join(strsplit[5:7])
+                    log.timestamp = ' '.join(strsplit[0:5])
+                    log.description = ' '.join(strsplit[7:])
+                    log.creator = creator
+                    log.source = directory + '/' + creator + '/' + file
+                    a[log.id] = log
+                    id += 1
+        except:
+            msg = QMessageBox()
+            msg.setWindowTitle("Error")
+            msg.setStyleSheet("QLabel{min-width: 200px;}")
+            msg.setText(creator + " directory not found")
+            msg.exec_()
+            err = True
 
-    for row in data_read:
-        log = LogEntry()
-        log.icon = row[0]
-        log.description = row[1]
-        log.name = row[2]
-        log.creator = row[3]
-        log.source = row[4]
-        log.id = row[5]
-        log.visibility = row[6]
-        log.source = row[7]
-        log.timestamp = row[8]
-        log.icon = row[9]
+    if err:
+        return False
 
-        a.append(log)
+    x = UI.log_file_ui.tbl_logs
+    x.setRowCount(id - 1)
+    i = 0
+    for log in a:
+        x.setItem(i, 0, QTableWidgetItem(a[log].name))
+        x.setItem(i, 1, QTableWidgetItem(a[log].timestamp))
+        x.setItem(i, 2, QTableWidgetItem(a[log].description))
+        x.setItem(i, 3, QTableWidgetItem(a[log].creator))
+        x.setItem(i, 4, QTableWidgetItem(a[log].source))
+        i += 1
 
-    x = UI.vector_table_ui.tbl_logs
-    for i in range(len(a)):
-        x.setItem(i, 0, QTableWidgetItem(a[i].visibility))
-        x.setItem(i, 1, QTableWidgetItem(a[i].id))
-        x.setItem(i, 2, QTableWidgetItem(a[i].name))
-        x.setItem(i, 3, QTableWidgetItem(a[i].description))
-        x.setItem(i, 4, QTableWidgetItem(a[i].timestamp))
-        x.setItem(i, 5, QTableWidgetItem(a[i].reference))
-        x.setItem(i, 6, QTableWidgetItem(a[i].creator))
-        x.setItem(i, 7, QTableWidgetItem(a[i].type))
-        x.setItem(i, 8, QTableWidgetItem(a[i].icon))
-        x.setItem(i, 9, QTableWidgetItem(a[i].source))
-
-    pass
+    return True
 
 
 ############
@@ -321,9 +298,8 @@ def vector_delete_clicked():
     x.removeRow(x.currentRow())
 
 
-def vector_save_clicked():
+def vector_btn_continue_clicked():
     x = UI.vector_ui.tbl_vector
-    list = []
     i = 0
     while i < x.rowCount():
         if x.item(i, 0) is None and x.item(i, 0) is None:
@@ -333,7 +309,10 @@ def vector_save_clicked():
 
     for i in range(x.rowCount()):
         try:
-            list.append(Vector(x.item(i, 0).text(), x.item(i, 1).text()))
+            key = x.item(i, 0).text()
+            if key not in AA.vector:
+                AA.vector[key] = Vector(key, x.item(i, 1).text())
+                AA.current_vector = key
         except:
             msg = QMessageBox()
             msg.setWindowTitle("Error")
@@ -341,8 +320,8 @@ def vector_save_clicked():
             msg.setText("Vector in row " + str(i + 1) + " is missing a field")
             msg.exec_()
             return
-    AA.vector = list
-    AA.current_vector = AA.vector[0]
+
+    table_ui_clicked()
 
 
 ##############
@@ -351,27 +330,21 @@ def vector_save_clicked():
 
 
 def log_file_ui_clicked():
-    # UI.load(UI.log_file_ui)
-    pass
+    UI.load(UI.log_file_ui)
+    # generate EAR
 
+
+def set_log_file_buttons():
+    x = UI.log_file_ui
+    x.btn_continue.clicked.connect(vector_ui_clicked)
+
+
+##########
+# FILTER #
+##########
 
 def filter_ui_clicked():
     # UI.load(UI.filter_ui)
-    pass
-
-
-def log_entry_ui_clicked():
-    # UI.load(UI.log_entry_ui)
-    pass
-
-
-def export_ui_clicked():
-    # UI.load(UI.export_ui)
-    pass
-
-
-def change_ui_clicked():
-    # UI.load(UI.change_ui)
     pass
 
 
@@ -380,38 +353,95 @@ def vector_db_ui_clicked():
     pass
 
 
-def icon_ui_clicked():
-    # UI.load(UI.icon_ui)
-    pass
-
-
 #########
 # Table #
 #########
+
 def table_ui_clicked():
     x = UI.vector_table_ui
     UI.load(x)
     for v in AA.vector:
-        x.cmb_vectors.addItem(v.name)
+        x.cmb_vectors.addItem(v)
+    if AA.current_vector in set([v for v in AA.vector]):
+        x.cmb_vectors.setCurrentText(AA.current_vector)
+    else:
+        AA.current_vector = AA.vector[0].name
+
+    x.tbl_logs.setRowCount(len(AA.log_entries))
+    tbl = x.tbl_logs
+    i = 0
+    c_vector = AA.vector[AA.current_vector]
+    for log in AA.log_entries:
+        log_entry = AA.log_entries[log]
+        tbl.setCellWidget(i, 0, QCheckBox())
+        if log in c_vector.log_entries:
+            tbl.cellWidget(i, 0).setChecked(True)
+        tbl.setCellWidget(i, 1, QCheckBox())
+        if log in c_vector.log_visible:
+            tbl.cellWidget(i, 1).setChecked(True)
+        log_entry.id = str(i+1)
+        tbl.setItem(i, 2, QTableWidgetItem(log_entry.id))
+        tbl.setItem(i, 3, QTableWidgetItem(log_entry.name))
+        tbl.setItem(i, 4, QTableWidgetItem(log_entry.timestamp))
+        tbl.setItem(i, 5, QTableWidgetItem(log_entry.description))
+        tbl.setItem(i, 6, QTableWidgetItem(log_entry.creator))
+        tbl.setItem(i, 7, QTableWidgetItem(log_entry.type))
+        tbl.setItem(i, 8, QTableWidgetItem(log_entry.icon))
+        tbl.setItem(i, 9, QTableWidgetItem(log_entry.source))
+
+        i += 1
 
 
 def set_vector_table_buttons():
     x = UI.vector_table_ui
     x.btn_graph.clicked.connect(graph_ui_clicked)
     x.btn_save.clicked.connect(vector_table_btn_save)
+    x.cmb_vectors.currentTextChanged.connect(cmb_box_change)
     pass
+
+
+def cmb_box_change():
+    AA.current_vector = str(UI.vector_table_ui.cmb_vectors.currentText())
 
 
 def vector_table_btn_save():
     x = UI.vector_table_ui.tbl_logs
-    n = lambda p: x.item(i, p).text()
+    cv= AA.vector[AA.current_vector]
     for i in range(x.rowCount()):
+        log = LogEntry()
+        error = ''
         try:
-            log = LogEntry()
+            error = 'ID'
+            log.id = x.item(i, get_column(x, 'ID')).text()
+            error = 'Name'
+            log.name = x.item(i, get_column(x, 'Name')).text()
+            error = 'Timestamp'
+            log.timestamp = x.item(i, get_column(x, 'Timestamp')).text()
+            error = 'Description'
+            log.description = x.item(i, get_column(x, 'Description')).text()
+            error = 'Creator'
+            log.creator = x.item(i, get_column(x, 'Creator')).text()
+            error = 'Event Type'
+            log.type = x.item(i, get_column(x, 'Event Type')).text()
+            error = 'Icon'
             log.icon = QIcon(QPixmap('../../res/icons/node_icons' + x.item(i, get_column(x, 'Icon')).text()))
-            AA.current_vector.log_entries.append(log)
+            error = 'Source'
+            log.source = x.item(i, get_column(x, 'Source')).text()
+            if x.cellWidget(i, get_column(x, 'Visible')).isChecked():
+                cv.log_visible.add(log.id)
+            elif log.id in cv.log_visible:
+                    cv.log_visible.remove(log.id)
+            if x.cellWidget(i, get_column(x, 'Significant')).isChecked():
+                cv.log_entries.add(log.id)
+            elif log.id in cv.log_entries:
+                cv.log_entries.remove(log.id)
+            AA.log_entries[log.id] = log
         except:
-            pass
+            msg = QMessageBox()
+            msg.setWindowTitle("Error")
+            msg.setStyleSheet("QLabel{min-width: 200px;}")
+            msg.setText("Row " + str(i + 1) + " contains invalid " + error)
+            msg.exec_()
 
 
 def get_column(widget, column):
@@ -425,29 +455,49 @@ def get_column(widget, column):
 # Graph #
 #########
 
+def set_graph_buttons():
+    x = UI.graph_ui
+    x.btn_table.clicked.connect(table_ui_clicked)
+    x.btn_relationships.clicked.connect(relationship_ui_clicked)
+    x.btn_save.clicked.connect(graph_btn_save)
+    x.cmb_vectors.currentTextChanged.connect(cmb_box_change)
+    pass
+
+
+def graph_btn_save():
+    for node in AA.vector[AA.current_vector].nodes:
+        pass
+
 
 def graph_ui_clicked():
     def display(n):
         x = UI.graph_ui
         color = None
-        if str(n.log_entry.type).lower() == 'red':
+        if str(n.color).lower() == 'red':
             color = Qt.red
-        if str(n.log_entry.type).lower() == 'blue':
+        if str(n.color).lower() == 'blue':
             color = Qt.blue
-        if str(n.log_entry.type).lower() == 'white':
+        if str(n.color).lower() == 'white':
             color = Qt.white
-        ellipse = x.scene.addRect(10, 10, 100, 100, x.blackpen, QBrush(color))
-        ellipse.setFlag(QGraphicsItem.ItemIsMovable)
+        n.rect = x.scene.addRect(n.x, n.y, 100, 100, x.blackpen, QBrush(color))
+        n.rect.setFlag(QGraphicsItem.ItemIsMovable)
 
     x = UI.graph_ui
 
     UI.load(x)
+    x.scene.clear()
     for v in AA.vector:
-        x.cmb_vectors.addItem(v.name)
-    if AA.current_vector is None:
-        AA.current_vector = AA.vector[0]
-    for n in AA.current_vector.nodes:
-        display(n)
+        x.cmb_vectors.addItem(v)
+    if AA.current_vector in set([v for v in AA.vector]):
+        x.cmb_vectors.setCurrentText(AA.current_vector)
+    else:
+        AA.current_vector = AA.vector[0].name
+
+    for log in AA.vector[AA.current_vector].log_entries:
+        if log in AA.vector[AA.current_vector].log_visible:
+            node = Node(AA.log_entries[log])
+            AA.vector[AA.current_vector].nodes.append(node)
+            display(node)
 
 
 ################
@@ -455,8 +505,7 @@ def graph_ui_clicked():
 ################
 
 def relationship_ui_clicked():
-    # UI.load(UI.relationships_ui)
-    pass
+    UI.load(UI.relationships_ui)
 
 
 ########
