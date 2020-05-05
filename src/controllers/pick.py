@@ -2,12 +2,11 @@ import datetime
 import sys
 import os
 
-from src.controllers.splunk import SplunkTest
-
 sys.path.append(os.path.dirname(__file__) + "/..")
+sys.path.append(sys.path[0][:-16])
+from src.controllers.splunk import SplunkTest
 from QGraphViz.DotParser import Graph
 
-sys.path.append(sys.path[0][:-16])
 
 from PyQt5.QtCore import QDate
 from PyQt5.QtWidgets import *
