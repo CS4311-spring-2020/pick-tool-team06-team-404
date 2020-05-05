@@ -1,34 +1,25 @@
-import sys
-import os
 import datetime
-import csv
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QVBoxLayout
 import sys
 import os
+
+from src.controllers.splunk import SplunkTest
 
 sys.path.append(os.path.dirname(__file__) + "/..")
-from QGraphViz.QGraphViz import QGraphViz
 from QGraphViz.DotParser import Graph
-from QGraphViz.Engines import Dot
-
-from PyQt5.QtGui import QFont
 
 sys.path.append(sys.path[0][:-16])
 
-from src.models.Node import Node
 from PyQt5.QtCore import QDate
-from PyQt5.QtGui import QBrush, QIcon, QPixmap
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore
-from PyQt5.QtCore import Qt
-
-from src.controllers.splunk import SplunkTest
 from src.models.Vector import Vector
 from src.models.LogEntry import LogEntry
 from src.models.AdversarialAssessment import AdversarialAssessment
 from src.views.gui import PICK_UI
+import src.views.gui as gui
 
 UI = None
+currentUI = None
 
 
 def convert_date(date):
@@ -116,10 +107,6 @@ def set_vector_buttons():
     x.btn_add.clicked.connect(vector_add_clicked)
     x.btn_delete.clicked.connect(vector_delete_clicked)
     x.btn_save.clicked.connect(vector_btn_continue_clicked)
-
-
-def set_relationships_buttons():
-    pass
 
 
 def set_buttons():
@@ -234,11 +221,11 @@ def directory_ingest_clicked():
 
     if not read_files(directory):
         return
-    # print("BEGIN")
-    # testing = SplunkTest.Splunkimport()
-    # testing.upload_logfiles(UI.directory_ui.lin_root_dir.text())
-    # testing.transform_log_entry()
-    # print("END")
+    print("BEGIN")
+    testing = SplunkTest.Splunkimport()
+    testing.upload_logfiles(UI.directory_ui.lin_root_dir.text())
+    testing.transform_log_entry()
+    print("END")
     UI.load(UI.log_file_ui)
 
 
@@ -262,7 +249,7 @@ def read_files(directory):
                     log.description = ' '.join(strsplit[7:])
                     log.creator = creator
                     log.source = directory + '/' + creator + '/' + file
-                    a[log.id] = log
+                    a[str(log.id)] = log
                     id += 1
         except:
             msg = QMessageBox()
@@ -330,6 +317,25 @@ def vector_btn_continue_clicked():
             msg.exec_()
             return
 
+    for x in [UI.graph_ui, UI.relationships_ui, UI.vector_table_ui]:
+        if x != UI.vector_table_ui:
+            x.cmb_vectors.clear()
+        for v in AA.vector:
+            x.cmb_vectors.addItem(v)
+        if AA.current_vector in set([v for v in AA.vector]):
+            x.cmb_vectors.setCurrentText(AA.current_vector)
+        else:
+            AA.current_vector = [v for v in AA.vector][0]
+
+    btn_vector = gui.Button(gui.window, 'Vector', 200, 0)
+    btn_vector.show()
+    btn_team = gui.Button(gui.window, 'Team', 0, 0)
+    btn_team.show()
+    btn_event = gui.Button(gui.window, 'Event', 100, 0)
+    btn_event.show()
+    btn_event.clicked.connect(event_ui_clicked)
+    btn_vector.clicked.connect(vector_ui_clicked)
+    btn_team.clicked.connect(team_ui_clicked)
     table_ui_clicked()
 
 
@@ -367,14 +373,10 @@ def vector_db_ui_clicked():
 #########
 
 def table_ui_clicked():
+    global currentUI
+    currentUI = 'table'
     x = UI.vector_table_ui
     UI.load(x)
-    for v in AA.vector:
-        x.cmb_vectors.addItem(v)
-    if AA.current_vector in set([v for v in AA.vector]):
-        x.cmb_vectors.setCurrentText(AA.current_vector)
-    else:
-        AA.current_vector = AA.vector[0].name
 
     x.tbl_logs.setRowCount(len(AA.log_entries))
     tbl = x.tbl_logs
@@ -403,14 +405,19 @@ def table_ui_clicked():
 
 def set_vector_table_buttons():
     x = UI.vector_table_ui
-    x.btn_graph.clicked.connect(graph_ui_clicked)
-    x.btn_save.clicked.connect(vector_table_btn_save)
+    x.btn_graph.clicked.connect(vector_table_btn_save)
+    x.btn_relationships.clicked.connect(relationship_ui_clicked)
     x.cmb_vectors.currentTextChanged.connect(cmb_box_change)
-    pass
 
 
 def cmb_box_change():
     AA.current_vector = str(UI.vector_table_ui.cmb_vectors.currentText())
+    if currentUI == 'table':
+        table_ui_clicked()
+    elif currentUI == 'graph':
+        graph_ui_clicked()
+    elif currentUI == 'relationship':
+        relationship_ui_clicked()
 
 
 def vector_table_btn_save():
@@ -433,7 +440,7 @@ def vector_table_btn_save():
             error = 'Event Type'
             log.type = x.item(i, get_column(x, 'Event Type')).text()
             error = 'Icon'
-            log.icon = QIcon(QPixmap('../../res/icons/node_icons' + x.item(i, get_column(x, 'Icon')).text()))
+            log.icon = x.item(i, get_column(x, 'Icon')).text()
             error = 'Source'
             log.source = x.item(i, get_column(x, 'Source')).text()
             if x.cellWidget(i, get_column(x, 'Visible')).isChecked():
@@ -444,6 +451,8 @@ def vector_table_btn_save():
                 cv.log_entries.add(log.id)
             elif log.id in cv.log_entries:
                 cv.log_entries.remove(log.id)
+            if log.id in AA.log_entries:
+                AA.log_entries.pop(log.id)
             AA.log_entries[log.id] = log
         except:
             msg = QMessageBox()
@@ -451,6 +460,8 @@ def vector_table_btn_save():
             msg.setStyleSheet("QLabel{min-width: 200px;}")
             msg.setText("Row " + str(i + 1) + " contains invalid " + error)
             msg.exec_()
+
+        graph_ui_clicked()
 
 
 def get_column(widget, column):
@@ -480,15 +491,10 @@ def graph_btn_save():
 
 
 def graph_ui_clicked():
+    global currentUI
+    currentUI = 'graph'
     x = UI.graph_ui
     UI.load(x)
-    for v in AA.vector:
-        x.cmb_vectors.addItem(v)
-    if AA.current_vector in set([v for v in AA.vector]):
-        x.cmb_vectors.setCurrentText(AA.current_vector)
-    else:
-        AA.current_vector = AA.vector[0].name
-
     display_graph(AA.current_vector)
 
 
@@ -502,7 +508,7 @@ def display_graph(vector):
     nodes = {}
     for log in AA.vector[vector].log_visible:
         le = AA.log_entries[log]
-        nodes[le.id] = graph.addNode(graph.engine.graph, "Node", label=le.name + '\n' + le.timestamp, shape="polygon",
+        nodes[le.id] = graph.addNode(graph.engine.graph, "Node", label=le.id + '\n' + le.name,
                                      fillcolor=le.type)
 
     tbl_rel = UI.relationships_ui.tbl_relationships
@@ -523,6 +529,21 @@ def display_graph(vector):
 
 def relationship_ui_clicked():
     UI.load(UI.relationships_ui)
+    global currentUI
+    currentUI = 'relationship'
+
+
+def set_relationships_buttons():
+    x = UI.relationships_ui
+    x.btn_table.clicked.connect(table_ui_clicked)
+    x.btn_graph.clicked.connect(graph_ui_clicked)
+    x.cmb_vectors.currentTextChanged.connect(cmb_box_change)
+    x.btn_add.clicked.connect(add_row)
+
+
+def add_row():
+    x = UI.relationships_ui.tbl_relationships
+    x.insertRow(x.rowCount())
 
 
 ########

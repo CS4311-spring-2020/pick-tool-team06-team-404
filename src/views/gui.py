@@ -1,10 +1,9 @@
 import socket
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap, QIcon, QBrush, QPen, QColor
+from PyQt5.QtGui import QPixmap, QIcon, QPen
 from PyQt5.QtWidgets import *
-from PyQt5.uic.Compiler.qtproxies import QtGui
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QVBoxLayout
+from PyQt5.QtWidgets import QWidget
 import sys
 import os
 
@@ -31,7 +30,7 @@ def Graphics(self, x, y):
                      hilight_Nodes=True,
                      )
     item.setStyleSheet("background-color:white;")
-    item.new(Dot(Graph("Main_Graph"), font=QFont("Arial", 12), margins=[20, 20]))
+    item.new(Dot(Graph("Main_Graph"), font=QFont("Arial", 12), margins=[40, 40]))
     item.move(x, y)
     item.resize(1150, 500)
     self.widgets.append(item)
@@ -314,7 +313,6 @@ class TableView(View):
         self.tbl_logs = Table(self, 50, 150)
         self.btn_graph = Button(self, "Graph", 50, 660)
         self.btn_relationships = Button(self, "Relationships", 150, 660)
-        self.btn_save = Button(self, 'Save', 1125, 660)
         self.cmb_vectors = ComboBox(self, 50, 100)
         self.cmb_vectors.resize(150, 20)
         # self.tbl_logs.setRowCount(2)
@@ -324,16 +322,6 @@ class TableView(View):
              'Source'])
         self.tbl_logs.setMinimumSize(1150, 500)
 
-        # self.tbl_logs.setCellWidget(0, 0, QCheckBox())
-        # self.tbl_logs.setCellWidget(0, 1, QCheckBox())
-        # self.tbl_logs.setCellWidget(1, 0, QCheckBox())
-        # self.tbl_logs.setCellWidget(1, 1, QCheckBox())
-
-        # self.tbl_logs.setColumnWidth(0, 135)
-        # self.tbl_logs.setColumnWidth(1, 150)
-        # self.tbl_logs.setColumnWidth(2, 400)
-        # self.tbl_logs.setColumnWidth(3, 65)
-        # self.tbl_logs.setColumnWidth(4, 380)
         self.clear()
 
 
@@ -345,12 +333,12 @@ class RelationshipsView(View):
         self.cmb_vectors = ComboBox(self, 50, 100)
         self.cmb_vectors.resize(150, 20)
         self.tbl_relationships.setRowCount(1)
-        self.tbl_relationships.setColumnCount(3)
+        self.tbl_relationships.setColumnCount(2)
         self.tbl_relationships.setHorizontalHeaderLabels(
             ['Parent', 'Child'])
         self.tbl_relationships.setMinimumSize(1150, 500)
         self.btn_table = Button(self, "Table", 50, 660)
         self.btn_graph = Button(self, "Graph", 150, 660)
-        self.btn_save = Button(self, 'Save', 1125, 660)
+        self.btn_add = Button(self, 'Add Row', 1125, 660)
 
         self.clear()
