@@ -15,17 +15,16 @@
 3. Users must install **Splunk Enterprise**
 
  - From [[3](#references)], "Splunk captures, indexes, and correlates real-time data in a searchable repository from which it can generate graphs, reports, alerts, dashboards, and visualizations."
- - PICK Tool depends on Splunk Enterpise and requires dependency, which can be downloaded [here](https://www.splunk.com/en_us/download/splunk-enterprise.html).
+ - PICK Tool depends on Splunk Enterpise and requires dependency, which can be [downloaded here](https://www.splunk.com/en_us/download/splunk-enterprise.html).
     - Users will need the following information to login to and Download Splunk Enterprise (note: This information expires July 1, 2020):
         - **Username**: jntorres217
         - **Password**: Jaconian@1520
 
-4. Users must install or verify the installation of the **Splunk Python JDK**
+4. Users must install or verify the installation of the **Splunk Python SDK**
 
  - From [[4](#references)], "The Splunk Software Development Kit (SDK) for Python contains library code and examples designed to enable developers to build applications using Splunk."
- - PICK Tool depends on Splunk Enterpise and requires dependency, which can be downloaded [here](https://www.splunk.com/en_us/download/splunk-enterprise.html).
- - Most Linux users can install the SDK using the following commands: ```pip install splunk-sdk``` or ```pip3 install splunk-sdk```.
- - Debian Users may need to clone the Github repo and follow the instructions listed therein.
+ - PICK Tool depends on Splunk Enterpise and requires dependency; Most Linux users can install the SDK using the following commands: ```pip install splunk-sdk``` or ```pip3 install splunk-sdk```.
+ - Debian Users may need to clone the Github repo which can be [downloaded here](https://github.com/splunk/splunk-sdk-python) and follow the instructions listed therein.
 
 5. Users must install or verify the installation of **PyQt5 v5.14.1**
 
