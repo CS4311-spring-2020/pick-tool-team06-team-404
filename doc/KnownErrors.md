@@ -2,6 +2,13 @@
 
 ## Current Release
 
+### Version 1.0.0 (08 May 2020)
+
+* Missing Complete DB Implementation
+* Missing Splunk Download Implementation
+
+## Previous Releases
+
 ### Version 0.9.5 (05 May 2020)
 
 * Missing Complete DB Implementation
@@ -9,8 +16,6 @@
 * Missing Code Documentation
 * Missing Refined SDD
 * Missing Refined Test Plan
-
-## Previous Releases
 
 ### Version 0.9.0 (30 April 2020)
 

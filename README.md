@@ -2,12 +2,12 @@
 
 ## Overview
 
-**Date: 05 May 2020**</br>
-**Version: [0.9.5](doc/ReleaseNotes.md)**</br>
+**Date: 08 May 2020**</br>
+**Version: [1.0.0](doc/ReleaseNotes.md)**</br>
 **Known Errors: [Current Release](doc/KnownErrors.md)**</br>
 **Installation: [Installation Instructions](doc/InstallationInstructions.md)**
 
-## Motivation & Purpose
+### Motivation & Purpose
 
 The following is an excerpt from [[3](#resources)], which defines the scope and motivation of PICK Tool:
 
@@ -15,31 +15,41 @@ The following is an excerpt from [[3](#resources)], which defines the scope and 
 
 "The University of Texas at El Paso (UTEP) and LSH are collaborating to develop Prevent, Mitigate, and Recover (PMR) Insight Collective Knowledge System (PICK) that will provide the ability to correlate red team’s activities to blue team’s responses and graphically represent the events that took place during an adversarial assessment.
 
-## Explaining PICK Tool to Users
+### Explaining PICK Tool to Users
 
 PICK Tool shall facilitate the job of White Team analysts during an Adversarial Assessment (AA) of a simulated cyber-attack between a Red Team (attackers) and Blue Team (defenders). In doing do, this will reduce the time it currently takes analysts to perform an assessment from one month to about two weeks. Through this, PICK Tool shall assist analysts in telling the true story pertaining to these simulated attacks. To help satisfy these needs, analysts will utilize PICK Tool to search through and filter through logs, or recorded notes from the systems of attackers and defenders, as they may pertain to a simulated attack. With PICK Tool, White Team-analysts can use this software to construct a vector or visual graph of events that satisfy an objective.
-
-## Notes to Developers
-
-Team404 has made strides to follow the [software best practices](#software-best-practices) listed herein. Unfortunately, due to the nature of first-experience of remote work due to the COVID-19 Pandemic, our team has identified units of code that do not follow best practices.</br>
-
-It is our hope that going forward, we can fix these issues as we continue to adapt to our "new normal."
 
 ### Directory Structure
 
 The directory structure used herein to manage documents and program-code files is as follows:
 
-At the top level, files describing the project meant for users to read: ```README.md```. The only other files that would be expected here is a ```.gitignore``` file, listing files and/or folders which Git should ignore, a ```.travis.yml``` file, assisting with project-related software testing, and a ```.git``` file, containing git metadata. There are five subdirectories of this structure: ```/doc```, ```/src```, ```/target```, ```/test```.
-
-The ```/build``` directory shall contain all scripts/tools needed for building the project.
+At the top level, files describing the project meant for users to read: ```README.md```. The only other files that would be expected here is a ```.gitignore``` file, listing files and/or folders which Git should ignore, a ```.travis.yml``` file, assisting with project-related software testing, and a ```.git``` file, containing git metadata. There are three subdirectories of this structure: ```/doc```, ```/res```, ```/src```.
 
 The ```/doc``` directory shall contain all information material for documenting the project.
 
-The ```/src``` directory shall contain all source material for building the project. At the top level of this directory, the only file that would be expected here is a ```picktool.py``` file, which is the main executable file for this project.
+The ```/res``` directory shall contain all source material for Splunk.
 
-The ```/target``` directory shall contain all output material from building/running the program.
+The ```/src``` directory shall contain all source material for building the project.
 
-The ```/test``` directory shall contain all unit test material (including test artifacts and test code) for testing software components in the project.
+### Warnings & Known Issues
+
+Installing PyQt5 on macOS 10.15 (Catalina) & Ubuntu 18.04 may result in the following error:
+
+```text
+python setup.py egg_info" failed with error code 1 in /tmp/pip-build-2hg9eeu7/pyqt5/
+```
+
+**Resolution:** Install PyQt5 by running the following command:
+
+```text
+sudo apt-get install python3-pyqt5
+```
+
+## Notes to Developers
+
+Team404 has made strides to follow the [software best practices](#software-best-practices) listed herein. Unfortunately, due to the nature of first-experience of remote work due to the COVID-19 Pandemic, our team has identified units of code that do not follow best practices.</br>
+
+It is our hope that going forward, we will overcome these issues as we continue to adapt to our "new normal."
 
 ### Software Best Practices
 
@@ -179,32 +189,7 @@ Upon a successful review of the Pull Request, the reviewer shall:
 3. Merge the intended branches
 4. Inform all other Team404 members that a ```git pull``` of the merged branch is required on their local machine
 
-### Project Dependencies
-
-The dependencies for this project are listed in the Installation Instructions, located [here](doc/InstallationInstructions.md)
-
-### Warnings & Known Issues
-
-1. Installing PyQt5 on macOS Catalina & Ubuntu 18.04 may result in the following error:
-
- ```text
- python setup.py egg_info" failed with error code 1 in /tmp/pip-build-2hg9eeu7/pyqt5/
- ```
-
- **Resolution:** install PyQt5 by running the following command:
-
- ```text
- sudo apt-get install python3-pyqt5
- ```
-
-2. Partial development for this project was done on Microsoft Visual Studio Code (*VSCode*).
- - If developing in VSCode, **DO NOT ENABLE *Microsoft Python Language Server* or *Microsoft Python Language Server (preview)***
- - Enabling the language server will render all python code unusable.
- ***Resolution(s)** (Select one):
-    1. Bypass the language server by reverting ```python.jediEnabled``` to ```true```.
-    2. Reinstall VSCode
-
-## Resources
+### Resources
 
 * [1] O. Perez et al, Requirements Definition Document, Lethality, Survivability and HSI Directorate, 2019.
 * [2] “Components and Containers in AWT”. Internet: https://www.cs.utexas.edu/~mitra/csSpring2009/cs313/lectures/GUIComponents.html, 2009 [Jan. 28, 2019]

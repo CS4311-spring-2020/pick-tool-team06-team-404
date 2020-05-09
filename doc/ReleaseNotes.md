@@ -2,13 +2,19 @@
 
 ## What's New
 
+### Version 1.0.0 (08 May 2020)
+
+* Implemented Code Documentation
+* Refined Team SDD
+* Refined Team Test Plan & Test Results
+
+## Version History
+
 ### Version 0.9.5 (05 May 2020)
 
 * Fixed Git directory structure
 * Fixed Splunk Upload Implementation
 * Bug Fixes & Performace Enhancements
-
-## Version History
 
 ### Version 0.9.0 (30 April 2020)
 

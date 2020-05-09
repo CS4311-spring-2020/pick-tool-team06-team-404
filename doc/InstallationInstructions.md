@@ -2,6 +2,16 @@
 
 ## Install PICK Tool Dependencies
 
+### Dependency List
+ - Kali linux OS
+ - Python 3 (version 3.7.5)
+ - Splunk Enterprise
+ - Splunk Python SDK (version 1.6.12)
+ - PyQt5 (version 5.14.1)
+ - QGraphViz (version 0.0.50)
+
+### Installation Instructions
+
 1. Users must install and boot up the **Kali Linux OS**
 
  - From [[1](#references)], "Kali Linux is an open source [operating system] project that is maintained and funded by Offensive Security, a provider of world-class information security training and penetration testing services."
@@ -15,23 +25,30 @@
 3. Users must install **Splunk Enterprise**
 
  - From [[3](#references)], "Splunk captures, indexes, and correlates real-time data in a searchable repository from which it can generate graphs, reports, alerts, dashboards, and visualizations."
- - PICK Tool depends on Splunk Enterpise and requires dependency, which can be downloaded [here](https://www.splunk.com/en_us/download/splunk-enterprise.html).
-    - You will need the following information to login to and Download Splunk Enterprise:
+ - PICK Tool depends on Splunk Enterprise and requires dependency, which can be [downloaded here](https://www.splunk.com/en_us/download/splunk-enterprise.html).
+    - Users will need the following information to login to and Download Splunk Enterprise (note: This information expires July 1, 2020):
         - **Username**: jntorres217
         - **Password**: Jaconian@1520
 
-4. Users must install or verify the installation of the **Splunk Python JDK**
+4. Users must install or verify the installation of the **Splunk Python SDK v1.6.12**
 
  - From [[4](#references)], "The Splunk Software Development Kit (SDK) for Python contains library code and examples designed to enable developers to build applications using Splunk."
- - PICK Tool depends on Splunk Enterpise and requires dependency, which can be downloaded [here](https://www.splunk.com/en_us/download/splunk-enterprise.html).
- - Most Linux users can install the SDK using the following commands: ```pip install splunk-sdk``` or ```pip3 install splunk-sdk```.
- - Debian Users may need to clone the Github repo and follow the instructions listed therein.
+ - PICK Tool depends on the Splunk Python SDK and requires this dependency; Most Linux users can install the SDK using one of the following commands:
+    - ```pip install splunk-sdk==1.6.12```
+    - ```pip3 install splunk-sdk==1.6.12```
+ - Debian Users may need to clone the Github repo which can be [downloaded here](https://github.com/splunk/splunk-sdk-python) and follow the instructions listed therein.
 
 5. Users must install or verify the installation of **PyQt5 v5.14.1**
 
  - From [[5](#references)], "Qt is set of cross-platform C++ libraries that implement high-level APIs for accessing many aspects of modern desktop and mobile systems. These include location and positioning services, multimedia, NFC and Bluetooth connectivity, a Chromium based web browser, as well as traditional UI development. PyQt5 is a comprehensive set of Python bindings for Qt v5."
  - Most Linux users can install PyQt5 using the following command: ```pip3 install PyQt5==5.14.1```.
  - Debian Users may need to use other download links, provided [here](https://pypi.org/project/PyQt5/#files).
+
+ 6. Users must install or verify the installation of **QGraphViz v0.0.50**
+
+ - From [[5](#references)], "Qt is set of cross-platform C++ libraries that implement high-level APIs for accessing many aspects of modern desktop and mobile systems. These include location and positioning services, multimedia, NFC and Bluetooth connectivity, a Chromium based web browser, as well as traditional UI development. PyQt5 is a comprehensive set of Python bindings for Qt v5."
+ - Most Linux users can install PyQt5 using the following command: ```pip3 install QGraphViz==0.0.50```.
+ - Debian Users may need to use other download links, provided [here](https://pypi.org/project/QGraphViz/#files).
 
 ## Run PICK Tool
 
